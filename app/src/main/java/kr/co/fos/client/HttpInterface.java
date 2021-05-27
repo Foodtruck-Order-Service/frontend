@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 public interface HttpInterface {
     public static final String API_URL = "http://222.117.135.101:8090/";
-
+    // @Query = GET   @Field = POST, PUT, DELETE  @Path = /member/{no}   이런거
     //공통
     @GET("/foodtruck")
     Call<ResponseBody> categorySearch();
