@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
-    //asda
+    //이동연 test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
