@@ -8,6 +8,60 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"></application>
+        android:theme="@style/AppTheme">
+
+        <!-- common -->
+        <activity android:name=".common.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".common.LoginActivity" />
+        <activity android:name=".common.BusinessActivity" />
+
+        <!-- member -->
+        <activity android:name=".member.FindId1Activity" />
+        <activity android:name=".member.FindId2Activity" />
+        <activity android:name=".member.FindPw1Activity" />
+        <activity android:name=".member.FindPw2Activity" />
+        <activity android:name=".member.FindPw3Activity" />
+        <activity android:name=".member.JoinActivity" />
+        <activity android:name=".member.JoinChoiceActivity" />
+        <activity android:name=".member.MyInfoActivity" />
+        <activity android:name=".member.UpdateActivity" />
+
+        <!-- foodtruck -->
+        <activity android:name=".foodtruck.BusinessStartActivity" />
+        <activity android:name=".foodtruck.DetailInquiryActivity" />
+        <activity android:name=".foodtruck.InfoActivity" />
+        <activity android:name=".foodtruck.LocationActivity" />
+        <activity android:name=".foodtruck.RegisterActivity" />
+        <activity android:name=".foodtruck.SearchResultActivity" />
+
+        <!-- menu -->
+        <activity android:name=".menu.DetailInquiryActivity" />
+        <activity android:name=".menu.InfoActivity" />
+        <activity android:name=".menu.InquiryActivity" />
+        <activity android:name=".menu.RegisterActivity" />
+        <activity android:name=".menu.UpdateActivity" />
+
+        <!-- order -->
+        <activity android:name=".order.BusinessDetailInquiryActivity" />
+        <activity android:name=".order.BusinessInquiryActivity" />
+        <activity android:name=".order.ChoiceActivity" />
+        <activity android:name=".order.DetailInquiryActivity" />
+        <activity android:name=".order.InquiryActivity" />
+        <activity android:name=".order.NumberActivity" />
+
+        <!-- review -->
+        <activity android:name=".review.InquiryActivity" />
+        <activity android:name=".review.registerActivity" />
+        <activity android:name=".review.UpdateActivity" />
+
+        <!-- sales -->
+        <activity android:name=".sales.InquiryAcivity" />
+    </application>
 
 </manifest>
