@@ -18,6 +18,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -27,7 +28,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface HttpInterface {
-    public static final String API_URL = "http://222.117.135.101:8090/";
+    public static final String API_URL = "http://192.168.35.135:8080/";
     // @Query = GET   @Field = POST, PUT, DELETE  @Path = /member/{no}   이런거
     //공통
     @GET("/foodtruck")
@@ -136,8 +137,8 @@ public interface HttpInterface {
     @POST("/bookmark")
     Call<ResponseBody> bookmarkRegister(@Body Bookmark bookmark);
 
-    @DELETE("/bookmark/{no}")
-    Call<ResponseBody> bookmarkDelete(@Path("no") int no);
+    @HTTP(method = "DELETE", path = "/bookmark", hasBody = true)
+    Call<ResponseBody> bookmarkDelete(@Body Bookmark bookmark);
 
     //사진
     @Multipart

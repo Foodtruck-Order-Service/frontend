@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.io.Serializable;
 
 public class Review implements Serializable {
-    private String no;
-    private String memberNo;
-    private String foodtruckNo;
+    private int no;
+    private int memberNo;
+    private int foodtruckNo;
     private String grade;
     private String content;
     private Date registDate;
@@ -14,7 +14,7 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public Review(String no, String memberNo, String foodtruckNo, String grade, String content, Date registDate) {
+    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, Date registDate) {
         this.no = no;
         this.memberNo = memberNo;
         this.foodtruckNo = foodtruckNo;
@@ -24,27 +24,27 @@ public class Review implements Serializable {
 
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setMemberNo(String memberNo) {
+    public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
 
-    public String getMemberNo() {
+    public int getMemberNo() {
         return this.memberNo;
     }
 
-    public void setFoodtruckNo(String foodtruckNo) {
+    public void setFoodtruckNo(int foodtruckNo) {
         this.foodtruckNo = foodtruckNo;
     }
 
-    public String getFoodtruckNo() {
+    public int getFoodtruckNo() {
         return this.foodtruckNo;
     }
 
@@ -72,4 +72,15 @@ public class Review implements Serializable {
         return this.registDate;
     }
 
+    @Override
+    public String toString() {
+        return "Review{" +
+                "no=" + no +
+                ", memberNo=" + memberNo +
+                ", foodtruckNo=" + foodtruckNo +
+                ", grade='" + grade + '\'' +
+                ", content='" + content + '\'' +
+                ", registDate=" + registDate +
+                '}';
+    }
 }

@@ -42,4 +42,12 @@ public class Bookmark implements Serializable {
         return this.foodtruckNo;
     }
 
+    @Override
+    public String toString() {
+        return "Bookmark{" +
+                "no='" + no + '\'' +
+                ", memberNo='" + memberNo + '\'' +
+                ", foodtruckNo='" + foodtruckNo + '\'' +
+                '}';
+    }
 }
