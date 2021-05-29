@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         infoBtn.setOnClickListener(this);
         orderBtn.setOnClickListener(this);
         basketBtn.setOnClickListener(this);
-        Toast.makeText(MainActivity.this, "검색 처리됨 : " +  SharedPreference.getAttribute(getApplicationContext(),"id"), Toast.LENGTH_SHORT).show();
         loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
 
         if(!loginCheck) {

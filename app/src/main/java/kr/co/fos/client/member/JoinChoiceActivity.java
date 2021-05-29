@@ -32,13 +32,13 @@ public class JoinChoiceActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.businessBtn:    // 로그인 버튼
-                intent = new Intent(getApplicationContext(), SearchResultActivity.class);
+            case R.id.businessBtn:    // 사업자 회원 이동 버튼
+                intent = new Intent(getApplicationContext(), JoinActivity.class);
                 intent.putExtra("status", "business");
                 startActivity(intent);
                 break;
-            case R.id.generalBtn:    // 한식 버튼
-                intent = new Intent(getApplicationContext(), JoinChoiceActivity.class);
+            case R.id.generalBtn:    // 일반 회원 이동 버튼
+                intent = new Intent(getApplicationContext(), JoinActivity.class);
                 intent.putExtra("status", "general");
                 startActivity(intent);
                 break;

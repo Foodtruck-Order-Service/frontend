@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     //로그인
-    public boolean login(String id, String pw) {
+    public void login(String id, String pw) {
         Call<ResponseBody> call = service.memberLoginInquiry(id, pw);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -132,6 +132,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             }
         });
-        return false;
     }
 }
