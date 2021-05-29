@@ -50,6 +50,10 @@ public interface HttpInterface {
     @GET("/member")
     Call<ResponseBody> memberInquiry(@Query("id") String id);
 
+    //추가
+    @GET("/member")
+    Call<ResponseBody> memberLoginInquiry(@Query("id") String id, @Query("password") String pw);
+
     @GET("/member/{no}")
     Call<ResponseBody> memberDetailInquiry(@Path("no") int no);
 
