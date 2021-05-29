@@ -22,4 +22,9 @@ public class InquiryActivity extends AppCompatActivity {
     public void orderCancleAuth(){
 
     }
+
+    //리뷰 삭제
+    public void reviewDelete(){
+
+    }
 }

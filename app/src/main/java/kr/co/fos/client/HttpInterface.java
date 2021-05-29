@@ -3,9 +3,16 @@ package kr.co.fos.client;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.fos.client.bookmark.Bookmark;
+import kr.co.fos.client.foodtruck.Foodtruck;
+import kr.co.fos.client.member.Member;
+import kr.co.fos.client.menu.Menu;
+import kr.co.fos.client.order.Order;
+import kr.co.fos.client.review.Review;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
@@ -27,21 +34,12 @@ public interface HttpInterface {
     Call<ResponseBody> categorySearch(@Query("category") String category);
 
     //회원
-    @FormUrlEncoded
     @POST("/member")
-    Call<ResponseBody> memberRegister(
-            @Field("id") String id,
-            @Field("password") String password,
-            @Field("name") String name,
-            @Field("rrn") String rrn,
-            @Field("email") String email,
-            @Field("phone") String phone
-            );
+    Call<ResponseBody> memberRegister(@Body Member member);
 
     @GET("/member")
     Call<ResponseBody> idCheck(@Query("id") String id);
 
-    @FormUrlEncoded
     @DELETE("/member/{no}")
     Call<ResponseBody> memberDelete(@Path("no") int no);
 
@@ -54,35 +52,13 @@ public interface HttpInterface {
     @GET("/member/{no}")
     Call<ResponseBody> memberDetailInquiry(@Path("no") int no);
 
-    @FormUrlEncoded
     @PUT("/member/{no}")
-    Call<ResponseBody> memberUpdate(
-            @Path("no") int no,
-            @Field("password") String password,
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("phone") String phone
-    );
+    Call<ResponseBody> memberUpdate(@Path("no") int no, @Body Member member);
 
     //푸드트럭
-    @Multipart
-    @FormUrlEncoded
+
     @POST("/foodtruck")
-    Call<ResponseBody> memberBusinessRegister(
-            @Field("id") String id,
-            @Field("password") String password,
-            @Field("name") String name,
-            @Field("rrn") String rrn,
-            @Field("email") String email,
-            @Field("phone") String phone,
-            @Field("brn") int brn,
-            @Field("foodtruckName") String foodtruckName,
-            @Field("category") String category,
-            @Field("startTime") String startTime,
-            @Field("endTime") String endTime,
-            @Field("content") String content,
-            @PartMap Map<String, RequestBody> photos
-            );
+    Call<ResponseBody> memberBusinessRegister(@Body Member member);
 
     @GET("/foodtruck")
     Call<ResponseBody> foodtruckInquiry(@Query("name") String name);
@@ -90,40 +66,21 @@ public interface HttpInterface {
     @GET("/foodtruck")
     Call<ResponseBody> foodtruckLocationSearch(@Query("lat") double lat, @Query("lng") double lng);
 
-    @FormUrlEncoded
     @PUT("/foodtruck/{no}")
-    Call<ResponseBody> startBusiness(@Path("no") int no, @Field("lat") double lat, @Field("lng") double lng);
+    Call<ResponseBody> startBusiness(@Path("no") int no, @Body Foodtruck foodtruck);
 
     @GET("/foodtruck/{no}")
     Call<ResponseBody> foodtruckDetailInquiry(@Path("no") int no);
 
-    @Multipart
-    @FormUrlEncoded
     @PUT("/foodtruck/{no}")
     Call<ResponseBody> foodtruckUpdate(
             @Path("no") int no,
-            @Field("brn") int brn,
-            @Field("foodtruckName") String foodtruckName,
-            @Field("category") String category,
-            @Field("startTime") String startTime,
-            @Field("endTime") String endTime,
-            @Field("content") String content,
-            @PartMap Map<String, RequestBody> photos
+            @Body Foodtruck foodtruck
             );
 
     //메뉴
-    @Multipart
-    @FormUrlEncoded
     @POST("/menu")
-    Call<ResponseBody> menuRegister(
-            @Field("foodtruckNo") int foodtruckNo,
-            @Field("name") String name,
-            @Field("acount") int acount,
-            @Field("cookingTime") String cookingTime,
-            @Field("content") String content,
-            @FieldMap Map<String, List<Map<String, Integer>>> options,
-            @PartMap Map<String, RequestBody> photos
-    );
+    Call<ResponseBody> menuRegister(@Body Menu menu);
 
     @GET("/menu")
     Call<ResponseBody> menuInquiry(@Query("no") int no);
@@ -131,17 +88,10 @@ public interface HttpInterface {
     @GET("/menu/{no}")
     Call<ResponseBody> menuDetailInquiry(@Path("no") int no);
 
-    @Multipart
-    @FormUrlEncoded
     @PUT("/menu/{no}")
     Call<ResponseBody> menuUpdate(
             @Path("no") int no,
-            @Field("name") String name,
-            @Field("acount") int acount,
-            @Field("cookingTime") String cookingTime,
-            @Field("content") String content,
-            @FieldMap Map<String, List<Map<String, Integer>>> options,
-            @PartMap Map<String, RequestBody> photos
+            @Body Menu menu
             );
 
     @DELETE("/menu/{no}")
@@ -152,47 +102,47 @@ public interface HttpInterface {
     Call<ResponseBody> orderCancleAuth(@Path("no") int no);
 
     @POST("/order")
-    Call<ResponseBody> payment(
-            @Field("memberNo") int memberNo,
-            @Field("foodtruckNo") int foodtruckNo,
-            @Field("totalAmount") int totalAmount,
-            @FieldMap Map<List<Map<String, List<Map<String, Integer>>>>,Integer> menus
-
-    );
+    Call<ResponseBody> payment(@Body Order order);
 
     @GET("/order")
-    Call<ResponseBody> orderInquiry();
+    Call<ResponseBody> orderInquiry(@Query("no") int no);
 
     @PUT("/order/{no}")
-    Call<ResponseBody> orderCancle();
+    Call<ResponseBody> orderCancle(@Path("no") int no);
 
     @GET("/order/{no}")
-    Call<ResponseBody> orderDetailInquiry();
+    Call<ResponseBody> orderDetailInquiry(@Path("no") int no);
 
     @PUT("/order/{no}")
-    Call<ResponseBody> orderStatusUpdate();
+    Call<ResponseBody> orderStatusUpdate(@Path("no") int no);
 
     //리뷰
     @GET("/review")
-    Call<ResponseBody> reviewInquiry();
+    Call<ResponseBody> reviewInquiry(@Query("no") int no);
 
     @POST("/review")
-    Call<ResponseBody> reviewRegister();
-
-    @POST("/bookmark/{no}")
-    Call<ResponseBody> bookmarkRegister();
-
-    @DELETE("/bookmark/{no}")
-    Call<ResponseBody> bookmarkDelete();
+    Call<ResponseBody> reviewRegister(@Body Review review);
 
     @PUT("/review/{no}")
-    Call<ResponseBody> reviewUpdate();
+    Call<ResponseBody> reviewUpdate(@Path("no") int no, @Body Review review);
 
-    //매출
-    @GET("/order")
-    Call<ResponseBody> orederInquiry();
+    @DELETE("/review/{no}")
+    Call<ResponseBody> reviewDelete(@Path("no") int no);
 
     //즐겨찾기
     @GET("/bookmark")
-    Call<ResponseBody> bookmarkInquiry();
+    Call<ResponseBody> bookmarkInquiry(@Query("no") int no);
+
+    @POST("/bookmark")
+    Call<ResponseBody> bookmarkRegister(@Body Bookmark bookmark);
+
+    @DELETE("/bookmark/{no}")
+    Call<ResponseBody> bookmarkDelete(@Path("no") int no);
+
+    //사진
+    @Multipart
+    @POST("/photo")
+    Call<ResponseBody> photoRegister(
+            @PartMap Map<String, RequestBody> photos
+    );
 }
