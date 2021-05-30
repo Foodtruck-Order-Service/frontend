@@ -9,6 +9,7 @@ import kr.co.fos.client.member.Member;
 import kr.co.fos.client.menu.Menu;
 import kr.co.fos.client.order.Order;
 import kr.co.fos.client.review.Review;
+import kr.co.fos.client.review.ReviewItem;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

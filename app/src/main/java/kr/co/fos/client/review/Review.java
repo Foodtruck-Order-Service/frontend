@@ -3,24 +3,29 @@ package kr.co.fos.client.review;
 import java.sql.Date;
 import java.io.Serializable;
 
+import kr.co.fos.client.member.Member;
+
 public class Review implements Serializable {
     private int no;
     private int memberNo;
     private int foodtruckNo;
     private String grade;
     private String content;
-    private Date registDate;
+    private String registDate;
+
+    private String id;
 
     public Review() {
     }
 
-    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, Date registDate) {
+    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, String registDate, String id) {
         this.no = no;
         this.memberNo = memberNo;
         this.foodtruckNo = foodtruckNo;
         this.grade = grade;
         this.content = content;
         this.registDate = registDate;
+        this.id = id;
 
     }
 
@@ -64,12 +69,20 @@ public class Review implements Serializable {
         return this.content;
     }
 
-    public void setRegistDate(Date registDate) {
+    public void setRegistDate(String registDate) {
         this.registDate = registDate;
     }
 
-    public Date getRegistDate() {
+    public String getRegistDate() {
         return this.registDate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
@@ -80,7 +93,8 @@ public class Review implements Serializable {
                 ", foodtruckNo=" + foodtruckNo +
                 ", grade='" + grade + '\'' +
                 ", content='" + content + '\'' +
-                ", registDate=" + registDate +
+                ", registDate='" + registDate + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

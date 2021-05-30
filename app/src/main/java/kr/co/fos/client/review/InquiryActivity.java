@@ -3,10 +3,10 @@ package kr.co.fos.client.review;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,7 +14,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
@@ -30,6 +40,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class InquiryActivity extends AppCompatActivity {
     Retrofit client;
     HttpInterface service;
+
+    TextView foodtruckNameTextView;
+    TextView idTextView;
+    TextView gradeTextView;
+    TextView contentTextView;
+    TextView registDateTextView;
+    ListView listView;
+    ReviewAdapter adapter;
+
 
     private void setRetrofitInit() {
         client = new Retrofit.Builder()
@@ -48,7 +67,13 @@ public class InquiryActivity extends AppCompatActivity {
         final Intent getIntent = getIntent();
         final String foodtruckNo = getIntent.getStringExtra("foodtruckNo");
 
-        TextView foodtruckName = (TextView)findViewById(R.id.foodtruckName);
+        foodtruckNameTextView = (TextView)findViewById(R.id.foodtruckName);
+        gradeTextView = (TextView)findViewById(R.id.grade);
+        idTextView = (TextView)findViewById(R.id.id);
+        contentTextView = (TextView) findViewById(R.id.content);
+        registDateTextView = (TextView)findViewById(R.id.registDate);
+        listView = (ListView)findViewById(R.id.listView);
+
         Button logoutButton = (Button)findViewById(R.id.logoutButton);
         Button menuButton = (Button)findViewById(R.id.menuButton);
         Button introduceButton = (Button)findViewById(R.id.introduceButton);
@@ -56,10 +81,12 @@ public class InquiryActivity extends AppCompatActivity {
         Button reviweRegisterButton = (Button)findViewById(R.id.reviewRegisterButton);
         final Switch bookmarkSwitch = (Switch)findViewById(R.id.bookmarkSwitch);
 
+        adapter = new ReviewAdapter();
+        listView.setAdapter(adapter);
+
         bookmarkSwitch.setChecked(true);
-        foodtruckName.setText("백종원의 골목식당");
+        foodtruckNameTextView.setText("백종원의 골목식당");
         reviewInquiry(2);
-        System.out.println("여기라고 여기");
         
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -72,6 +99,7 @@ public class InquiryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.menu.InquiryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -79,6 +107,7 @@ public class InquiryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.DetailInquiryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -86,6 +115,7 @@ public class InquiryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -93,6 +123,7 @@ public class InquiryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.registerActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -107,7 +138,6 @@ public class InquiryActivity extends AppCompatActivity {
             }
         });
     }
-
 
     //즐겨찾기 등록
     public void bookmarkRegister(String foodtruckNo) {
@@ -182,7 +212,6 @@ public class InquiryActivity extends AppCompatActivity {
 
     }
 
-
     //로그아웃
     public void logout() {
         SharedPreferences pref = getSharedPreferences("test", MODE_PRIVATE);
@@ -199,10 +228,33 @@ public class InquiryActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Gson gson = new Gson();
-                    List<Review> reviewList = gson.fromJson(response.body().string(), List.class);
+                    JSONArray jArray = new JSONArray(response.body().string());
+
+                    for(int i = 0; i < jArray.length(); i++){
+                        Review review = gson.fromJson(jArray.get(i).toString(),Review.class);
+                        System.out.println(review);
+
+                        //평점 변환
+                        String grade;
+                        if(review.getGrade().equals("1")){
+                            grade="★☆☆☆☆";
+                        } else if (review.getGrade().equals("2")){
+                            grade="★★☆☆☆";
+                        } else if (review.getGrade().equals("3")){
+                            grade="★★★☆☆";
+                        } else if (review.getGrade().equals("4")){
+                            grade="★★★★☆";
+                        } else{
+                            grade="★★★★★";
+                        }
+
+                        adapter.addItem(review.getMemberId(), grade, review.getContent(), review.getRegistDate());
+
+                    }
+                        /*adapter.notifyDataSetChanged();*/
 
                     System.out.println("리뷰 조회 성공");
-                    System.out.println(reviewList);
+                    System.out.println(jArray);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
