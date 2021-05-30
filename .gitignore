@@ -13,3 +13,4 @@
 .externalNativeBuild
 .cxx
 .idea/
+app/src/main/res/drawable/text_border.xml

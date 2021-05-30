@@ -219,7 +219,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/signUpBtn"
+            android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="회원가입"
