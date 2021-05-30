@@ -17,7 +17,7 @@ public class DetailInquiryActivity extends AppCompatActivity {
     public void bookmark(){
 
     }
- 
+
     //로그아웃
     public void logout(){
 

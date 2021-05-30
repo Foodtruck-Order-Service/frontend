@@ -3,48 +3,53 @@ package kr.co.fos.client.review;
 import java.sql.Date;
 import java.io.Serializable;
 
+import kr.co.fos.client.member.Member;
+
 public class Review implements Serializable {
-    private String no;
-    private String memberNo;
-    private String foodtruckNo;
+    private int no;
+    private int memberNo;
+    private int foodtruckNo;
     private String grade;
     private String content;
-    private Date registDate;
+    private String registDate;
+
+    private String id;
 
     public Review() {
     }
 
-    public Review(String no, String memberNo, String foodtruckNo, String grade, String content, Date registDate) {
+    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, String registDate, String id) {
         this.no = no;
         this.memberNo = memberNo;
         this.foodtruckNo = foodtruckNo;
         this.grade = grade;
         this.content = content;
         this.registDate = registDate;
+        this.id = id;
 
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setMemberNo(String memberNo) {
+    public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
 
-    public String getMemberNo() {
+    public int getMemberNo() {
         return this.memberNo;
     }
 
-    public void setFoodtruckNo(String foodtruckNo) {
+    public void setFoodtruckNo(int foodtruckNo) {
         this.foodtruckNo = foodtruckNo;
     }
 
-    public String getFoodtruckNo() {
+    public int getFoodtruckNo() {
         return this.foodtruckNo;
     }
 
@@ -64,12 +69,32 @@ public class Review implements Serializable {
         return this.content;
     }
 
-    public void setRegistDate(Date registDate) {
+    public void setRegistDate(String registDate) {
         this.registDate = registDate;
     }
 
-    public Date getRegistDate() {
+    public String getRegistDate() {
         return this.registDate;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "no=" + no +
+                ", memberNo=" + memberNo +
+                ", foodtruckNo=" + foodtruckNo +
+                ", grade='" + grade + '\'' +
+                ", content='" + content + '\'' +
+                ", registDate='" + registDate + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

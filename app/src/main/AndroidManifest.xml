@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.co.fos.client">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,11 +13,7 @@
 
         <!-- common -->
         <activity android:name=".common.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".common.LoginActivity" />
         <activity android:name=".common.BusinessActivity" />
@@ -59,15 +53,16 @@
         <activity android:name=".order.NumberActivity" />
 
         <!-- review -->
-        <activity android:name=".review.InquiryActivity" />
+        <activity android:name=".review.InquiryActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity android:name=".review.registerActivity" />
         <activity android:name=".review.UpdateActivity" />
 
-        <!-- bookmark -->
-        <activity android:name=".bookmark.InquiryActivity" />
-
-        <!-- bookmark -->
-        <activity android:name=".basket.InquiryActivity" />
         <!-- sales -->
         <activity android:name=".sales.InquiryAcivity" />
     </application>
