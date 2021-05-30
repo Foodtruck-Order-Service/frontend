@@ -51,7 +51,7 @@ public class ReviewAdapter extends BaseAdapter {
 
         // 아이템 내 각 위젯에 데이터 반영
         gradeTextView.setText(review.getGrade());
-        idTextView.setText(review.getNo() + "");
+        idTextView.setText(review.getId());
         contentTextView.setText(review.getContent());
         registDateTextView.setText(review.getRegistDate().toString());
 

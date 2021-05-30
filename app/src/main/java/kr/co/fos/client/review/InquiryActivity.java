@@ -248,10 +248,10 @@ public class InquiryActivity extends AppCompatActivity {
                             grade="★★★★★";
                         }
 
-                        adapter.addItem(review.getMemberId(), grade, review.getContent(), review.getRegistDate());
+                        adapter.addItem(review.getId(), grade, review.getContent(), review.getRegistDate());
 
                     }
-                        /*adapter.notifyDataSetChanged();*/
+                        adapter.notifyDataSetChanged();
 
                     System.out.println("리뷰 조회 성공");
                     System.out.println(jArray);
