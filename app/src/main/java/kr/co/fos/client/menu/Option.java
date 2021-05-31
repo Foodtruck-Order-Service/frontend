@@ -5,37 +5,35 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Option implements Serializable {
-    private String no;
-    private String menuNo;
+    private int no;
+    private int menuNo;
     private String optionName;
 
-    private int itemStart;
-    private int itemSizePerPage;
     private List<OptionValue> optionValues;
 
     public Option() {
     }
 
-    public Option(String no, String menuNo, String optionName, List<OptionValue> optionValues) {
+    public Option(int no, int menuNo, String optionName, List<OptionValue> optionValues) {
         this.no = no;
         this.menuNo = menuNo;
         this.optionName = optionName;
         this.optionValues = optionValues;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setMenuNo(String menuNo) {
+    public void setMenuNo(int menuNo) {
         this.menuNo = menuNo;
     }
 
-    public String getMenuNo() {
+    public int getMenuNo() {
         return this.menuNo;
     }
 
@@ -45,22 +43,6 @@ public class Option implements Serializable {
 
     public String getOptionName() {
         return this.optionName;
-    }
-
-    public void setItemStart(int itemStart) {
-        this.itemStart = itemStart;
-    }
-
-    public int getItemStart() {
-        return this.itemStart;
-    }
-
-    public void setItemSizePerPage(int itemSizePerPage) {
-        this.itemSizePerPage = itemSizePerPage;
-    }
-
-    public int getItemSizePerPage() {
-        return this.itemSizePerPage;
     }
 
     public List<OptionValue> getOptionValues() {

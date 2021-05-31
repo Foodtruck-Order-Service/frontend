@@ -4,26 +4,23 @@ import java.sql.Date;
 import java.io.Serializable;
 
 public class Foodtruck implements Serializable {
-    private String no;
-    private String memberNo;
+    private int no;
+    private int memberNo;
     private String brn;
     private String name;
     private String category;
     private String startTime;
     private String endTime;
     private String content;
-    private int lat;
-    private int lng;
+    private double lat;
+    private double lng;
     private String approval;
     private String status;
-
-    private int itemStart;
-    private int itemSizePerPage;
 
     public Foodtruck() {
     }
 
-    public Foodtruck(String no, String memberNo, String brn, String name, String category, String startTime, String endTime, String content, int lat, int lng, String approval, String status, int itemStart, int itemSizePerPage) {
+    public Foodtruck(int no, int memberNo, String brn, String name, String category, String startTime, String endTime, String content, double lat, double lng, String approval, String status, int itemStart, int itemSizePerPage) {
         this.no = no;
         this.memberNo = memberNo;
         this.brn = brn;
@@ -36,24 +33,21 @@ public class Foodtruck implements Serializable {
         this.lng = lng;
         this.approval = approval;
         this.status = status;
-
-        this.itemStart = itemStart;
-        this.itemSizePerPage = itemSizePerPage;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setMemberNo(String memberNo) {
+    public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
 
-    public String getMemberNo() {
+    public int getMemberNo() {
         return this.memberNo;
     }
 
@@ -105,19 +99,19 @@ public class Foodtruck implements Serializable {
         return this.content;
     }
 
-    public void setLat(int lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public int getLat() {
+    public double getLat() {
         return this.lat;
     }
 
-    public void setLng(int lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public int getLng() {
+    public double getLng() {
         return this.lng;
     }
 
@@ -135,21 +129,5 @@ public class Foodtruck implements Serializable {
 
     public String getStatus() {
         return this.status;
-    }
-
-    public void setItemStart(int itemStart) {
-        this.itemStart = itemStart;
-    }
-
-    public int getItemStart() {
-        return this.itemStart;
-    }
-
-    public void setItemSizePerPage(int itemSizePerPage) {
-        this.itemSizePerPage = itemSizePerPage;
-    }
-
-    public int getItemSizePerPage() {
-        return this.itemSizePerPage;
     }
 }

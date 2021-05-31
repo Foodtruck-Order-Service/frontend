@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/fullLayout"
+        android:layout_width="409dp"
+        android:layout_height="728dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="456dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="662dp" />
+
+        <Button
+            android:id="@+id/reviewRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="vertical"
+            android:text="리뷰 등록" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
