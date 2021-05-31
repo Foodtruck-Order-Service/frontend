@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -20,8 +22,15 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.gson.Gson;
 
+import net.daum.mf.map.api.MapView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
+import kr.co.fos.client.SharedPreference;
+import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
 import kr.co.fos.client.member.Member;
 import okhttp3.ResponseBody;
@@ -31,71 +40,60 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class BusinessStartActivity  extends AppCompatActivity implements View.OnClickListener {
+public class BusinessStartActivity  extends AppCompatActivity {
     Retrofit client;
     HttpInterface service;
 
-    EditText businessEdit;
-    EditText foodtruckNameEdit;
-    Spinner categorySpinner;
-    TimePicker startSpinner;
-    TimePicker endSpinner;
-    EditText contentEdit;
-    TextView photoNameView;
+    Intent intent;
 
-    Button photo_btn;
-    Button submit_btn;
+    MapView mapView;
+
+    Button loginBtn;
+
+    Foodtruck myFoodtruck;
+    List<Foodtruck> foodtrucks;
+    Boolean loginCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.foodtruck_business_start);
+        setContentView(R.layout.foodtruck_location);
 
         setRetrofitInit();
 
-        // EditText
-        businessEdit = (EditText)findViewById(R.id.businessEdit);
-        foodtruckNameEdit = (EditText)findViewById(R.id.foodtruckNameEdit);
-        contentEdit = (EditText)findViewById(R.id.contentEdit);
+        intent = getIntent();
 
-        startSpinner = (TimePicker)findViewById(R.id.startSpinner);
-        endSpinner = (TimePicker)findViewById(R.id.endSpinner);
-
-        // Button
-        photo_btn = (Button)findViewById(R.id.photoButton);
-        submit_btn = (Button)findViewById(R.id.submitButton);
-
-        photo_btn.setOnClickListener(this);
-        submit_btn.setOnClickListener(this);
-
-        // Spinner
-        categorySpinner = (Spinner)findViewById(R.id.spinner_category);
-        ArrayAdapter categoryAdapter = ArrayAdapter.createFromResource(this,
-                R.array.category, android.R.layout.simple_spinner_item);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        categorySpinner.setAdapter(categoryAdapter);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.photoButton:     // 사진 등록 버튼
-                Toast.makeText(this.getApplicationContext(),"사진 등록", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.submitButton:    // 회원가입 버튼
-                submitFoodtruck();
-
-//                Intent intent = new Intent(BusinessStartActivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-                break;
-        /*
-            Intent intent2 = new Intent(main.this, login.class);
-            startActivity(intent2);
-            finish();
-            break;
-            */
+        if (intent != null) {
+            myFoodtruck = (Foodtruck) intent.getSerializableExtra("foodtruck");
         }
+
+        mapView = new MapView(this);
+
+        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+
+        loginBtn = findViewById(R.id.loginBtn);
+        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
+
+        if(!loginCheck) {
+            loginBtn.setText("로그아웃");
+        }
+
+        foodtruckLocationSearch();
+
+        loginBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
+                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                    loginBtn.setText("로그인");
+                    Toast.makeText(BusinessStartActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setRetrofitInit() {
@@ -107,41 +105,53 @@ public class BusinessStartActivity  extends AppCompatActivity implements View.On
         service = client.create(HttpInterface.class);
     }
 
-    private void submitFoodtruck() {
-        Member member = new Member();
-        member.setId("test");
-        Foodtruck foodtruck = new Foodtruck();
-
-        foodtruck.setBrn(businessEdit.getText().toString());
-        foodtruck.setName(foodtruckNameEdit.getText().toString());
-        foodtruck.setCategory(categorySpinner.getSelectedItem().toString());
-        String startTime;
-        String endTime;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            startTime = startSpinner.getHour() + ":" + startSpinner.getMinute();
-            endTime = endSpinner.getHour() + ":" + endSpinner.getMinute();
-        } else {
-            startTime = startSpinner.getCurrentHour() + ":" + startSpinner.getCurrentMinute();
-            endTime = endSpinner.getCurrentHour() + ":" + endSpinner.getCurrentMinute();
+    // 내주변 푸드트럭 찾기
+    public void foodtruckLocationSearch() {
+        if (foodtrucks == null) {
+            foodtrucks = new ArrayList<Foodtruck>();
         }
-        foodtruck.setStartTime(startTime);
-        foodtruck.setEndTime(endTime);
-        foodtruck.setContent(contentEdit.getText().toString());
 
-        member.setFoodtruck(foodtruck);
-        System.out.println("brn:" + foodtruck.getBrn() + ", start:" + foodtruck.getStartTime() + ", end:" + foodtruck.getEndTime());
+        double lat = 0.0;
+        double lng = 0.0;
 
-//        foodtruckDAO.setId("foodid");
-//        foodtruckDAO.setName("foodname");
-//        loginDAO.setFoodtruckDAO(foodtruckDAO);
-        Call<ResponseBody> call = service.memberBusinessRegister(member);
+        Call<List<Foodtruck>> call = service.foodtruckLocationSearch(lat, lng);
+        call.enqueue(new Callback<List<Foodtruck>>() {
+            @Override
+            public void onResponse(Call<List<Foodtruck>> call, Response<List<Foodtruck>> response) {
+                try {
+                    foodtrucks = response.body();
+
+                    for (Foodtruck item : foodtrucks) {
+                        System.out.println(item.getName());
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<Foodtruck>> call, Throwable t) {
+                Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // 영업 시작
+    public void startBusiness() {
+        double lat = 0.0;
+        double lng = 0.0;
+
+        myFoodtruck.setLat(lat);
+        myFoodtruck.setLng(lng);
+
+        Call<ResponseBody> call = service.foodtruckUpdate(myFoodtruck.getNo(), myFoodtruck);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Gson gson = new Gson();
-                    Member member = gson.fromJson(response.body().string(), Member.class);
-                    System.out.println(member.toString());
+                    boolean result = gson.fromJson(response.body().string(), Boolean.class);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -151,12 +161,6 @@ public class BusinessStartActivity  extends AppCompatActivity implements View.On
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
-
-    }
-
-    // 로그아웃
-    public void logout() {
-
     }
 
     // 지도 조회
@@ -171,11 +175,6 @@ public class BusinessStartActivity  extends AppCompatActivity implements View.On
 
     // 푸드트럭 위치 등록
     public void foodtruckLocationRegister() {
-
-    }
-
-    // 영업 시작
-    public void startBusiness() {
 
     }
 }

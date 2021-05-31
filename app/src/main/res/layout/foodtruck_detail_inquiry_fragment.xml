@@ -6,39 +6,40 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_shape"
+        android:id="@+id/fullLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/search"
-            android:name="kr.co.fos.client.common.SearchActivity"
-            tools:layout="@layout/search" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
+            android:id="@+id/map"
+            android:layout_width="186dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="목록"
-            android:textAlignment="center"
-            android:textSize="30dp" />
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="지도"
+            android:textAlignment="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:background="@drawable/layout_shape"
             android:orientation="horizontal"
             android:padding="10dp">
+
+            <TextView
+                android:id="@+id/photoView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="사진"
+                android:textAlignment="center"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/nameView"
@@ -50,31 +51,23 @@
                 android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/categoeyView"
+                android:id="@+id/paymentView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:text="종류"
-                android:textAlignment="center"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/statusView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:text="상태"
+                android:text="가격"
                 android:textAlignment="center"
                 android:textSize="20dp" />
 
         </LinearLayout>
 
         <ListView
-            android:id="@+id/foodtruckListView"
+            android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="10dp" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="662dp" />
 
     </LinearLayout>
 

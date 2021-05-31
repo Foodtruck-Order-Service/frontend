@@ -4,40 +4,35 @@ import java.sql.Date;
 import java.io.Serializable;
 
 public class OptionValue implements Serializable {
-    private String no;
-    private String optionNo;
+    private int no;
+    private int optionNo;
     private String optionValue;
     private String addAmount;
 
-    private int itemStart;
-    private int itemSizePerPage;
-
     public OptionValue() {
+
     }
 
-    public OptionValue(String no, String optionNo, String optionValue, String addAmount, int itemStart, int itemSizePerPage) {
+    public OptionValue(int no, int optionNo, String optionValue, String addAmount, int itemStart, int itemSizePerPage) {
         this.no = no;
         this.optionNo = optionNo;
         this.optionValue = optionValue;
         this.addAmount = addAmount;
-
-        this.itemStart = itemStart;
-        this.itemSizePerPage = itemSizePerPage;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setOptionNo(String optionNo) {
+    public void setOptionNo(int optionNo) {
         this.optionNo = optionNo;
     }
 
-    public String getOptionNo() {
+    public int getOptionNo() {
         return this.optionNo;
     }
 
@@ -55,21 +50,5 @@ public class OptionValue implements Serializable {
 
     public String getAddAmount() {
         return this.addAmount;
-    }
-
-    public void setItemStart(int itemStart) {
-        this.itemStart = itemStart;
-    }
-
-    public int getItemStart() {
-        return this.itemStart;
-    }
-
-    public void setItemSizePerPage(int itemSizePerPage) {
-        this.itemSizePerPage = itemSizePerPage;
-    }
-
-    public int getItemSizePerPage() {
-        return this.itemSizePerPage;
     }
 }

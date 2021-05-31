@@ -48,15 +48,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     int mYear, mMonth, mDay, mHour, mMinute;
 
     Button btnchangetime;
-
     Button btnchangetime2;
+
     TimePickerDialog dialog;
 
     EditText businessEdit;
     EditText foodtruckNameEdit;
     Spinner categorySpinner;
-    TimePicker startSpinner;
-    TimePicker endSpinner;
+
     EditText contentEdit;
     TextView photoNameView;
 
@@ -76,9 +75,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         contentEdit = (EditText)findViewById(R.id.contentEdit);
 
         photoNameView = (TextView)findViewById(R.id.foodtruckPhotoNameView);
-
-        startSpinner = (TimePicker)findViewById(R.id.startSpinner);
-        endSpinner = (TimePicker)findViewById(R.id.endSpinner);
 
         // Button
         photo_btn = (Button)findViewById(R.id.photoButton);
@@ -138,12 +134,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 dialog.show();
 
                 break;
-        /*
-            Intent intent2 = new Intent(main.this, login.class);
-            startActivity(intent2);
-            finish();
-            break;
-            */
         }
     }
 
@@ -166,7 +156,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     //사용자가 입력한 값을 가져온뒤
                     mHour = hourOfDay;
                     mMinute = minute;
-                    btnchangetime.setText(String.format("%d : %d", mHour, mMinute));
+                    btnchangetime.setText(String.format("%d:%d", mHour, mMinute));
                     //텍스트뷰의 값을 업데이트
 
 
@@ -184,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     //사용자가 입력한 값을 가져온뒤
                     mHour = hourOfDay;
                     mMinute = minute;
-                    btnchangetime2.setText(String.format("%d : %d", mHour, mMinute));
+                    btnchangetime2.setText(String.format("%d:%d", mHour, mMinute));
                     //텍스트뷰의 값을 업데이트
 
 
@@ -199,28 +189,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     // 회원 등록
     public void memberRegister() {
-        Member member = new Member();
-        member.setId("test");
+        Member member = (Member) getIntent().getSerializableExtra("info");
         Foodtruck foodtruck = new Foodtruck();
 
         foodtruck.setBrn(businessEdit.getText().toString());
         foodtruck.setName(foodtruckNameEdit.getText().toString());
         foodtruck.setCategory(categorySpinner.getSelectedItem().toString());
-        String startTime;
-        String endTime;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            startTime = startSpinner.getHour() + ":" + startSpinner.getMinute();
-            endTime = endSpinner.getHour() + ":" + endSpinner.getMinute();
-        } else {
-            startTime = startSpinner.getCurrentHour() + ":" + startSpinner.getCurrentMinute();
-            endTime = endSpinner.getCurrentHour() + ":" + endSpinner.getCurrentMinute();
-        }
-        foodtruck.setStartTime(startTime);
-        foodtruck.setEndTime(endTime);
+        foodtruck.setStartTime(btnchangetime.getText().toString());
+        foodtruck.setEndTime(btnchangetime2.getText().toString());
         foodtruck.setContent(contentEdit.getText().toString());
 
         member.setFoodtruck(foodtruck);
-        System.out.println("brn:" + foodtruck.getBrn() + ", start:" + foodtruck.getStartTime() + ", end:" + foodtruck.getEndTime());
 
         Call<ResponseBody> call = service.memberBusinessRegister(member);
         call.enqueue(new Callback<ResponseBody>() {
@@ -228,8 +207,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Gson gson = new Gson();
-                    Member member = gson.fromJson(response.body().string(), Member.class);
-                    Toast.makeText(getBaseContext(),"회원 등록 성공!!",Toast.LENGTH_SHORT).show();
+                    boolean result = gson.fromJson(response.body().string(), Boolean.class);
+                    Toast.makeText(getBaseContext(),"회원 등록 :" + result,Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

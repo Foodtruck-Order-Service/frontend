@@ -46,14 +46,14 @@ public interface HttpInterface {
     Call<ResponseBody> memberDelete(@Path("no") int no);
 
     @GET("/member")
-    Call<ResponseBody> memberInquiry(@Query("name") String name, @Query("rrn") String rrn);
+    Call<List<Member>> memberInquiry(@Query("name") String name, @Query("rrn") String rrn);
 
     @GET("/member")
-    Call<ResponseBody> memberInquiry(@Query("id") String id);
+    Call<List<Member>> memberInquiry(@Query("id") String id);
 
     //추가
     @GET("/member")
-    Call<ResponseBody> memberLoginInquiry(@Query("id") String id, @Query("password") String pw);
+    Call<List<Member>> memberLoginInquiry(@Query("id") String id, @Query("password") String pw);
 
     @GET("/member/{no}")
     Call<ResponseBody> memberDetailInquiry(@Path("no") int no);
@@ -67,10 +67,10 @@ public interface HttpInterface {
     Call<ResponseBody> memberBusinessRegister(@Body Member member);
 
     @GET("/foodtruck")
-    Call<List<Foodtruck>> foodtruckInquiry(@Query("name") String name);
+    Call<List<Foodtruck>> foodtruckInquiry(@Query("name") String name, @Query("category") String category);
 
     @GET("/foodtruck")
-    Call<ResponseBody> foodtruckLocationSearch(@Query("lat") double lat, @Query("lng") double lng);
+    Call<List<Foodtruck>> foodtruckLocationSearch(@Query("lat") double lat, @Query("lng") double lng);
 
     @PUT("/foodtruck/{no}")
     Call<ResponseBody> startBusiness(@Path("no") int no, @Body Foodtruck foodtruck);
@@ -89,7 +89,7 @@ public interface HttpInterface {
     Call<ResponseBody> menuRegister(@Body Menu menu);
 
     @GET("/menu")
-    Call<ResponseBody> menuInquiry(@Query("no") int no);
+    Call<List<Menu>> menuInquiry(@Query("foodtruckNo") int no);
 
     @GET("/menu/{no}")
     Call<ResponseBody> menuDetailInquiry(@Path("no") int no);
@@ -126,6 +126,9 @@ public interface HttpInterface {
     @GET("/review")
     Call<ResponseBody> reviewInquiry(@Query("no") int no);
 
+    @GET("/review/{no}")
+    Call<ResponseBody> reviewDetailInquiry(@Path("no") int no);
+
     @POST("/review")
     Call<ResponseBody> reviewRegister(@Body Review review);
 
@@ -137,7 +140,7 @@ public interface HttpInterface {
 
     //즐겨찾기
     @GET("/bookmark")
-    Call<ResponseBody> bookmarkInquiry(@Query("no") int no);
+    Call<ResponseBody> bookmarkInquiry(@Query("memberNo") int memberNo, @Query("foodtruckNo") int foodtruckNo);
 
     @POST("/bookmark")
     Call<ResponseBody> bookmarkRegister(@Body Bookmark bookmark);

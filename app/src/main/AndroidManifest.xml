@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +16,15 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="df9d5114ec22853d3a696d4ddfe1abd6"/>
+
         <!-- common -->
         <activity android:name=".common.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".common.LoginActivity" />
         <activity android:name=".common.BusinessActivity" />
@@ -36,22 +44,17 @@
         <activity android:name=".foodtruck.BusinessStartActivity" >
 
         </activity>
-        <activity android:name=".foodtruck.DetailInquiryActivity" />
-        <activity android:name=".foodtruck.InfoActivity" />
-        <activity android:name=".foodtruck.LocationActivity" />
+        <activity android:name=".foodtruck.FoodtruckMainActivity" >
+        </activity>
+        <activity android:name=".foodtruck.LocationActivity" >
+
+        </activity>
         <activity android:name=".foodtruck.RegisterActivity" >
         </activity>
         <activity android:name=".foodtruck.SearchResultActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- menu -->
-        <activity android:name=".menu.DetailInquiryActivity" />
-        <activity android:name=".menu.InfoActivity" />
         <activity android:name=".menu.InquiryActivity" />
         <activity android:name=".menu.RegisterActivity" />
         <activity android:name=".menu.UpdateActivity" />
@@ -65,13 +68,6 @@
         <activity android:name=".order.NumberActivity" />
 
         <!-- review -->
-        <activity android:name=".review.InquiryActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-        </activity>
         <activity android:name=".review.registerActivity" />
         <activity android:name=".review.UpdateActivity" />
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
+import kr.co.fos.client.SharedPreference;
+import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.member.Member;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -35,8 +38,10 @@ public class SearchResultActivity extends AppCompatActivity {
     SearchView searchView;
     ListView listView;
     FoodtruckAdapter adapter;
+    Button loginBtn;
 
     List<Foodtruck> foodtrucks;
+    Boolean loginCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,21 @@ public class SearchResultActivity extends AppCompatActivity {
 
         setRetrofitInit();
 
+        intent = getIntent();
+
         searchView = findViewById(R.id.searchView);
+
+        if (intent != null) {
+            String name = intent.getStringExtra("name");
+            searchView.setQuery(name, false);
+        }
+
+        loginBtn = findViewById(R.id.loginBtn);
+        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
+
+        if(!loginCheck) {
+            loginBtn.setText("로그아웃");
+        }
 
         // Adapter 생성
         adapter = new FoodtruckAdapter() ;
@@ -64,12 +83,9 @@ public class SearchResultActivity extends AppCompatActivity {
 
                 foodtruckInquiry();
 
-//                intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-//                intent.putExtra("name", query);
-//                startActivity(intent);
-//                Toast.makeText(SearchResultActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
                 return true;
             }
+
 
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -87,9 +103,25 @@ public class SearchResultActivity extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
                 Foodtruck item = (Foodtruck) parent.getItemAtPosition(position) ;
-                Toast.makeText(SearchResultActivity.this, "item click : " + item.getNo(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(getApplicationContext(), FoodtruckMainActivity.class);
+                intent.putExtra("foodtruck", item);
+                startActivity(intent);
             }
         }) ;
+
+        loginBtn.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
+                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                    loginBtn.setText("로그인");
+                    Toast.makeText(SearchResultActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     private void setRetrofitInit() {
@@ -101,29 +133,20 @@ public class SearchResultActivity extends AppCompatActivity {
         service = client.create(HttpInterface.class);
     }
 
-    // 검색
-    public void login() {
-
-    }
-
-    // 로그아웃
-    public void logout() {
-
-    }
-
     // 푸드트럭 조회
     public void foodtruckInquiry() {
         if (foodtrucks == null) {
             foodtrucks = new ArrayList<Foodtruck>();
         }
 
-        Call<List<Foodtruck>> call = service.foodtruckInquiry(searchView.getQuery().toString());
+        String category = intent.getStringExtra("category");
+
+        Call<List<Foodtruck>> call = service.foodtruckInquiry(searchView.getQuery().toString(), category);
         call.enqueue(new Callback<List<Foodtruck>>() {
             @Override
             public void onResponse(Call<List<Foodtruck>> call, Response<List<Foodtruck>> response) {
                 try {
                     foodtrucks = response.body();
-
                     for (Foodtruck item  : foodtrucks) {
                         System.out.println(item.getName());
                         adapter.addItem(item);

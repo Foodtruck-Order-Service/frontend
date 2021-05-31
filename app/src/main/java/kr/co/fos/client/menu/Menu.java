@@ -5,18 +5,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Menu implements Serializable {
-    private String no;
-    private String foodtruckNo;
+    private int no;
+    private int foodtruckNo;
     private String name;
     private String amount;
     private String cookingTime;
     private String content;
 
     private List<Option> options;
+
     public Menu() {
     }
 
-    public Menu(String no, String foodtruckNo, String name, String amount, String cookingTime, String content, List<Option> options) {
+    public Menu(int no, int foodtruckNo, String name, String amount, String cookingTime, String content, List<Option> options) {
         this.no = no;
         this.foodtruckNo = foodtruckNo;
         this.name = name;
@@ -26,19 +27,19 @@ public class Menu implements Serializable {
         this.options = options;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setFoodtruckNo(String foodtruckNo) {
+    public void setFoodtruckNo(int foodtruckNo) {
         this.foodtruckNo = foodtruckNo;
     }
 
-    public String getFoodtruckNo() {
+    public int getFoodtruckNo() {
         return this.foodtruckNo;
     }
 

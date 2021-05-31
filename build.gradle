@@ -16,6 +16,10 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        maven { url 'https://jitpack.io/' }
+        // 카카오 SDK
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
     }
 }
 
