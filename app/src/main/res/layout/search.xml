@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,32 +16,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="321dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:text="장바구니"
-                android:textAlignment="center"
-                android:textSize="48sp" />
+                android:queryHint="검색어를 입력하시오"
+                app:iconifiedByDefault="false"
+                app:queryHint="검색어를 입력하시오" />
 
             <Button
-                android:id="@+id/button2"
-                android:layout_width="100dp"
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그아웃" />
+                android:text="로그인" />
+
         </LinearLayout>
-
-        <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/customlistfragment"
-            android:name="kr.co.fos.client.basket.CustomListFragment"
-            tools:layout="@layout/basket_inquiry"/>
-
     </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
