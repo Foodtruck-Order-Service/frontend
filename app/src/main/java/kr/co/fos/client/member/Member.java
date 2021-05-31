@@ -6,7 +6,7 @@ import java.io.Serializable;
 import kr.co.fos.client.foodtruck.Foodtruck;
 
 public class Member implements Serializable {
-    private String no;
+    private int no;
     private String id;
     private String password;
     private String rrn;
@@ -19,7 +19,7 @@ public class Member implements Serializable {
     public Member() {
     }
 
-    public Member(String no, String id, String password, String rrn, String name, String email, String phone, String type, Foodtruck foodtruck) {
+    public Member(int no, String id, String password, String rrn, String name, String email, String phone, String type, Foodtruck foodtruck) {
         this.no = no;
         this.id = id;
         this.password = password;
@@ -31,11 +31,26 @@ public class Member implements Serializable {
         this.foodtruck = foodtruck;
     }
 
-    public void setNo(String no) {
+    @Override
+    public String toString() {
+        return "Member{" +
+                "no='" + no + '\'' +
+                ", id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", rrn='" + rrn + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", type='" + type + '\'' +
+                ", foodtruck=" + foodtruck +
+                '}';
+    }
+
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
