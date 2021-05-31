@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 
 import kr.co.fos.client.R;
@@ -76,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         infoBtn.setOnClickListener(this);
         orderBtn.setOnClickListener(this);
         basketBtn.setOnClickListener(this);
-        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
-
-        if(!loginCheck) {
+        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "no") != null;
+        Toast.makeText(MainActivity.this, "검색 처리됨 : " + SharedPreference.getAttribute(getApplicationContext(), "no"), Toast.LENGTH_SHORT).show();
+        if(loginCheck) {
             loginBtn.setText("로그아웃");
         }
 
@@ -106,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (v.getId()) {
             case R.id.loginBtn:    // 로그인 버튼
-                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                if(SharedPreference.getAttribute(getApplicationContext(), "no") != null) {
+                    SharedPreference.removeAttribute(getApplicationContext(),"no");
                     loginBtn.setText("로그인");
                 } else {
                     intent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -116,37 +117,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.koreanFoodBtn:    // 한식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "koreanFood");
+                intent.putExtra("category", "한식");
                 startActivity(intent);
                 break;
             case R.id.japanFoodBtn:    // 일식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "japanFood");
+                intent.putExtra("category", "일식");
                 startActivity(intent);
                 break;
             case R.id.chinaFoodBtn:    // 중식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "chinaFood");
+                intent.putExtra("category", "중식");
                 startActivity(intent);
                 break;
             case R.id.westernFoodBtn:    // 양식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "westernFood");
+                intent.putExtra("category", "양식");
                 startActivity(intent);
                 break;
             case R.id.asianFoodBtn:    // 아시안 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "asianFood");
+                intent.putExtra("category", "아시안");
                 startActivity(intent);
                 break;
             case R.id.snackFoodBtn:    // 분식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "snackFood");
+                intent.putExtra("category", "분식");
                 startActivity(intent);
                 break;
             case R.id.dessertFoodBtn:    // 디저트 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("name", "dessertFood");
+                intent.putExtra("category", "디저트");
                 startActivity(intent);
                 break;
             case R.id.foodtruckLocationBtn:    // 내 주변 푸드트럭 검색 버튼
@@ -158,8 +159,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.infoBtn:    // 내 정보 버튼
-                intent = new Intent(getApplicationContext(), MyInfoActivity.class);
-                startActivity(intent);
+                if(SharedPreference.getAttribute(getApplicationContext(), "no") != null) {
+                    intent = new Intent(getApplicationContext(), MyInfoActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getApplicationContext(),LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.orderBtn:    // 주문 버튼
                 intent = new Intent(getApplicationContext(), kr.co.fos.client.order.InquiryActivity.class);
@@ -174,7 +180,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //검색
 
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityCompat.finishAffinity(this);
+    }
 
     // 로그아웃
     public void logout() {

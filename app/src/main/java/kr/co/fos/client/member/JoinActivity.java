@@ -9,9 +9,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.List;
+
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
+import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
 import kr.co.fos.client.foodtruck.RegisterActivity;
 import okhttp3.ResponseBody;
@@ -134,15 +137,24 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        intent = new Intent(getApplicationContext(), JoinChoiceActivity.class);
+        startActivity(intent);
+    }
+
     //아이디 중복확인
     public void idCheck(String id) {
-        Call<ResponseBody> call = service.memberInquiry(id);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<List<Member>> call = service.memberInquiry(id);
+        call.enqueue(new Callback<List<Member>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
                 try {
                     Boolean check = false;
-                    if (!response.body().string().equals("[]")) {
+
+                    List<Member> memberList = response.body();
+                    if (!memberList.toString().equals("[]")) {
                         check = true;
                     }
                     if (check == true) {
@@ -161,7 +173,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<Member>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
 
             }

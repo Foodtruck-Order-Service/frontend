@@ -47,4 +47,11 @@ public class JoinChoiceActivity extends AppCompatActivity implements View.OnClic
         //검색
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+    }
 }
