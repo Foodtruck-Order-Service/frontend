@@ -116,7 +116,8 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/text_border"
+                    android:background="@drawable/text_border_non"
+                    android:focusableInTouchMode="false"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -170,10 +171,12 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/text_border"
+                    android:background="@drawable/text_border_non"
                     android:ems="10"
+                    android:focusableInTouchMode="false"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:shadowColor="@color/colorWhite"
                     android:textSize="22sp" />
 
                 <EditText

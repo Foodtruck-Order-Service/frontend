@@ -1,6 +1,5 @@
 package kr.co.fos.client.member;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,34 +7,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
 
 import java.io.IOException;
-import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.PopupActivity;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.common.BusinessActivity;
-import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
-import kr.co.fos.client.foodtruck.SearchResultActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static java.sql.DriverManager.println;
 
 public class MyInfoActivity extends AppCompatActivity implements View.OnClickListener {
     Retrofit client;
@@ -52,6 +41,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
     Intent intent;
     Member member;
     int no;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +56,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         memberUpdateBtn.setOnClickListener(this);
         memberDeleteBtn.setOnClickListener(this);
         setRetrofitInit();
+
         //intent = getIntent();
         no = Integer.valueOf(SharedPreference.getAttribute(getApplicationContext(), "no"));
         memberDetailInquiry(no);
@@ -109,7 +100,6 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
                     //취소 시 코드
 
                 } else if (result.equals("ok")) {
-                    // 작성 코드
                     memberDelete(no);
                     Toast.makeText(this, "RIGHT", Toast.LENGTH_SHORT).show();
 
@@ -123,6 +113,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         super.onBackPressed();
         intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+
     }
 
     // 회원 상세 조회
@@ -137,9 +128,15 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
 
                     idEditText.setText(memberData.getId());
                     nameEditText.setText(memberData.getName());
-                    typeEditText.setText(memberData.getType());
+                    
+                    if (memberData.getType().equals("M")){
+                        typeEditText.setText("일반 회원");
+                    } else if (memberData.getType().equals("B")){
+                        typeEditText.setText("사업자 회원");
+                    }
+
                     emailEditText.setText(memberData.getEmail());
-                    phoneEditText.setText(memberData.getPhone());
+                    phoneEditText.setText(phone(memberData.getPhone()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -152,8 +149,18 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
-
-
+    //전화 번호 포맷
+    public String phone(String src) {
+        if (src == null) {
+            return "";
+        }
+        if (src.length() == 8) {
+            return src.replaceFirst("^([0-9]{4})([0-9]{4})$", "$1-$2");
+        } else if (src.length() == 12) {
+            return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$", "$1-$2-$3");
+        }
+        return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3");
+    }
 
 
     // 회원 탈퇴
@@ -174,4 +181,6 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
+
 }

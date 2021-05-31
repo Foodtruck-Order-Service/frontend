@@ -26,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class UpdateActivity extends AppCompatActivity implements View.OnClickListener{
+public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
     Retrofit client;
     HttpInterface service;
 
@@ -39,10 +39,11 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     Button emailCheckBtn;
     EditText phoneEditText;
     Button updateBtn;
-    Boolean emailCheck = true;
+    Boolean emailCheck = false;
     Intent intent;
     Member member;
     int no;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,13 +82,9 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case R.id.updateBtn:    // 수정버튼
-                if(emailCheck == true){
-                    intent = new Intent(this, PopupActivity.class);
-                    intent.putExtra("data","정말로 수정하겠습니까?");
-                    startActivityForResult(intent, 2);
-                } else {
-                    Toast.makeText(this, "이메일 인증을 하십시오.", Toast.LENGTH_SHORT).show();
-                }
+                intent = new Intent(this, PopupActivity.class);
+                intent.putExtra("data", "정말로 수정하겠습니까?");
+                startActivityForResult(intent, 2);
 
                 break;
 
@@ -107,25 +104,45 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
 
-            if(requestCode == 2){
+            if (requestCode == 2) {
                 String result = data.getStringExtra("result");
-                if(result.equals("close") ){
+                if (result.equals("close")) {
                     //취소 시 코드
 
-                } else if(result.equals("ok")){
+                } else if (result.equals("ok")) {
                     // 작성 코드
-                    Member updateMember = new Member();
-                    updateMember.setPassword(pwEditText.getText().toString());
-                    updateMember.setName(nameEditText.getText().toString());
-                    updateMember.setEmail(emailEditText.getText().toString());
-                    updateMember.setPhone(phoneEditText.getText().toString());
-                    memberUpdate(no,updateMember);
-                    Toast.makeText(this, "RIGHT", Toast.LENGTH_SHORT).show();
+                    if (pwEditText.getText().toString().equals(pwCheckEditText.getText().toString()) == true && emailCheck == true) {
+                        Member updateMember = new Member();
+                        updateMember.setPassword(pwEditText.getText().toString());
+                        updateMember.setName(nameEditText.getText().toString());
+                        updateMember.setEmail(emailEditText.getText().toString());
+                        updateMember.setPhone(phoneEditText.getText().toString());
+                        memberUpdate(no, updateMember);
+                    } else if (pwEditText.getText().toString().equals(pwCheckEditText.getText().toString()) == false) {
+                        Toast.makeText(this, "패스워드를 확인하세요.", Toast.LENGTH_SHORT).show();
+                    } else if (emailCheck == false) {
+                        Toast.makeText(this, "이메일 인증을 하십시오.", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }
         }
     }
+
+    //전화 번호 포맷
+    public String phone(String src) {
+        if (src == null) {
+            return "";
+        }
+        if (src.length() == 8) {
+            return src.replaceFirst("^([0-9]{4})([0-9]{4})$", "$1-$2");
+        } else if (src.length() == 12) {
+            return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$", "$1-$2-$3");
+        }
+        return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3");
+    }
+
+    //회원 상세 조회
     public void memberDetailInquiry(int no) {
         Call<ResponseBody> call = service.memberDetailInquiry(no);
         call.enqueue(new Callback<ResponseBody>() {
@@ -140,7 +157,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                     nameEditText.setText(memberData.getName());
                     rrnEditText.setText(memberData.getRrn());
                     emailEditText.setText(memberData.getEmail());
-                    phoneEditText.setText(memberData.getPhone());
+                    phoneEditText.setText(phone(memberData.getPhone()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -168,6 +185,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 intent = new Intent(getApplicationContext(), MyInfoActivity.class);
                 startActivity(intent);
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();

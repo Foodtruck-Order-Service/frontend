@@ -1,35 +1,28 @@
 package kr.co.fos.client.common;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.bookmark.InquiryActivity;
 import kr.co.fos.client.foodtruck.LocationActivity;
 import kr.co.fos.client.foodtruck.SearchResultActivity;
 import kr.co.fos.client.member.MyInfoActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private SearchView searchView;
-    Button loginBtn;
+    SearchView searchView;
     ImageButton koreanFoodBtn;
     ImageButton japanFoodBtn;
     ImageButton chinaFoodBtn;
@@ -37,20 +30,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton asianFoodBtn;
     ImageButton snackFoodBtn;
     ImageButton dessertFoodBtn;
-    Button foodtruckLocationBtn;
-    Button bookmarkBtn;
-    Button infoBtn;
-    Button orderBtn;
-    Button basketBtn;
     Intent intent;
-    Boolean loginCheck;
-
+    Boolean typeCheck;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_main);
         searchView = findViewById(R.id.searchView);
-        loginBtn = findViewById(R.id.loginBtn);
         koreanFoodBtn = findViewById(R.id.koreanFoodBtn);
         japanFoodBtn = findViewById(R.id.japanFoodBtn);
         chinaFoodBtn = findViewById(R.id.chinaFoodBtn);
@@ -58,13 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         asianFoodBtn = findViewById(R.id.asianFoodBtn);
         snackFoodBtn = findViewById(R.id.snackFoodBtn);
         dessertFoodBtn = findViewById(R.id.dessertFoodBtn);
-        foodtruckLocationBtn = findViewById(R.id.foodtruckLocationBtn);
-        bookmarkBtn = findViewById(R.id.bookmarkBtn);
-        infoBtn = findViewById(R.id.infoBtn);
-        orderBtn = findViewById(R.id.orderBtn);
-        basketBtn = findViewById(R.id.basketBtn);
 
-        loginBtn.setOnClickListener(this);
         koreanFoodBtn.setOnClickListener(this);
         japanFoodBtn.setOnClickListener(this);
         chinaFoodBtn.setOnClickListener(this);
@@ -72,49 +52,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         asianFoodBtn.setOnClickListener(this);
         snackFoodBtn.setOnClickListener(this);
         dessertFoodBtn.setOnClickListener(this);
-        foodtruckLocationBtn.setOnClickListener(this);
-        bookmarkBtn.setOnClickListener(this);
-        infoBtn.setOnClickListener(this);
-        orderBtn.setOnClickListener(this);
-        basketBtn.setOnClickListener(this);
-        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "no") != null;
-        Toast.makeText(MainActivity.this, "검색 처리됨 : " + SharedPreference.getAttribute(getApplicationContext(), "no"), Toast.LENGTH_SHORT).show();
-        if(loginCheck) {
-            loginBtn.setText("로그아웃");
+
+        typeCheck = SharedPreference.getAttribute(getApplicationContext(), "type") != null;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (typeCheck){
+            if(SharedPreference.getAttribute(getApplicationContext(), "type").equals("M")){
+                MainViewActivity mainViewActivity = new MainViewActivity();
+                transaction.replace(R.id.fragment_container, mainViewActivity);
+                transaction.commit();
+            } else if(SharedPreference.getAttribute(getApplicationContext(), "type").equals("B")){
+                BusinessMainViewActivity businessMainViewActivity = new BusinessMainViewActivity();
+                transaction.replace(R.id.fragment_container, businessMainViewActivity);
+                transaction.commit();
+            }
+        } else {
+            MainViewActivity mainViewActivity = new MainViewActivity();
+            transaction.replace(R.id.fragment_container, mainViewActivity);
+            transaction.commit();
         }
+
+
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                intent = new Intent(getApplicationContext(),SearchResultActivity.class);
+                intent = new Intent(getApplicationContext(), SearchResultActivity.class);
                 intent.putExtra("name", query);
                 startActivity(intent);
                 Toast.makeText(MainActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
                 return true;
 
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
 
         });
+
+
+
     }
 
     @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.loginBtn:    // 로그인 버튼
-                if(SharedPreference.getAttribute(getApplicationContext(), "no") != null) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"no");
-                    loginBtn.setText("로그인");
-                } else {
-                    intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivity(intent);
-                }
-                break;
             case R.id.koreanFoodBtn:    // 한식 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
                 intent.putExtra("category", "한식");
@@ -150,32 +134,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("category", "디저트");
                 startActivity(intent);
                 break;
-            case R.id.foodtruckLocationBtn:    // 내 주변 푸드트럭 검색 버튼
-                intent = new Intent(getApplicationContext(), LocationActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.bookmarkBtn:    // 즐겨찾기 버튼
-                intent = new Intent(getApplicationContext(),kr.co.fos.client.bookmark.InquiryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.infoBtn:    // 내 정보 버튼
-                if(SharedPreference.getAttribute(getApplicationContext(), "no") != null) {
-                    intent = new Intent(getApplicationContext(), MyInfoActivity.class);
-                    startActivity(intent);
-                } else {
-                    intent = new Intent(getApplicationContext(),LoginActivity.class);
-                    startActivity(intent);
-                }
-                break;
-            case R.id.orderBtn:    // 주문 버튼
-                intent = new Intent(getApplicationContext(), kr.co.fos.client.order.InquiryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.basketBtn:    // 장바구니 버튼
-                intent = new Intent(getApplicationContext(), kr.co.fos.client.basket.InquiryActivity.class);
-                startActivity(intent);
-                break;
-
         }
         //검색
 

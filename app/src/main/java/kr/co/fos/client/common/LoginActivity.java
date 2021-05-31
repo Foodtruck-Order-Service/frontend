@@ -33,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     Retrofit client;
     HttpInterface service;
 
@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.loginBtn:    // 로그인 버튼
-                login(idText.getText().toString(),pwText.getText().toString());
+                login(idText.getText().toString(), pwText.getText().toString());
 
                 break;
             case R.id.signUpBtn:    // 회원가입 버튼
@@ -116,23 +116,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Boolean check = false;
                     Gson gson = new Gson();
                     List<Member> memberList = response.body();
-                    if(!memberList.toString().equals("[]")){
+                    if (!memberList.toString().equals("[]")) {
                         check = true;
                     }
-                    if(check == true) {
-                        if(memberList.get(0).getType().equals("M")) {
-                            SharedPreference.setAttribute(getApplicationContext(),"no",String.valueOf(memberList.get(0).getNo()));
-                            intent = new Intent(getApplicationContext(),MainActivity.class);
-                            startActivity(intent);
-                        } else if(memberList.get(0).getType().equals("B")){
-                            SharedPreference.setAttribute(getApplicationContext(),"no",String.valueOf(memberList.get(0).getNo()));
-                            intent = new Intent(getApplicationContext(),BusinessActivity.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
-                            idText.setText(null);
-                            pwText.setText(null);
-                        }
+                    if (check == true) {
+                        SharedPreference.setAttribute(getApplicationContext(), "no", String.valueOf(memberList.get(0).getNo()));
+                        SharedPreference.setAttribute(getApplicationContext(), "type", String.valueOf(memberList.get(0).getType()));
+                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+
 
                     } else {
                         Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -145,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 System.out.println("응답");
             }
+
             @Override
             public void onFailure(Call<List<Member>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
