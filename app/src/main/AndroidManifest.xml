@@ -27,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".common.LoginActivity" />
-        <activity android:name=".common.BusinessActivity" />
 
         <!-- member -->
         <activity android:name=".member.FindId1Activity" />
@@ -73,6 +72,9 @@
 
         <!-- sales -->
         <activity android:name=".sales.InquiryAcivity" />
+
+        <!-- basket -->
+        <activity android:name=".basket.InquiryActivity"/>
     </application>
 
 </manifest>
