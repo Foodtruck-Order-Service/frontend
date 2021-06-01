@@ -134,21 +134,21 @@ public class registerActivity extends AppCompatActivity {
             }
         });
 
-        introduceBtn.setOnClickListener(new View.OnClickListener(){
+        /*introduceBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.DetailInquiryActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
-        reviewBtn.setOnClickListener(new View.OnClickListener(){
+       /* reviewBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         //리뷰 등록 부분
         reviewRegisterBtn.setOnClickListener(new View.OnClickListener(){
@@ -168,8 +168,8 @@ public class registerActivity extends AppCompatActivity {
                 System.out.println(review);
                 reviewRegister(review);
 
-                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
+                startActivity(intent);*/
             }
         });
 
