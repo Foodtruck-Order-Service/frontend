@@ -90,7 +90,7 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             loginButton.setText("로그아웃");
         }
 
-        bookmarkSwitch.setChecked(true);
+        /*bookmarkSwitch.setChecked(true);*/
         foodtruckNameTextView.setText(foodtruck.getName());
 
         fragmentManager = getSupportFragmentManager();
@@ -99,7 +99,7 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
         transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
-
+        bookmarkInquiry(String.valueOf(foodtruck.getNo()));
         // 메뉴 버튼 클릭 시.
         menuButton.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -167,31 +167,21 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         service = client.create(HttpInterface.class);
     }
 
-    //즐겨찾기 조회
+    //즐겨찾기 조회(스위치 기본값 설정)
     public void bookmarkInquiry(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 저장한다.
-        SharedPreferences pref =getSharedPreferences("test", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("memberNo","2" );
-        editor.commit();
-
         //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        SharedPreferences prefImport = getSharedPreferences("test", MODE_PRIVATE);
-        String memberNo = prefImport.getString("memberNo","");
+        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
         bookmark.setMemberNo(memberNo);
         bookmark.setFoodtruckNo(foodtruckNo);
-        System.out.println("즐겨찾기 조회 bookmarkINquiry");
-        Call<ResponseBody> call = service.bookmarkInquiry(Integer.parseInt(memberNo), Integer.parseInt(foodtruckNo));
 
+        Call<ResponseBody> call = service.bookmarkInquiry(Integer.parseInt(memberNo), Integer.parseInt(foodtruckNo));
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("즐겨찾기 등록 성공");
-
                     if(response.body().string() != "" ){
                         bookmarkSwitch.setChecked(true);
                     } else {
@@ -205,23 +195,15 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
-
             }
         });
 
     }
 
-    //즐겨찾기 등록
+    //즐겨찾기 등록(스위치 ON)
     public void bookmarkRegister(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 저장한다.
-        SharedPreferences pref =getSharedPreferences("test", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("memberNo","2" );
-        editor.commit();
-
         //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        SharedPreferences prefImport = getSharedPreferences("test", MODE_PRIVATE);
-        String memberNo = prefImport.getString("memberNo","");
+        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
@@ -229,12 +211,10 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         bookmark.setFoodtruckNo(foodtruckNo);
 
         Call<ResponseBody> call = service.bookmarkRegister(bookmark);
-
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("즐겨찾기 등록 성공");
                     System.out.println(response.body().string());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -249,17 +229,10 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
     }
 
-    //즐겨찾기 삭제
+    //즐겨찾기 삭제(스위치 OFF)
     public void bookmarkDelete(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 저장한다.
-        SharedPreferences pref =getSharedPreferences("test", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("memberNo","2" );
-        editor.commit();
-
         //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        SharedPreferences prefImport = getSharedPreferences("test", MODE_PRIVATE);
-        String memberNo = prefImport.getString("memberNo","");
+        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
@@ -271,7 +244,6 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("즐겨찾기 삭제 성공");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
