@@ -69,7 +69,9 @@ public class UpdateFragment  extends Fragment implements View.OnClickListener {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.foodtruck_manage_fragment, container, false);
 
-        foodtruck = (Foodtruck) this.getActivity().getIntent().getSerializableExtra("foodtruck");
+        Bundle bundle = getArguments();
+
+        foodtruck = (Foodtruck) bundle.getSerializable("foodtruck");
 
         setRetrofitInit();
 
@@ -109,6 +111,14 @@ public class UpdateFragment  extends Fragment implements View.OnClickListener {
 
         photo_btn.setOnClickListener(this);
         submit_btn.setOnClickListener(this);
+
+        // 푸드트럭 값 입력
+        businessEdit.setText(foodtruck.getBrn());
+        foodtruckNameEdit.setText(foodtruck.getName());
+        contentEdit.setText(foodtruck.getContent());
+
+        btnchangetime.setText(foodtruck.getStartTime());
+        btnchangetime2.setText(foodtruck.getEndTime());
 
         return rootView;
     }
@@ -190,6 +200,13 @@ public class UpdateFragment  extends Fragment implements View.OnClickListener {
 
     // 푸드트럭 수정
     public void foodtruckUpdate() {
+        foodtruck.setBrn(businessEdit.getText().toString());
+        foodtruck.setName(foodtruckNameEdit.getText().toString());
+        foodtruck.setCategory(categorySpinner.getSelectedItem().toString());
+        foodtruck.setStartTime(btnchangetime.getText().toString());
+        foodtruck.setEndTime(btnchangetime2.getText().toString());
+        foodtruck.setContent(contentEdit.getText().toString());
+
         Call<ResponseBody> call = service.foodtruckUpdate(foodtruck.getNo(), foodtruck);
         call.enqueue(new Callback<ResponseBody>() {
             @Override

@@ -57,7 +57,7 @@ public class BusinessStartActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.foodtruck_location);
+        setContentView(R.layout.foodtruck_business_start);
 
         setRetrofitInit();
 

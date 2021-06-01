@@ -2,6 +2,7 @@ package kr.co.fos.client.foodtruck;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.daum.mf.map.api.MapCircle;
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
@@ -44,6 +49,7 @@ public class LocationActivity  extends AppCompatActivity {
     SearchView searchView;
 
     MapView mapView;
+    ViewGroup mapViewContainer;
 
     Button loginBtn;
 
@@ -63,8 +69,30 @@ public class LocationActivity  extends AppCompatActivity {
 
         mapView = new MapView(this);
 
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+
+        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(37.5373752800, 127.0055763300);
+        // 중심점 변경 + 줌 레벨 변경
+        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 3, true);
+
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName("내 위치");
+        marker.setMapPoint(MARKER_POINT);
+        marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mapView.addPOIItem(marker);
+
+        MapCircle circle1 = new MapCircle(
+                MARKER_POINT, // center
+                300, // radius
+                Color.argb(128, 255, 0, 0), // strokeColor
+                Color.argb(0, 0, 0, 0) // fillColor
+        );
+
+        mapView.addCircle(circle1);
 
         if (intent != null) {
             String name = intent.getStringExtra("name");
@@ -72,13 +100,89 @@ public class LocationActivity  extends AppCompatActivity {
         }
 
         loginBtn = findViewById(R.id.loginBtn);
-        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
+        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "no") != null;
 
-        if(!loginCheck) {
+        if(loginCheck) {
             loginBtn.setText("로그아웃");
         }
 
         foodtruckLocationSearch();
+
+        mapView.setMapViewEventListener(new MapView.MapViewEventListener() {
+
+            @Override
+            public void onMapViewInitialized(MapView mapView) {
+
+            }
+
+            @Override
+            public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+
+            }
+
+            @Override
+            public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+            }
+        });
+
+        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+                Toast.makeText(getBaseContext(),"마커 클릭",Toast.LENGTH_SHORT).show();
+                Foodtruck foodtruck = (Foodtruck) mapPOIItem.getUserObject();
+
+                Intent intent = new Intent(getBaseContext(), FoodtruckMainActivity.class);
+                intent.putExtra("foodtruck", foodtruck);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        });
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -100,8 +204,8 @@ public class LocationActivity  extends AppCompatActivity {
         loginBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                if(loginCheck) {
+                    SharedPreference.removeAttribute(getApplicationContext(),"no");
                     loginBtn.setText("로그인");
                     Toast.makeText(LocationActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -137,8 +241,8 @@ public class LocationActivity  extends AppCompatActivity {
             foodtrucks = new ArrayList<Foodtruck>();
         }
 
-        double lat = 0.0;
-        double lng = 0.0;
+        double lat = 37.5373752800;
+        double lng = 127.0055763300;
 
         Call<List<Foodtruck>> call = service.foodtruckLocationSearch(lat, lng);
         call.enqueue(new Callback<List<Foodtruck>>() {
@@ -148,7 +252,19 @@ public class LocationActivity  extends AppCompatActivity {
                     foodtrucks = response.body();
 
                     for (Foodtruck item : foodtrucks) {
-                        System.out.println(item.getName());
+                        MapPOIItem marker = new MapPOIItem();
+
+                        marker.setItemName(item.getName());
+                        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(item.getLat(), item.getLng()));
+                        marker.setTag(item.getNo());
+                        marker.setUserObject(item);
+                        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
+                        marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+                        marker.setCustomImageResourceId(R.drawable.foodtruck_icon); // 마커 이미지.
+                        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                        marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+
+                        mapView.addPOIItem(marker);
                     }
 
                 } catch (Exception e) {
@@ -160,5 +276,12 @@ public class LocationActivity  extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Nullable
+    @Override
+    public void onPause() {
+        mapViewContainer.removeAllViews();
+        super.onPause();
     }
 }

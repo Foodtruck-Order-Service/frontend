@@ -58,13 +58,21 @@ public class FoodtruckMainActivity extends AppCompatActivity {
     // Fragment
     FragmentManager fragmentManager;
     FragmentTransaction transaction;
+
+    // Member Fragment
     DetailInquiryFragment detailInquiryFragment;
     InfoFragment infoFragment;
     InquiryFragment reviewFragment;
 
+    //Business Fragment
+    UpdateFragment updateFragment;
+
     // data
     Foodtruck foodtruck;
-    Boolean loginCheck;
+    boolean loginCheck;
+    boolean myFoodtruckCheck;
+    int memberNo;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,31 +90,65 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         introduceButton = (Button)findViewById(R.id.introduceButton);
         reviewButton = (Button)findViewById(R.id.reviewButton);
 
-        bookmarkSwitch = (Switch)findViewById(R.id.bookmarkSwitch);
+        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "no") != null;
 
-        loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
+        if(loginCheck) {
+            memberNo = Integer.parseInt(SharedPreference.getAttribute(getApplicationContext(), "no"));
+            type = SharedPreference.getAttribute(getApplicationContext(), "type");
 
-        if(!loginCheck) {
+            myFoodtruckCheck = memberNo == foodtruck.getMemberNo();
+
             loginButton.setText("로그아웃");
+
+            if (myFoodtruckCheck) {
+                introduceButton.setText("정보");
+            } else if (type.equals("M")){
+                bookmarkSwitch = (Switch)findViewById(R.id.bookmarkSwitch);
+                bookmarkSwitch.setVisibility(View.VISIBLE);
+
+                bookmarkInquiry();
+
+                // 즐겨찾기
+                bookmarkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                        if(isChecked){
+                            bookmarkRegister();
+                        }else if (!isChecked){
+                            bookmarkDelete();
+                        }
+                    }
+                });
+            }
         }
 
-        /*bookmarkSwitch.setChecked(true);*/
         foodtruckNameTextView.setText(foodtruck.getName());
 
         fragmentManager = getSupportFragmentManager();
 
-        detailInquiryFragment = new DetailInquiryFragment();
-
         transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
-        bookmarkInquiry(String.valueOf(foodtruck.getNo()));
+
+        if (myFoodtruckCheck) {
+            detailInquiryFragment = new DetailInquiryFragment();
+            transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+        } else {
+            detailInquiryFragment = new DetailInquiryFragment();
+            transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+        }
+
         // 메뉴 버튼 클릭 시.
         menuButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 transaction = fragmentManager.beginTransaction();
-                detailInquiryFragment = new DetailInquiryFragment();
-                transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+
+                if (myFoodtruckCheck) {
+                    detailInquiryFragment = new DetailInquiryFragment();
+                    transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+                } else {
+                    detailInquiryFragment = new DetailInquiryFragment();
+                    transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+                }
             }
         });
 
@@ -115,8 +157,18 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 transaction = fragmentManager.beginTransaction();
-                infoFragment = new InfoFragment();
-                transaction.replace(R.id.frameLayout, infoFragment).commitAllowingStateLoss();
+
+                if (myFoodtruckCheck) {
+                    updateFragment = new UpdateFragment();
+                    transaction.replace(R.id.frameLayout, updateFragment).commitAllowingStateLoss();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("foodtruck", foodtruck);
+                    updateFragment.setArguments(bundle);
+                } else {
+                    infoFragment = new InfoFragment();
+                    transaction.replace(R.id.frameLayout, infoFragment).commitAllowingStateLoss();
+                }
             }
         });
 
@@ -130,26 +182,19 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             }
         });
 
-        // 즐겨찾기
-        bookmarkSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    bookmarkRegister("2");
-                }else if (!isChecked){
-                    bookmarkDelete("2");
-                }
-            }
-        });
-
         // 로그인 버튼 클릭 시.
         loginButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                if(loginCheck) {
+                    SharedPreference.removeAttribute(getApplicationContext(),"no");
+                    SharedPreference.removeAttribute(getApplicationContext(),"type");
                     loginButton.setText("로그인");
                     Toast.makeText(FoodtruckMainActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), FoodtruckMainActivity.class);
+                    intent.putExtra("foodtruck", foodtruck);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
@@ -168,16 +213,13 @@ public class FoodtruckMainActivity extends AppCompatActivity {
     }
 
     //즐겨찾기 조회(스위치 기본값 설정)
-    public void bookmarkInquiry(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
-
+    public void bookmarkInquiry() {
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
         bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setFoodtruckNo(foodtruck.getNo());
 
-        Call<ResponseBody> call = service.bookmarkInquiry(Integer.parseInt(memberNo), Integer.parseInt(foodtruckNo));
+        Call<ResponseBody> call = service.bookmarkInquiry(memberNo, foodtruck.getNo());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -201,14 +243,11 @@ public class FoodtruckMainActivity extends AppCompatActivity {
     }
 
     //즐겨찾기 등록(스위치 ON)
-    public void bookmarkRegister(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
-
+    public void bookmarkRegister() {
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
         bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setFoodtruckNo(foodtruck.getNo());
 
         Call<ResponseBody> call = service.bookmarkRegister(bookmark);
         call.enqueue(new Callback<ResponseBody>() {
@@ -230,14 +269,11 @@ public class FoodtruckMainActivity extends AppCompatActivity {
     }
 
     //즐겨찾기 삭제(스위치 OFF)
-    public void bookmarkDelete(String foodtruckNo) {
-        //sharedPreferences안의 로그인 정보속 회원 번호를 가져온다.
-        String memberNo = SharedPreference.getAttribute(getApplicationContext(),"no");
-
+    public void bookmarkDelete() {
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
         bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setFoodtruckNo(foodtruck.getNo());
 
         Call<ResponseBody> call = service.bookmarkDelete(bookmark);
         call.enqueue(new Callback<ResponseBody>() {

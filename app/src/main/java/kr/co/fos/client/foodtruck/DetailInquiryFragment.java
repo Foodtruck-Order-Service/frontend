@@ -20,6 +20,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +45,9 @@ public class DetailInquiryFragment extends Fragment {
     Retrofit client;
     HttpInterface service;
 
+    MapView mapView;
+    ViewGroup mapViewContainer;
+
     ListView listView;
     MenuAdapter adapter;
 
@@ -56,6 +63,100 @@ public class DetailInquiryFragment extends Fragment {
 
         foodtruck = (Foodtruck) getActivity().getIntent().getSerializableExtra("foodtruck");
 
+        // map
+        mapView = new MapView(getActivity());
+
+        mapViewContainer = (ViewGroup) rootView.findViewById(R.id.map_view);
+
+        mapViewContainer.addView(mapView);
+
+        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(foodtruck.getLat(), foodtruck.getLng());
+
+        // 중심점 변경 + 줌 레벨 변경
+        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 1, true);
+
+        MapPOIItem marker = new MapPOIItem();
+        marker.setItemName(foodtruck.getName());
+        marker.setTag(0);
+        marker.setMapPoint(MARKER_POINT);
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
+        marker.setCustomImageResourceId(R.drawable.foodtruck_icon); // 마커 이미지.
+        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+        marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+
+        mapView.addPOIItem(marker);
+
+        mapView.setMapViewEventListener(new MapView.MapViewEventListener() {
+
+            @Override
+            public void onMapViewInitialized(MapView mapView) {
+
+            }
+
+            @Override
+            public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewZoomLevelChanged(MapView mapView, int i) {
+
+            }
+
+            @Override
+            public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
+
+            }
+
+            @Override
+            public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
+
+            }
+        });
+
+        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        });
+
+        // list
         listView = (ListView) rootView.findViewById(R.id.listView);
 
         adapter = new MenuAdapter();
@@ -114,5 +215,12 @@ public class DetailInquiryFragment extends Fragment {
                 Toast.makeText(getActivity().getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Nullable
+    @Override
+    public void onPause() {
+        mapViewContainer.removeAllViews();
+        super.onPause();
     }
 }

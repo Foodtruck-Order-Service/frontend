@@ -109,7 +109,6 @@
                     android:scaleType="fitCenter"
                     android:textSize="22sp" />
 
-
                 <EditText
                     android:id="@+id/foodtruckNameEdit"
                     android:layout_width="match_parent"
@@ -168,7 +167,6 @@
                     android:scaleType="fitCenter"
                     android:textSize="22sp" />
 
-
                 <TextView
                     android:id="@+id/foodtruckPhotoNameView"
                     android:layout_width="match_parent"
@@ -210,7 +208,7 @@
             android:id="@+id/submitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원가입"
+            android:text="수정"
             android:textSize="34sp" />
 
     </LinearLayout>
