@@ -65,10 +65,6 @@
         <activity android:name=".order.InquiryActivity" />
         <activity android:name=".order.NumberActivity" />
 
-        <!-- review -->
-        <activity android:name=".review.registerActivity" />
-        <activity android:name=".review.UpdateActivity" />
-
         <!-- sales -->
         <activity android:name=".sales.InquiryAcivity" />
 
