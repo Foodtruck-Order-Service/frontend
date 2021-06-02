@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.foodtruck.BusinessStartActivity;
+import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
 import kr.co.fos.client.foodtruck.SearchResultActivity;
 import kr.co.fos.client.member.MyInfoActivity;
 import kr.co.fos.client.menu.InfoActivity;
@@ -54,8 +55,9 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
                 startActivity(intent);
                 break;
             case R.id.foodtruckManageBtn:    // 푸드트럭 관리 버튼
-                intent = new Intent(getContext(), InfoActivity.class);
-                startActivity(intent);
+                // 나중에 추가해야함
+              //  intent = new Intent(getContext(), FoodtruckMainActivity.class);
+              //  startActivity(intent);
                 break;
             case R.id.orderManageBtn:    // 주문 관리 버튼
                 intent = new Intent(getContext(), BusinessInquiryActivity.class);

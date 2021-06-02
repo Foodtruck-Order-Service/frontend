@@ -118,7 +118,7 @@ public class UpdateActivity extends AppCompatActivity {
         introduceBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.DetailInquiryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.FoodtruckMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -126,7 +126,7 @@ public class UpdateActivity extends AppCompatActivity {
         reviewBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.FoodtruckMainActivity.class);
                 startActivity(intent);
             }
         });
@@ -150,7 +150,7 @@ public class UpdateActivity extends AppCompatActivity {
                 System.out.println(review);
                 reviewUpdate(15, review);
 
-                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.review.InquiryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), kr.co.fos.client.foodtruck.FoodtruckMainActivity.class);
                 startActivity(intent);
             }
         });

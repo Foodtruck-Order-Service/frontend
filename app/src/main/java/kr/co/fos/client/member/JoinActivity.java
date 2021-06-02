@@ -98,7 +98,8 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.signUpBtn:    // 회원가입, 다음 버튼
-                if (idCheck && emailCheck && ssnCheck(rrnEditText.getText().toString())) {
+               // if (idCheck && emailCheck && ssnCheck(rrnEditText.getText().toString())) {
+                if (idCheck && emailCheck ) {
                     Member member = new Member();
                     member.setId(idEditText.getText().toString());
                     member.setPassword(pwEditText.getText().toString());
@@ -126,9 +127,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                     }
-                } else if ( ssnCheck(rrnEditText.getText().toString()) == false) {
+                }
+               /* else if ( ssnCheck(rrnEditText.getText().toString()) == false) {
                     Toast.makeText(getApplicationContext(), "주민등록번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
-                } else {
+                } */
+                else {
                     Toast.makeText(getApplicationContext(), "중복확인 및 이메일 체크를 해주십시오.", Toast.LENGTH_SHORT).show();
                 }
 
