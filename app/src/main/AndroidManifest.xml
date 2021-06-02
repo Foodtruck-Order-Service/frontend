@@ -54,7 +54,6 @@
         </activity>
 
         <!-- menu -->
-        <activity android:name=".menu.InquiryActivity" />
         <activity android:name=".menu.RegisterActivity" />
         <activity android:name=".menu.UpdateActivity" />
 

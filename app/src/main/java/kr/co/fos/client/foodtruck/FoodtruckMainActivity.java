@@ -66,6 +66,7 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
     //Business Fragment
     UpdateFragment updateFragment;
+    kr.co.fos.client.menu.InquiryFragment menuInquiryFragment;
 
     // data
     Foodtruck foodtruck;
@@ -129,8 +130,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
 
         if (myFoodtruckCheck) {
-            detailInquiryFragment = new DetailInquiryFragment();
-            transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+            menuInquiryFragment = new kr.co.fos.client.menu.InquiryFragment();
+            transaction.replace(R.id.frameLayout, menuInquiryFragment).commitAllowingStateLoss();
         } else {
             detailInquiryFragment = new DetailInquiryFragment();
             transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
@@ -143,8 +144,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
                 transaction = fragmentManager.beginTransaction();
 
                 if (myFoodtruckCheck) {
-                    detailInquiryFragment = new DetailInquiryFragment();
-                    transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
+                    menuInquiryFragment = new kr.co.fos.client.menu.InquiryFragment();
+                    transaction.replace(R.id.frameLayout, menuInquiryFragment).commitAllowingStateLoss();
                 } else {
                     detailInquiryFragment = new DetailInquiryFragment();
                     transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
