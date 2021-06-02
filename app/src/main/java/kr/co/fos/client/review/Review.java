@@ -2,6 +2,7 @@ package kr.co.fos.client.review;
 
 import java.sql.Date;
 import java.io.Serializable;
+import java.util.Arrays;
 
 import kr.co.fos.client.member.Member;
 
@@ -12,6 +13,7 @@ public class Review implements Serializable {
     private String grade;
     private String content;
     private String registDate;
+
 
     private String id;
 
@@ -26,7 +28,6 @@ public class Review implements Serializable {
         this.content = content;
         this.registDate = registDate;
         this.id = id;
-
     }
 
     public void setNo(int no) {

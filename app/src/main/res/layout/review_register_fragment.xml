@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/fullLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="337dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ratingTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="right"
+                    android:text="평점"
+                    android:textAlignment="textEnd"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/contentTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="right"
+                    android:text="내용"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/photoTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:fontFamily="sans-serif-black"
+
+                    android:gravity="right"
+                    android:text="사진"
+                    android:textAllCaps="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:progressBackgroundTint="#F3C34A"
+                    android:progressTint="#F44109"
+                    android:rating="0"
+
+                    android:stepSize="1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/reviewContentEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/edge"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/photoEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edge"
+                    android:ems="10"
+                    android:inputType="textPersonName" />
+
+                <Button
+                    android:id="@+id/photoRegisterbtn"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:text="등록" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reviewRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:orientation="vertical"
+            android:text="리뷰 등록" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
