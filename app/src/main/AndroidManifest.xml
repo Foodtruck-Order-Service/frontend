@@ -27,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".common.LoginActivity" />
-        <activity android:name=".common.BusinessActivity" />
 
         <!-- member -->
         <activity android:name=".member.FindId1Activity" />
@@ -55,7 +54,6 @@
         </activity>
 
         <!-- menu -->
-        <activity android:name=".menu.InquiryActivity" />
         <activity android:name=".menu.RegisterActivity" />
         <activity android:name=".menu.UpdateActivity" />
 
@@ -73,6 +71,12 @@
 
         <!-- sales -->
         <activity android:name=".sales.InquiryAcivity" />
+
+        <!-- basket -->
+        <activity android:name=".basket.InquiryActivity"/>
+
+        <!-- bookmark -->
+        <activity android:name=".bookmark.InquiryActivity" />
     </application>
 
 </manifest>

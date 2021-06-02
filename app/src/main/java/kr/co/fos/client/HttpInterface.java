@@ -69,7 +69,7 @@ public interface HttpInterface {
     @GET("/foodtruck")
     Call<List<Foodtruck>> foodtruckInquiry(@Query("name") String name, @Query("category") String category);
 
-    @GET("/foodtruck")
+    @POST("/foodtruck/location")
     Call<List<Foodtruck>> foodtruckLocationSearch(@Query("lat") double lat, @Query("lng") double lng);
 
     @PUT("/foodtruck/{no}")
@@ -128,7 +128,7 @@ public interface HttpInterface {
     Call<ResponseBody> reviewInquiry(@Query("no") int no);
 
     @GET("/review/{no}")
-    Call<ResponseBody> reviewDetailInquiry(@Path("no") int no);
+    Call<ResponseBody> reviewDetailInquiry(@Path("no") int memberNo, @Query("foodtruckNo")int foodtruckNo);
 
     @POST("/review")
     Call<ResponseBody> reviewRegister(@Body Review review);
