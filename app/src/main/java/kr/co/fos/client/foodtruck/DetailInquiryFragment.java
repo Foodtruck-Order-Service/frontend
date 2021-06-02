@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -170,9 +171,20 @@ public class DetailInquiryFragment extends Fragment {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
                 Menu item = (Menu) parent.getItemAtPosition(position) ;
-                Intent intent = new Intent(getActivity().getApplicationContext(), kr.co.fos.client.menu.DetailInquiryActivity.class);
-                intent.putExtra("menu", item);
-                startActivity(intent);
+
+                kr.co.fos.client.menu.DetailInquiryFragment menuDetailInquiryFragment = new kr.co.fos.client.menu.DetailInquiryFragment();
+
+                Bundle bundle = new Bundle(1);
+                bundle.putInt("menuNo", item.getNo());
+                menuDetailInquiryFragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                transaction.replace(R.id.frameLayout, menuDetailInquiryFragment);
+                transaction.addToBackStack(null);
+
+                transaction.commitAllowingStateLoss();
             }
         }) ;
 

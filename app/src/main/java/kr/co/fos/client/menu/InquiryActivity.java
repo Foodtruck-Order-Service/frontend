@@ -10,7 +10,7 @@ public class InquiryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_inquiry);
+        setContentView(R.layout.menu_inquiry_fragment);
     }
 
     //즐겨찾기

@@ -8,16 +8,18 @@ public class OptionValue implements Serializable {
     private int optionNo;
     private String optionValue;
     private String addAmount;
+    private boolean isChecked;
 
     public OptionValue() {
 
     }
 
-    public OptionValue(int no, int optionNo, String optionValue, String addAmount, int itemStart, int itemSizePerPage) {
+    public OptionValue(int no, int optionNo, String optionValue, String addAmount, int itemStart, int itemSizePerPage, boolean isChecked) {
         this.no = no;
         this.optionNo = optionNo;
         this.optionValue = optionValue;
         this.addAmount = addAmount;
+        this.isChecked = isChecked;
     }
 
     public void setNo(int no) {
@@ -50,5 +52,24 @@ public class OptionValue implements Serializable {
 
     public String getAddAmount() {
         return this.addAmount;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    @Override
+    public String toString() {
+        return "OptionValue{" +
+                "no=" + no +
+                ", optionNo=" + optionNo +
+                ", optionValue='" + optionValue + '\'' +
+                ", addAmount='" + addAmount + '\'' +
+                ", isChecked=" + isChecked +
+                '}';
     }
 }

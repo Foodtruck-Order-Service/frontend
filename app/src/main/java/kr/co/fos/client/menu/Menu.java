@@ -2,7 +2,9 @@ package kr.co.fos.client.menu;
 
 import java.sql.Date;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Menu implements Serializable {
     private int no;
@@ -81,5 +83,37 @@ public class Menu implements Serializable {
 
     public void setOptions(List<Option> options) {
         this.options = options;
+    }
+
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "no=" + no +
+                ", foodtruckNo=" + foodtruckNo +
+                ", name='" + name + '\'' +
+                ", amount='" + amount + '\'' +
+                ", cookingTime='" + cookingTime + '\'' +
+                ", content='" + content + '\'' +
+                ", options=" + Arrays.asList(options).toString() +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Menu)) return false;
+        Menu menu = (Menu) o;
+        return no == menu.no &&
+                foodtruckNo == menu.foodtruckNo &&
+                Objects.equals(name, menu.name) &&
+                Objects.equals(amount, menu.amount) &&
+                Objects.equals(cookingTime, menu.cookingTime) &&
+                Objects.equals(content, menu.content) &&
+                Objects.equals(options, menu.options);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(no, foodtruckNo, name, amount, cookingTime, content, options);
     }
 }

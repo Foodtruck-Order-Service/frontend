@@ -74,7 +74,7 @@ public class LocationActivity  extends AppCompatActivity {
 
         MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(37.5373752800, 127.0055763300);
         // 중심점 변경 + 줌 레벨 변경
-        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 3, true);
+        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 1, true);
 
         MapPOIItem marker = new MapPOIItem();
         marker.setItemName("내 위치");

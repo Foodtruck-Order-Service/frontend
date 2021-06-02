@@ -75,6 +75,9 @@
 
         <!-- basket -->
         <activity android:name=".basket.InquiryActivity"/>
+
+        <!-- bookmark -->
+        <activity android:name=".bookmark.InquiryActivity" />
     </application>
 
 </manifest>
