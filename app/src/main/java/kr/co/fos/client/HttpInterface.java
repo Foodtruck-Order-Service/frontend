@@ -29,7 +29,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface HttpInterface {
-    public static final String API_URL = "http://192.168.35.111:8080";
+    public static final String API_URL = "http://222.117.135.101:8090";
     // @Query = GET   @Field = POST, PUT, DELETE  @Path = /member/{no}   이런거
     //공통
     @GET("/foodtruck")
@@ -109,12 +109,13 @@ public interface HttpInterface {
 
     @POST("/order")
     Call<ResponseBody> payment(@Body Order order);
-
+    //추가
     @GET("/order")
-    Call<ResponseBody> orderInquiry(@Query("no") int no);
+    Call<ResponseBody> orderInquiry(@Query("memberNo") int no);
 
+    //추가
     @PUT("/order/{no}")
-    Call<ResponseBody> orderCancle(@Path("no") int no);
+    Call<ResponseBody> orderCancle(@Path("no") int no, @Body Order Order);
 
     @GET("/order/{no}")
     Call<ResponseBody> orderDetailInquiry(@Path("no") int no);

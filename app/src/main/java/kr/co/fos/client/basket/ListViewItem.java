@@ -9,47 +9,47 @@ import kr.co.fos.client.menu.Option;
 import kr.co.fos.client.order.OrderInfo;
 
 public class ListViewItem {
-    private String no;
-    private String memberNo;
-    private String foodtruckNo;
-    private String receptionNo;
+    private int no;
+    private int memberNo;
+    private int foodtruckNo;
+    private int receptionNo;
     private String name;
     private List<Option> options;
-    private int amount;
+    private String amount;
     private int count;
 
     public ListViewItem() {
     }
 
-    public String getNo() {
+    public int getNo() {
         return no;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getMemberNo() {
+    public int getMemberNo() {
         return memberNo;
     }
 
-    public void setMemberNo(String memberNo) {
+    public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
 
-    public String getFoodtruckNo() {
+    public int getFoodtruckNo() {
         return foodtruckNo;
     }
 
-    public void setFoodtruckNo(String foodtruckNo) {
+    public void setFoodtruckNo(int foodtruckNo) {
         this.foodtruckNo = foodtruckNo;
     }
 
-    public String getReceptionNo() {
+    public int getReceptionNo() {
         return receptionNo;
     }
 
-    public void setReceptionNo(String receptionNo) {
+    public void setReceptionNo(int receptionNo) {
         this.receptionNo = receptionNo;
     }
 
@@ -69,11 +69,11 @@ public class ListViewItem {
         this.options = options;
     }
 
-    public int getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
@@ -84,4 +84,5 @@ public class ListViewItem {
     public void setCount(int count) {
         this.count = count;
     }
+
 }

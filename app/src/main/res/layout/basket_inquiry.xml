@@ -37,11 +37,17 @@
         </LinearLayout>
 
         <fragment
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/customlistfragment"
             android:name="kr.co.fos.client.basket.CustomListFragment"
-            tools:layout="@layout/basket_inquiry"/>
+            android:layout_width="match_parent"
+            android:layout_height="591dp" />
+
+        <Button
+            android:id="@+id/paymentBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="결제"
+            android:textSize="34sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

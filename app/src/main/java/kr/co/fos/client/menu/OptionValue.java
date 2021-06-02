@@ -13,7 +13,7 @@ public class OptionValue implements Serializable {
 
     }
 
-    public OptionValue(int no, int optionNo, String optionValue, String addAmount, int itemStart, int itemSizePerPage) {
+    public OptionValue(int no, int optionNo, String optionValue, String addAmount) {
         this.no = no;
         this.optionNo = optionNo;
         this.optionValue = optionValue;

@@ -4,7 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import kr.co.fos.client.menu.Menu;
+
 public class SharedPreference {
+    private static Set<Menu> basketList;
+
+    static {
+        if (basketList == null) {
+            basketList = new LinkedHashSet<Menu>();
+        }
+    }
+
     //값 저장
     public static void setAttribute(Context context, String key, String value) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -33,6 +46,15 @@ public class SharedPreference {
         SharedPreferences.Editor editor = pref.edit();
         editor.clear();
         editor.commit();
+    }
+
+    public static Set<Menu> getBasketList() {
+
+        return basketList;
+    }
+
+    public static void addBasketList(Menu menu) {
+        basketList.add(menu);
     }
 }
 
