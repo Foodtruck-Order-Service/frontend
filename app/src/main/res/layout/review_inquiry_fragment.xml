@@ -9,23 +9,35 @@
         android:id="@+id/fullLayout"
         android:layout_width="409dp"
         android:layout_height="728dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="456dp"
             tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="662dp" />
+            tools:layout_editor_absoluteY="662dp">
 
-        <Button
-            android:id="@+id/reviewRegisterButton"
+        </ListView>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:orientation="vertical"
-            android:text="리뷰 등록" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/reviewRegisterButton"
+                android:layout_width="200dp"
+                android:layout_height="47dp"
+                android:orientation="vertical"
+                android:text="리뷰 등록" />
+
+            <Button
+                android:id="@+id/reviewUpdateBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="리뷰 수정" />
+        </LinearLayout>
 
     </LinearLayout>
 

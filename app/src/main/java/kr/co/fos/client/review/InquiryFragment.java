@@ -1,11 +1,10 @@
 package kr.co.fos.client.review;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,20 +12,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.foodtruck.Foodtruck;
-import kr.co.fos.client.menu.Menu;
-import kr.co.fos.client.menu.MenuAdapter;
+import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +32,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class InquiryFragment  extends Fragment {
+public class InquiryFragment  extends Fragment{
+    FoodtruckMainActivity foodtruckMainActivity;
+
     Retrofit client;
     HttpInterface service;
 
@@ -45,11 +45,32 @@ public class InquiryFragment  extends Fragment {
     TextView registDateTextView;
 
     Button reviweRegisterButton;
+    Button reviewUpdateButton;
 
     ListView listView;
     ReviewAdapter adapter;
 
     Foodtruck foodtruck;
+    // Fragment
+    FragmentManager fragmentManager;
+    FragmentTransaction transaction;
+    RegisterFragment registerFragment;
+    InquiryFragment inquiryFragment;
+
+    Review reviewObj;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        foodtruckMainActivity = (FoodtruckMainActivity)getActivity();
+    }
+
+    public void onDetch(){
+        super.onDetach();
+
+        foodtruckMainActivity = null;
+    }
 
     @Nullable
     @Override
@@ -59,7 +80,7 @@ public class InquiryFragment  extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.review_inquiry_fragment, container, false);
 
         foodtruck = (Foodtruck) getActivity().getIntent().getSerializableExtra("foodtruck");
-
+        reviewObj = (Review) getActivity().getIntent().getSerializableExtra("review");
         foodtruckNameTextView = (TextView) rootView.findViewById(R.id.foodtruckName);
         gradeTextView = (TextView) rootView.findViewById(R.id.grade);
         idTextView = (TextView) rootView.findViewById(R.id.id);
@@ -67,6 +88,7 @@ public class InquiryFragment  extends Fragment {
         registDateTextView = (TextView) rootView.findViewById(R.id.registDate);
 
         reviweRegisterButton = (Button) rootView.findViewById(R.id.reviewRegisterButton);
+        reviewUpdateButton = (Button) rootView.findViewById(R.id.reviewUpdateBtn);
 
         listView = (ListView) rootView.findViewById(R.id.listView);
 
@@ -78,9 +100,14 @@ public class InquiryFragment  extends Fragment {
         reviweRegisterButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                // 프래그멘트로 변경해야함..
-                Intent intent = new Intent(getActivity().getApplicationContext(), kr.co.fos.client.review.registerActivity.class);
-                startActivity(intent);
+                foodtruckMainActivity.onFragmentChange(0);
+            }
+        });
+        reviewUpdateButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                foodtruckMainActivity.onFragmentChange(2);
             }
         });
 

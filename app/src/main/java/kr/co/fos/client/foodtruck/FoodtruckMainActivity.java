@@ -1,37 +1,26 @@
 package kr.co.fos.client.foodtruck;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.bookmark.Bookmark;
 import kr.co.fos.client.common.LoginActivity;
-import kr.co.fos.client.common.MainActivity;
-import kr.co.fos.client.member.Member;
-import kr.co.fos.client.menu.Menu;
-import kr.co.fos.client.menu.MenuAdapter;
 import kr.co.fos.client.review.InquiryFragment;
-import kr.co.fos.client.review.ReviewAdapter;
+import kr.co.fos.client.review.RegisterFragment;
+import kr.co.fos.client.review.UpdateFragment;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +50,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
     DetailInquiryFragment detailInquiryFragment;
     InfoFragment infoFragment;
     InquiryFragment reviewFragment;
+    RegisterFragment registerFragment;
+    UpdateFragment updateFragment;
 
     // data
     Foodtruck foodtruck;
@@ -157,7 +148,18 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             }
         });
     }
-
+    public void onFragmentChange(int index){
+        if(index == 0){
+            registerFragment = new RegisterFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, registerFragment).commit();
+        } else if(index == 1){
+            reviewFragment = new InquiryFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, reviewFragment).commit();
+        } else if (index == 2){
+            updateFragment = new UpdateFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, updateFragment).commit();
+        }
+    }
     private void setRetrofitInit() {
         client = new Retrofit.Builder()
                 .baseUrl(HttpInterface.API_URL)
@@ -174,8 +176,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
-        bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setMemberNo(Integer.parseInt(memberNo));
+        bookmark.setFoodtruckNo(Integer.parseInt(foodtruckNo));
 
         Call<ResponseBody> call = service.bookmarkInquiry(Integer.parseInt(memberNo), Integer.parseInt(foodtruckNo));
         call.enqueue(new Callback<ResponseBody>() {
@@ -207,8 +209,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
-        bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setMemberNo(Integer.parseInt(memberNo));
+        bookmark.setFoodtruckNo(Integer.parseInt(foodtruckNo));
 
         Call<ResponseBody> call = service.bookmarkRegister(bookmark);
         call.enqueue(new Callback<ResponseBody>() {
@@ -236,8 +238,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
         //bookmark객체에 회원번호, 푸드트럭 번호 저장
         Bookmark bookmark = new Bookmark();
-        bookmark.setMemberNo(memberNo);
-        bookmark.setFoodtruckNo(foodtruckNo);
+        bookmark.setMemberNo(Integer.parseInt(memberNo));
+        bookmark.setFoodtruckNo(Integer.parseInt(foodtruckNo));
 
         Call<ResponseBody> call = service.bookmarkDelete(bookmark);
         call.enqueue(new Callback<ResponseBody>() {

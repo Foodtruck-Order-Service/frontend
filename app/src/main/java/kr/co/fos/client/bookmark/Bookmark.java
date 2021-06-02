@@ -4,41 +4,41 @@ import java.sql.Date;
 import java.io.Serializable;
 
 public class Bookmark implements Serializable {
-    private String no;
-    private String memberNo;
-    private String foodtruckNo;
+    private int no;
+    private int memberNo;
+    private int foodtruckNo;
 
     public Bookmark() {
     }
 
-    public Bookmark(String no, String memberNo, String foodtruckNo) {
+    public Bookmark(int no, int memberNo, int foodtruckNo) {
         this.no = no;
         this.memberNo = memberNo;
         this.foodtruckNo = foodtruckNo;
 
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
+    public int getNo() {
         return this.no;
     }
 
-    public void setMemberNo(String memberNo) {
+    public void setMemberNo(int memberNo) {
         this.memberNo = memberNo;
     }
 
-    public String getMemberNo() {
+    public int getMemberNo() {
         return this.memberNo;
     }
 
-    public void setFoodtruckNo(String foodtruckNo) {
+    public void setFoodtruckNo(int foodtruckNo) {
         this.foodtruckNo = foodtruckNo;
     }
 
-    public String getFoodtruckNo() {
+    public int getFoodtruckNo() {
         return this.foodtruckNo;
     }
 
