@@ -36,10 +36,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     EditText nameEditText;
     EditText rrnEditText;
     EditText emailEditText;
-    Button emailCheckBtn;
+
     EditText phoneEditText;
     Button updateBtn;
-    Boolean emailCheck = false;
+    Boolean emailCheck = true;
     Intent intent;
     Member member;
     int no;
@@ -54,11 +54,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         nameEditText = findViewById(R.id.nameEditText);
         rrnEditText = findViewById(R.id.rrnEditText);
         emailEditText = findViewById(R.id.emailEditText);
-        emailCheckBtn = findViewById(R.id.emailCheckBtn);
+
         phoneEditText = findViewById(R.id.phoneEditText);
         updateBtn = findViewById(R.id.updateBtn);
 
-        emailCheckBtn.setOnClickListener(this);
         updateBtn.setOnClickListener(this);
         setRetrofitInit();
         no = Integer.valueOf(SharedPreference.getAttribute(getApplicationContext(), "no"));
@@ -77,10 +76,6 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.emailCheckBtn:    // 이메일 중복확인 버튼
-                emailCertification();
-
-                break;
             case R.id.updateBtn:    // 수정버튼
                 intent = new Intent(this, PopupActivity.class);
                 intent.putExtra("data", "정말로 수정하겠습니까?");

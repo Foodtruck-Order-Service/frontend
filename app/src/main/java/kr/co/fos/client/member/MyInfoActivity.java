@@ -80,7 +80,6 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-
     private void setRetrofitInit() {
         client = new Retrofit.Builder()
                 .baseUrl(HttpInterface.API_URL)
@@ -101,7 +100,7 @@ public class MyInfoActivity extends AppCompatActivity implements View.OnClickLis
 
                 } else if (result.equals("ok")) {
                     memberDelete(no);
-                    Toast.makeText(this, "RIGHT", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "탈퇴가 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                 }
             }

@@ -103,9 +103,12 @@
                 <Button
                     android:id="@+id/photoRegisterbtn"
                     android:layout_width="70dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="right"
-                    android:text="등록" />
+                    android:background="@drawable/gray_button"
+                    android:text="등록"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -121,15 +124,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="리뷰 삭제" />
+                android:background="@drawable/red_light_button"
+                android:text="리뷰 삭제"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/reviewUpdateButton"
                 android:layout_width="match_parent"
                 android:layout_height="47dp"
                 android:layout_weight="1"
+                android:background="@drawable/red_light_button"
                 android:orientation="vertical"
-                android:text="리뷰 수정" />
+                android:text="리뷰 수정"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

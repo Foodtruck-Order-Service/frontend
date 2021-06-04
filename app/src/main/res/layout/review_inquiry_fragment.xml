@@ -7,14 +7,18 @@
 
     <LinearLayout
         android:id="@+id/fullLayout"
-        android:layout_width="409dp"
-        android:layout_height="728dp"
-        android:orientation="vertical">
+        android:layout_width="413dp"
+        android:layout_height="629dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="456dp"
+            android:layout_height="572dp"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="662dp">
 
@@ -28,15 +32,25 @@
             <Button
                 android:id="@+id/reviewRegisterButton"
                 android:layout_width="200dp"
-                android:layout_height="47dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/red_light_button"
                 android:orientation="vertical"
-                android:text="리뷰 등록" />
+                android:text="리뷰 등록"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/reviewUpdateBtn"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="리뷰 수정" />
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/red_light_button"
+                android:text="리뷰 수정"
+                android:textSize="20sp"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>

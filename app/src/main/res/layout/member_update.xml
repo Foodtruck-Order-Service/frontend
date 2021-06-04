@@ -89,7 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="30dp"
                     android:text="이메일   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -184,9 +184,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/text_border"
                     android:ems="10"
                     android:inputType="textPersonName"
+                    android:background="@drawable/text_border_non"
+                    android:focusableInTouchMode="false"
+                    android:shadowColor="@color/colorWhite"
                     android:scaleType="fitCenter"
                     android:textSize="22sp" />
 
@@ -194,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -202,13 +205,7 @@
                         android:layout_weight="1"
                         android:orientation="horizontal"></LinearLayout>
 
-                    <Button
-                        android:id="@+id/emailCheckBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:text="인증"
-                        android:textSize="18sp" />
+
 
                 </LinearLayout>
 

@@ -125,6 +125,7 @@ public class InquiryFragment  extends Fragment{
 
     //리뷰 조회
     public void reviewInquiry() {
+        adapter.notifyDataSetChanged();
         Call<ResponseBody> call = service.reviewInquiry(foodtruck.getNo());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -132,10 +133,9 @@ public class InquiryFragment  extends Fragment{
                 try {
                     Gson gson = new Gson();
                     JSONArray jArray = new JSONArray(response.body().string());
-
+                    String resNm;
                     for(int i = 0; i < jArray.length(); i++){
                         Review review = gson.fromJson(jArray.get(i).toString(),Review.class);
-                        System.out.println(review);
 
                         //평점 변환
                         String grade;
@@ -151,13 +151,9 @@ public class InquiryFragment  extends Fragment{
                             grade="★★★★★";
                         }
 
-                        adapter.addItem(review.getId(), grade, review.getContent(), review.getRegistDate());
-
+                        adapter.addItem(review.getNo(), review.getId(), grade, review.getContent(), review.getRegistDate(), review.getPhysical());
                     }
                     adapter.notifyDataSetChanged();
-
-                    System.out.println("리뷰 조회 성공");
-                    System.out.println(jArray);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
