@@ -49,11 +49,16 @@ public class MainViewActivity extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.bookmarkBtn:    // 즐겨찾기 버튼
-                intent = new Intent(getContext(), kr.co.fos.client.bookmark.InquiryActivity.class);
-                startActivity(intent);
+                if (loginCheck()) {
+                    intent = new Intent(getContext(), kr.co.fos.client.bookmark.InquiryActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.infoBtn:    // 내 정보 버튼
-                if (SharedPreference.getAttribute(getContext(), "no") != null) {
+                if (loginCheck()) {
                     intent = new Intent(getContext(), MyInfoActivity.class);
                     startActivity(intent);
                 } else {
@@ -61,14 +66,32 @@ public class MainViewActivity extends Fragment implements View.OnClickListener {
                     startActivity(intent);
                 }
                 break;
-            case R.id.orderBtn:    // 주문 버튼
-                intent = new Intent(getContext(), kr.co.fos.client.order.InquiryActivity.class);
-                startActivity(intent);
+            case R.id.orderBtn:    // 주문 내역버튼
+                if (loginCheck()) {
+                    intent = new Intent(getContext(), kr.co.fos.client.order.InquiryActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.basketBtn:    // 장바구니 버튼
-                intent = new Intent(getContext(), kr.co.fos.client.basket.InquiryActivity.class);
-                startActivity(intent);
+                if (loginCheck()) {
+                    intent = new Intent(getContext(), kr.co.fos.client.basket.InquiryActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
+    }
+
+    public boolean loginCheck(){
+        boolean result = false;
+        if(SharedPreference.getAttribute(getContext(),"no")!= null){
+            result = true;
+        }
+        return result;
     }
 }

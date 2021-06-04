@@ -2,13 +2,14 @@ package kr.co.fos.client.basket;
 
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 import kr.co.fos.client.menu.Option;
 import kr.co.fos.client.order.OrderInfo;
 
-public class ListViewItem {
+public class ListViewItem implements Serializable {
     private int no;
     private int memberNo;
     private int foodtruckNo;
@@ -16,8 +17,27 @@ public class ListViewItem {
     private String name;
     private List<Option> options;
     private String amount;
+    private String totalAmount;
+
+    public String getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     private int count;
 
+    public int getHash() {
+        return hash;
+    }
+
+    public void setHash(int hash) {
+        this.hash = hash;
+    }
+
+    private int hash;
     public ListViewItem() {
     }
 

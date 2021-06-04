@@ -1,30 +1,27 @@
 package kr.co.fos.client.order;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
 
-import kr.co.fos.client.menu.Option;
-
-public class ListViewItem implements Serializable {
+public class BusinessListViewItem implements Serializable {
     private int no;
     private int memberNo;
     private int foodtruckNo;
     private String name;
+    private String paymentType;
     private int receptionNo;
     private String orderTime;
     private String totalAmount;
     private String status;
 
-    public ListViewItem() {
+    public BusinessListViewItem() {
 
     }
 
     @Override
     public String toString() {
-        return "ListViewItem [no=" + no + ", memberNo=" + memberNo + ", foodtruckNo=" + foodtruckNo + ", name=" + name
-                + ", receptionNo=" + receptionNo + ", orderTime=" + orderTime + ", totalAmount=" + totalAmount
-                + ", status=" + status + "]";
+        return "BusinessListViewItem [no=" + no + ", memberNo=" + memberNo + ", foodtruckNo=" + foodtruckNo + ", name="
+                + name + ", paymentType=" + paymentType + ", receptionNo=" + receptionNo + ", orderTime=" + orderTime
+                + ", totalAmount=" + totalAmount + ", status=" + status + "]";
     }
 
     public int getNo() {
@@ -59,6 +56,14 @@ public class ListViewItem implements Serializable {
         this.name = name;
     }
 
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
+    }
+
     public int getReceptionNo() {
         return receptionNo;
     }
@@ -90,5 +95,6 @@ public class ListViewItem implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
 }

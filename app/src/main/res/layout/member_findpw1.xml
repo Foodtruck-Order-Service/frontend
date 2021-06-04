@@ -48,7 +48,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/findPwBtn"
+                android:id="@+id/statusUpdateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

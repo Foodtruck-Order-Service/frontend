@@ -34,7 +34,7 @@ public class FindPw1Activity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_findpw1);
         idEditText = findViewById(R.id.idEditText);
-        findPwbtn = findViewById(R.id.findPwBtn);
+        findPwbtn = findViewById(R.id.statusUpdateBtn);
         findPwbtn.setOnClickListener(this);
 
         setRetrofitInit();
@@ -52,7 +52,7 @@ public class FindPw1Activity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.findPwBtn:    // 로그인 버튼
+            case R.id.statusUpdateBtn:    // 로그인 버튼
                 memberDetailInquiry(idEditText.getText().toString());
 
                 break;
