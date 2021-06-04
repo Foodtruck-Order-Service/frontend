@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/noText"
-                android:layout_width="215dp"
-                android:layout_height="wrap_content"
-                android:text="접수 번호"
-                android:textAlignment="viewEnd"
-                android:textSize="48sp" />
-
-        </LinearLayout>
 
         <TextView
-            android:id="@+id/receptionNoText"
+            android:id="@+id/orderText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="180dp"
-            android:background="@drawable/edge"
-            android:text=""
+            android:text="주문"
             android:textAlignment="center"
-            android:textSize="96sp" />
+            android:textSize="48sp" />
+
+        <fragment
+            android:id="@+id/businessDetailListFragment"
+            android:name="kr.co.fos.client.order.BusinessDetailListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="598dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,17 +35,15 @@
             android:gravity="bottom"
             android:orientation="vertical">
 
-
             <Button
-                android:id="@+id/mainBtn"
+                android:id="@+id/statusUpdateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
-                android:text="메인 화면"
+                android:text="주문 상태 변경"
                 android:textSize="34sp" />
         </LinearLayout>
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

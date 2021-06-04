@@ -53,9 +53,15 @@ public class SharedPreference {
         return basketList;
     }
 
+    public static void deleteBasketList(Menu menu) {
+        basketList.remove(menu);
+    }
+
     public static void addBasketList(Menu menu) {
         basketList.add(menu);
     }
+
+    public static void deleteAllBasketList(){ basketList.clear();}
 }
 
 

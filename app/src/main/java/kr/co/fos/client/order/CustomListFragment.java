@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;

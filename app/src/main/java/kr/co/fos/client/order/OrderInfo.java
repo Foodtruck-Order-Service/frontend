@@ -5,63 +5,67 @@ import java.io.Serializable;
 import java.util.List;
 
 public class OrderInfo implements Serializable {
-    private String no;
-    private String orderNo;
+    private int no;
+    private int orderNo;
     private String menuName;
-    private String count;
+    private int count;
     private String amount;
     private List<MenuDetail> menuDetails;
+
+
+    @Override
+    public String toString() {
+        return "OrderInfo{" +
+                "no=" + no +
+                ", orderNo=" + orderNo +
+                ", menuName='" + menuName + '\'' +
+                ", count=" + count +
+                ", amount='" + amount + '\'' +
+                ", menuDetails=" + menuDetails +
+                '}';
+    }
 
     public OrderInfo() {
     }
 
-    public OrderInfo(String no, String orderNo, String menuName, String count, String amount, List<MenuDetail> menuDetails) {
-        this.no = no;
-        this.orderNo = orderNo;
-        this.menuName = menuName;
-        this.count = count;
-        this.amount = amount;
-        this.menuDetails = menuDetails;
+    public int getNo() {
+        return no;
     }
 
-    public void setNo(String no) {
+    public void setNo(int no) {
         this.no = no;
     }
 
-    public String getNo() {
-        return this.no;
+    public int getOrderNo() {
+        return orderNo;
     }
 
-    public void setOrderNo(String orderNo) {
+    public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
     }
 
-    public String getOrderNo() {
-        return this.orderNo;
+    public String getMenuName() {
+        return menuName;
     }
 
     public void setMenuName(String menuName) {
         this.menuName = menuName;
     }
 
-    public String getMenuName() {
-        return this.menuName;
+    public int getCount() {
+        return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 
-    public String getCount() {
-        return this.count;
+    public String getAmount() {
+        return amount;
     }
 
     public void setAmount(String amount) {
         this.amount = amount;
-    }
-
-    public String getAmount() {
-        return this.amount;
     }
 
     public List<MenuDetail> getMenuDetails() {

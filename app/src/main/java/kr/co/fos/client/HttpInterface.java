@@ -7,9 +7,12 @@ import kr.co.fos.client.bookmark.Bookmark;
 import kr.co.fos.client.foodtruck.Foodtruck;
 import kr.co.fos.client.member.Member;
 import kr.co.fos.client.menu.Menu;
+import kr.co.fos.client.order.BusinessListViewItem;
+import kr.co.fos.client.order.ListViewItem;
 import kr.co.fos.client.order.Order;
 import kr.co.fos.client.review.Review;
 import kr.co.fos.client.review.ReviewItem;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,7 +32,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface HttpInterface {
-    public static final String API_URL = "http://192.168.35.111:8080";
+    public static final String API_URL = "http://222.117.135.101:8090";
     // @Query = GET   @Field = POST, PUT, DELETE  @Path = /member/{no}   이런거
     //공통
     @GET("/foodtruck")
@@ -62,17 +65,16 @@ public interface HttpInterface {
     Call<ResponseBody> memberUpdate(@Path("no") int no, @Body Member member);
 
     //푸드트럭
-
     @POST("/foodtruck")
     Call<ResponseBody> memberBusinessRegister(@Body Member member);
 
     @GET("/foodtruck")
     Call<List<Foodtruck>> foodtruckInquiry(@Query("name") String name, @Query("category") String category);
 
-    @GET("/foodtruck")
+    @GET("/foodtruck/location")
     Call<List<Foodtruck>> foodtruckLocationSearch(@Query("lat") double lat, @Query("lng") double lng);
 
-    @PUT("/foodtruck/{no}")
+    @PUT("/foodtruck/{no}/location")
     Call<ResponseBody> startBusiness(@Path("no") int no, @Body Foodtruck foodtruck);
 
     @GET("/foodtruck/{no}")
@@ -82,8 +84,15 @@ public interface HttpInterface {
     Call<ResponseBody> foodtruckUpdate(
             @Path("no") int no,
             @Body Foodtruck foodtruck
-            );
+    );
 
+    //추가
+    @GET("/foodtruck/business/{memberNo}")
+    Call<ResponseBody> myFoodtruckInquiry(@Path("memberNo") int no);
+
+    //추가
+    @GET("/foodtruck/business/{memberNo}")
+    Call<ResponseBody> foodtruckBusinessDetailInquiry(@Path("memberNo") int no);
     //메뉴
     @POST("/menu")
     Call<ResponseBody> menuRegister(@Body Menu menu);
@@ -98,10 +107,11 @@ public interface HttpInterface {
     Call<ResponseBody> menuUpdate(
             @Path("no") int no,
             @Body Menu menu
-            );
+    );
 
     @DELETE("/menu/{no}")
     Call<ResponseBody> menuDelete(@Path("no") int no);
+
 
     //주문
     @PUT("/order/{no}")
@@ -111,17 +121,27 @@ public interface HttpInterface {
     Call<ResponseBody> payment(@Body Order order);
     //추가
     @GET("/order")
-    Call<ResponseBody> orderInquiry(@Query("memberNo") int no);
+    Call<List<ListViewItem>> orderInquiry(@Query("memberNo") int no);
+
+    //추가
+    @GET("/order/business")
+    Call<List<BusinessListViewItem>> orderBusinessInquiry(@Query("foodtruckNo") int no);
 
     //추가
     @PUT("/order/{no}")
-    Call<ResponseBody> orderCancle(@Path("no") int no, @Body Order Order);
+    Call<ResponseBody> orderCancel(@Path("no") int no, @Body Order Order);
+
+    @GET("/payment/cancel")
+    Call<ResponseBody> orderCancel(@Query("no") int no);
 
     @GET("/order/{no}")
     Call<ResponseBody> orderDetailInquiry(@Path("no") int no);
 
+    @GET("/order/business/{no}")
+    Call<ResponseBody> orderBusinessDetailInquiry(@Path("no") int no);
+
     @PUT("/order/{no}")
-    Call<ResponseBody> orderStatusUpdate(@Path("no") int no);
+    Call<ResponseBody> orderStatusUpdate(@Path("no") int no, @Body Order order);
 
     //리뷰
     @GET("/review")
@@ -130,8 +150,9 @@ public interface HttpInterface {
     @GET("/review/{no}")
     Call<ResponseBody> reviewDetailInquiry(@Path("no") int memberNo, @Query("foodtruckNo")int foodtruckNo);
 
+    @Multipart
     @POST("/review")
-    Call<ResponseBody> reviewRegister(@Body Review review);
+    Call<ResponseBody> reviewRegister(@Part("review") Review review, @Part MultipartBody.Part image);
 
     @PUT("/review/{no}")
     Call<ResponseBody> reviewUpdate(@Path("no") int no, @Body Review review);
@@ -155,4 +176,8 @@ public interface HttpInterface {
     Call<ResponseBody> photoRegister(
             @PartMap Map<String, RequestBody> photos
     );
+
+    //이메일
+    @POST("/email")
+    Call<String> emailCertification(@Body String email);
 }

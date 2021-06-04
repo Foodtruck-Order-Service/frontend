@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".payment.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -16,7 +17,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="df9d5114ec22853d3a696d4ddfe1abd6"/>
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="5d39ed00600fdfa99c5d5b7d30f2b3f3"/>
 
         <!-- common -->
         <activity android:name=".common.MainActivity">
@@ -38,7 +39,7 @@
         <activity android:name=".member.JoinChoiceActivity" />
         <activity android:name=".member.MyInfoActivity" />
         <activity android:name=".member.UpdateActivity" />
-
+        <activity android:name=".member.JoinEmailActivity"/>
         <!-- foodtruck -->
         <activity android:name=".foodtruck.BusinessStartActivity" >
 
@@ -60,19 +61,30 @@
         <!-- order -->
         <activity android:name=".order.BusinessDetailInquiryActivity" />
         <activity android:name=".order.BusinessInquiryActivity" />
-        <activity android:name=".order.ChoiceActivity" />
+        <activity android:name=".order.ChoiceActivity" >
+
+        </activity>
+
         <activity android:name=".order.DetailInquiryActivity" />
         <activity android:name=".order.InquiryActivity" />
         <activity android:name=".order.NumberActivity" />
 
-        <!-- sales -->
-        <activity android:name=".sales.InquiryAcivity" />
 
         <!-- basket -->
         <activity android:name=".basket.InquiryActivity"/>
 
         <!-- bookmark -->
         <activity android:name=".bookmark.InquiryActivity" />
+
+        <!-- popup -->
+        <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog" />
+
+        <!-- payment -->
+        <activity android:name=".payment.PaymentActivity" >
+
+
+
+        </activity>
     </application>
 
 </manifest>

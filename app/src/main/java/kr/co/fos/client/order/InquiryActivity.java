@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.List;
@@ -49,29 +48,24 @@ public class InquiryActivity extends AppCompatActivity {
 
     //주문 목록 조회
     public void orderInquiry(int no){
-        Call<ResponseBody> call = service.orderInquiry(no);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<List<ListViewItem>> call = service.orderInquiry(no);
+        call.enqueue(new Callback<List<ListViewItem>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<List<ListViewItem>> call, Response<List<ListViewItem>> response) {
                 Gson gson = new Gson();
 
-                try {
-                    List<ListViewItem> item = gson.fromJson(response.body().string(),new TypeToken<List<ListViewItem>>(){}.getType());
+                List<ListViewItem> item = response.body();
 
-
-                    for(int i = 0; i< item.size(); i++) {
-                        System.out.println("aaaaaa" + item.get(i).toString());
-                        Log.i("a","item.get(i).toString()");
-                        customListFrgmt.addItem(item.get(i));
-                    }
-                    customListFrgmt.adapter.notifyDataSetChanged();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                for(int i = 0; i< item.size(); i++) {
+                    System.out.println("aaaaaa" + item.get(i).toString());
+                    Log.i("a","item.get(i).toString()");
+                    customListFrgmt.addItem(item.get(i));
                 }
+                customListFrgmt.adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<ListViewItem>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
 
             }

@@ -12,11 +12,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/text_border"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -32,27 +34,13 @@
                 android:id="@+id/closeBtn"
                 android:layout_width="28dp"
                 android:layout_height="23dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/cancle" />
         </LinearLayout>
 
-        <!--<TextView
-            android:id="@+id/optionText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="1"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/optionValueText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="1"
-            android:text="TextView" />-->
 
         <ListView
             android:id="@+id/listview1"
@@ -63,6 +51,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -74,26 +63,41 @@
                 android:textAlignment="center"
                 android:textSize="24sp" />
 
-            <Button
-                android:id="@+id/minusBtn"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:text="빼기" />
+                android:layout_gravity="right|center_horizontal"
+                android:layout_marginRight="30dp"
+                android:gravity="right|center_horizontal|center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/countText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                <ImageButton
+                    android:id="@+id/minusBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="right"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/minus" />
 
-            <Button
-                android:id="@+id/plusBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="더하기" />
+                <TextView
+                    android:id="@+id/countText"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+
+                <ImageButton
+                    android:id="@+id/plusBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/plus" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

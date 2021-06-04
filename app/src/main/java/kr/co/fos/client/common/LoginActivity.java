@@ -8,25 +8,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
 import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.foodtruck.LocationActivity;
-import kr.co.fos.client.foodtruck.SearchResultActivity;
 import kr.co.fos.client.member.FindId1Activity;
 import kr.co.fos.client.member.FindPw1Activity;
-import kr.co.fos.client.member.JoinActivity;
 import kr.co.fos.client.member.JoinChoiceActivity;
 import kr.co.fos.client.member.Member;
-import kr.co.fos.client.member.MyInfoActivity;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginBtn = findViewById(R.id.loginBtn);
         signUpBtn = findViewById(R.id.signUpBtn);
         findIdBtn = findViewById(R.id.findIdBtn);
-        findPwBtn = findViewById(R.id.findPwBtn);
+        findPwBtn = findViewById(R.id.statusUpdateBtn);
 
         idText.setOnClickListener(this);
         pwText.setOnClickListener(this);
@@ -90,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 intent = new Intent(getApplicationContext(), FindId1Activity.class);
                 startActivity(intent);
                 break;
-            case R.id.findPwBtn:    // 비밀번호 찾기 버튼
+            case R.id.statusUpdateBtn:    // 비밀번호 찾기 버튼
                 intent = new Intent(getApplicationContext(), FindPw1Activity.class);
                 startActivity(intent);
                 break;
