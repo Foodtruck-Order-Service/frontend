@@ -35,7 +35,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
     EditText nameEditText;
     EditText rrnEditText;
     EditText emailEditText;
-    Button emailCheckBtn;
     EditText phoneEditText;
     Button signUpBtn;
 
@@ -60,12 +59,12 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         nameEditText = findViewById(R.id.nameEditText);
         rrnEditText = findViewById(R.id.rrnEditText);
         emailEditText = findViewById(R.id.emailEditText);
-        emailCheckBtn = findViewById(R.id.emailCheckBtn);
+
         phoneEditText = findViewById(R.id.phoneEditText);
         signUpBtn = findViewById(R.id.signUpBtn);
 
         idCheckBtn.setOnClickListener(this);
-        emailCheckBtn.setOnClickListener(this);
+
         signUpBtn.setOnClickListener(this);
 
         intent = getIntent();
@@ -73,7 +72,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             status = true;
             signUpBtn.setText("다음");
         }
-
+        emailEditText.setText(intent.getStringExtra("email"));
         setRetrofitInit();
     }
 
@@ -91,10 +90,6 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.idCheckBtn:    // 아이디 중복확인 버튼
                 idCheck(idEditText.getText().toString());
-
-                break;
-            case R.id.emailCheckBtn:    // 이메일 체크 버튼
-                emailCertification();
 
                 break;
             case R.id.signUpBtn:    // 회원가입, 다음 버튼
@@ -118,7 +113,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                             member.setType("M");
                             memberRegister(member);
                             SharedPreference.setAttribute(getApplicationContext(), "id", idEditText.getText().toString());
-                            intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
                         } else if (idCheckText.equals(idEditText.getText().toString()) == false) {
                             Toast.makeText(getApplicationContext(), "중복확인을 다시 해주십시오.", Toast.LENGTH_SHORT).show();
@@ -193,11 +188,11 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
                         check = true;
                     }
                     if (check == true) {
-                        Toast.makeText(getApplicationContext(), "아이디가 중복입니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         idCheck = true;
                         idCheckText = idEditText.getText().toString();
-                        Toast.makeText(getApplicationContext(), "아이디 사용 가능", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "사용 가능한 아이디입니다.", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -215,10 +210,28 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    // 이메일 인증
-    public void emailCertification() {
-        //나중 구현
-    }
+    /*// 이메일 인증
+    public void emailCertification(String email) {
+        Call<String> call = service.emailCertification(email);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println("응답받은 코드 : " + response.body().string());
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+                Toast.makeText(getApplicationContext(), "코드 발송 완료", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }*/
 
     public void memberRegister(Member member) {
         Call<ResponseBody> call = service.memberRegister(member);
@@ -226,7 +239,7 @@ public class JoinActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println(response.isSuccessful());
-                Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override

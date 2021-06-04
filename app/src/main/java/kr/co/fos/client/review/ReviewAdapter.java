@@ -1,21 +1,33 @@
 package kr.co.fos.client.review;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
+
+import com.bumptech.glide.Glide;
+
 import kr.co.fos.client.R;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ReviewAdapter extends BaseAdapter {
-
+    Bitmap bitmap;
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     private ArrayList<Review> reviewList = new ArrayList<Review>() ;
+    ImageView reviewImage;
 
     // ListViewAdapter의 생성자
     public ReviewAdapter() {
@@ -46,6 +58,7 @@ public class ReviewAdapter extends BaseAdapter {
         TextView idTextView = (TextView)convertView.findViewById(R.id.id);
         TextView contentTextView = (TextView) convertView.findViewById(R.id.content);
         TextView registDateTextView = (TextView)convertView.findViewById(R.id.registDate);
+        reviewImage = (ImageView)convertView.findViewById(R.id.reviewImage);
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         Review review = reviewList.get(position);
 
@@ -54,6 +67,9 @@ public class ReviewAdapter extends BaseAdapter {
         idTextView.setText(review.getId());
         contentTextView.setText(review.getContent());
         registDateTextView.setText(review.getRegistDate().toString());
+        Glide.with(context).load("http://192.168.35.135:8080/review/photo/" + review.getNo()).into(reviewImage);
+
+        reviewImage.setImageBitmap(bitmap);
 
         return convertView;
     }
@@ -71,13 +87,15 @@ public class ReviewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(String id, String grade, String content, String registDate) {
+    public void addItem(int no, String id, String grade, String content, String registDate, String physical) {
         Review review = new Review();
 
+        review.setNo(no);
         review.setId(id);
         review.setGrade(grade);
         review.setContent(content);
         review.setRegistDate(registDate);
+        review.setPhysical(physical);
 
         reviewList.add(review);
     }

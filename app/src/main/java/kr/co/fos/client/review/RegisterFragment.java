@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +34,7 @@ import androidx.fragment.app.Fragment;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,26 +65,13 @@ public class RegisterFragment extends Fragment {
 
     RatingBar ratingBar;
 
-    TextView idTextView;
-    TextView gradeTextView;
-    TextView contentTextView;
-    TextView registDateTextView;
-
-
-    Button reviewBtn;
     Button photoRegisterBtn;
     Button reviewRegisterBtn;
-
-    Switch bookmarkSwitch;
 
     EditText reviewContentEditText;
     EditText photoEditText;
     private final int PICK_IMAGE = 1111;
-    private static final int CROP_FROM_CAMERA = 2;
     private static final String TAG = "TestImageCropActivity";
-
-    private Uri mImageCaptureUri;
-    private AlertDialog mDialog;
 
     File imageFile;
 
@@ -137,12 +126,11 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-
-
         //리뷰 등록 부분
         reviewRegisterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                insertPhoto();
                 String memberNo = SharedPreference.getAttribute(foodtruckMainActivity.getApplicationContext(),"no");
                 review.setGrade(String.valueOf(ratingBar.getRating()));
                 review.setContent(reviewContentEditText.getText().toString());
@@ -152,13 +140,9 @@ public class RegisterFragment extends Fragment {
                 //intent에서 푸드트럭 가져오기
                 review.setFoodtruckNo(foodtruck.getNo());
 
-
-                /*System.out.println("사진이미지파일 이름 : " + imageFile.getName());
-                System.out.println("사진이미지파일 경로 : "  + imageFile.getAbsolutePath());*/
-                reviewRegister(review, imageFile);
+                reviewRegister(review);
 
                 foodtruckMainActivity.onFragmentChange(1);
-
             }
         });
 
@@ -167,42 +151,28 @@ public class RegisterFragment extends Fragment {
             public void onClick(View view) {
                 System.out.println("사진 등록 버튼 클릭함");
                 Intent intentImage = new Intent(Intent.ACTION_PICK);
-
                 intentImage.setType("image/*");
                 String[] mimeTypes = {"image/jpeg", "image/png"};
                 intentImage.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
                 startActivityForResult(intentImage,PICK_IMAGE);
-
-                System.out.println("사진을 일단 등록은 함===================");
             }
         });
 
         return rootView;
     }
 
-    //사진 등록
-    public void photoRegister() {
-
-    }
-
     //리뷰 등록
-    public void reviewRegister(Review review,File file) {
-        /*RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+    public void reviewRegister(Review review) {
+        //사진파일 가져오기
+        MultipartBody.Part image = insertPhoto();
 
-        MultipartBody.Part image =
-                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
-
-        System.out.println("------------------------------------------" + image.headers().toString());*/
-        System.out.println(review);
-        RequestBody test = RequestBody.create(MediaType.parse("text/plain"), "TEST 문자열");
-        Call<ResponseBody> call = service.reviewRegister(review);
-
+        Call<ResponseBody> call = service.reviewRegister(review,image);
+        System.out.println(image.body());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("등록 성공!");
+                    System.out.println("등록 성공!" + response.body().string());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -222,9 +192,6 @@ public class RegisterFragment extends Fragment {
         switch (requestCode) {
             case PICK_IMAGE: {
                 Log.d(TAG, "PICK_FROM_ALBUM");
-                System.out.println("PICK_IMAGE로 들어옴");
-                // 이후의 처리가 카메라와 같으므로 일단  break없이 진행합니다.
-                // 실제 코드에서는 좀더 합리적인 방법을 선택하시기 바랍니다.
                 String uri = getRealPathFromURI(data.getData());
                 imageFile = new File(uri);
                 try{
@@ -235,7 +202,6 @@ public class RegisterFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                System.out.println(bitmapImg);
                 photoEditText.setText(imageFile.getName());
             }
         }
@@ -255,15 +221,40 @@ public class RegisterFragment extends Fragment {
         return result;
     }
 
-    //비트맵을 바이트배열로 바꿔주는 메소드
-    public byte[] bitmapToByteArray(Bitmap bitmap){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+    //MultipartBody.Part 형태로 사진파일 변경
+    private MultipartBody.Part insertPhoto() {
+        //create a file to write bitmap data
+        File f = new File(foodtruckMainActivity.getApplicationContext().getCacheDir(), photoEditText.getText().toString());
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        return byteArray;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmapImg.compress(Bitmap.CompressFormat.PNG, 0 , bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+        //write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), f);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", f.getName(), reqFile);
+
+        return body;
     }
-
     /*
     private File getImageFile(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };

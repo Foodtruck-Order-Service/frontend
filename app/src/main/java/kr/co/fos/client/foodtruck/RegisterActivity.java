@@ -32,6 +32,7 @@ import java.util.GregorianCalendar;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
+import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
 import kr.co.fos.client.member.Member;
 import okhttp3.ResponseBody;
@@ -116,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.submitButton:    // 회원가입 버튼
                 memberRegister();
 
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 break;

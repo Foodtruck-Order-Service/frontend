@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,13 +34,15 @@ public class JoinChoiceActivity extends AppCompatActivity implements View.OnClic
 
         switch (v.getId()) {
             case R.id.businessBtn:    // 사업자 회원 이동 버튼
-                intent = new Intent(getApplicationContext(), JoinActivity.class);
+                intent = new Intent(getApplicationContext(), JoinEmailActivity.class);
                 intent.putExtra("status", "business");
+                Toast.makeText(getApplicationContext(), "사업자 회원가입을 선택하셨습니다.", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 break;
             case R.id.generalBtn:    // 일반 회원 이동 버튼
-                intent = new Intent(getApplicationContext(), JoinActivity.class);
+                intent = new Intent(getApplicationContext(), JoinEmailActivity.class);
                 intent.putExtra("status", "general");
+                Toast.makeText(getApplicationContext(), "일반회원 회원가입을 선택하셨습니다.", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 break;
 

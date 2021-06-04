@@ -13,14 +13,15 @@ public class Review implements Serializable {
     private String grade;
     private String content;
     private String registDate;
-
+    private String logical;
+    private String physical;
 
     private String id;
 
     public Review() {
     }
 
-    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, String registDate, String id) {
+    public Review(int no, int memberNo, int foodtruckNo, String grade, String content, String registDate, String id, String logical, String physical) {
         this.no = no;
         this.memberNo = memberNo;
         this.foodtruckNo = foodtruckNo;
@@ -28,6 +29,8 @@ public class Review implements Serializable {
         this.content = content;
         this.registDate = registDate;
         this.id = id;
+        this.logical = logical;
+        this.physical = physical;
     }
 
     public void setNo(int no) {
@@ -86,6 +89,22 @@ public class Review implements Serializable {
         this.id = id;
     }
 
+    public String getLogical() {
+        return logical;
+    }
+
+    public void setLogical(String logical) {
+        this.logical = logical;
+    }
+
+    public String getPhysical() {
+        return physical;
+    }
+
+    public void setPhysical(String physical) {
+        this.physical = physical;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -95,6 +114,8 @@ public class Review implements Serializable {
                 ", grade='" + grade + '\'' +
                 ", content='" + content + '\'' +
                 ", registDate='" + registDate + '\'' +
+                ", logical='" + logical + '\'' +
+                ", physical='" + physical + '\'' +
                 ", id='" + id + '\'' +
                 '}';
     }
