@@ -61,4 +61,15 @@ public class OptionValue implements Serializable {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
+
+    @Override
+    public String toString() {
+        return "OptionValue{" +
+                "no=" + no +
+                ", optionNo=" + optionNo +
+                ", optionValue='" + optionValue + '\'' +
+                ", addAmount='" + addAmount + '\'' +
+                ", isChecked=" + isChecked +
+                '}';
+    }
 }

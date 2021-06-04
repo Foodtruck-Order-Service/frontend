@@ -2,6 +2,7 @@ package kr.co.fos.client.common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,9 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import java.io.File;
+
+import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.foodtruck.BusinessStartActivity;
@@ -17,7 +21,13 @@ import kr.co.fos.client.foodtruck.SearchResultActivity;
 import kr.co.fos.client.member.MyInfoActivity;
 import kr.co.fos.client.menu.InfoActivity;
 import kr.co.fos.client.order.BusinessInquiryActivity;
-import kr.co.fos.client.sales.InquiryAcivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BusinessMainViewActivity extends Fragment implements View.OnClickListener{
     Button startSalesBtn;
@@ -61,10 +71,6 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
                 break;
             case R.id.orderManageBtn:    // 주문 관리 버튼
                 intent = new Intent(getContext(), BusinessInquiryActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.salesManageBtn:    // 매출 관리 버튼
-                intent = new Intent(getContext(), InquiryAcivity.class);
                 startActivity(intent);
                 break;
             case R.id.infoBtn:    // 내 정보 버튼

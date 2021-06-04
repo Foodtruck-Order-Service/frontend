@@ -1,23 +1,46 @@
 package kr.co.fos.client.menu;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import kr.co.fos.client.HttpInterface;
+import kr.co.fos.client.PopupActivity;
 import kr.co.fos.client.R;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static android.app.Activity.RESULT_OK;
 
 public class BusinessMenuAdapter extends BaseAdapter {
-    private ArrayList<Menu> menuList = new ArrayList<Menu>() ;
+    private ArrayList<Menu> menuList = new ArrayList<Menu>();
+    Context context;
+    Activity activity;
+    Fragment fragment;
 
-    public BusinessMenuAdapter() {
-
+    public BusinessMenuAdapter(Activity activity, Fragment fragment) {
+        super();
+        this.activity = activity;
+        this.fragment = fragment;
     }
 
     @Override
@@ -28,7 +51,7 @@ public class BusinessMenuAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
-        final Context context = parent.getContext();
+        context = parent.getContext();
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,10 +69,16 @@ public class BusinessMenuAdapter extends BaseAdapter {
         nameTextView.setText(menu.getName());
         paymentTextView.setText(menu.getAmount() + "원");
 
+        BusinessMenuAdapter adapterMe = this;
+
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, PopupActivity.class);
+                intent.putExtra("data", "정말로 삭제하겠습니까?");
+                activity.getIntent().putExtra("menu", menu);
 
+                fragment.startActivityForResult(intent, 2);
             }
         });
 

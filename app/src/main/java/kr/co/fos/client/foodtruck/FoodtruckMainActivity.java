@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
@@ -50,13 +54,16 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
     // Member Fragment
     DetailInquiryFragment detailInquiryFragment;
-    InfoFragment infoFragment;
-    InquiryFragment reviewFragment;
-    RegisterFragment registerFragment;
+    InfoFragment foodtruckInfoFragment;
+    InquiryFragment reviewInquiryFragment;
+    RegisterFragment reviewRegisterFragment;
+    kr.co.fos.client.review.UpdateFragment reviewUpdateFragment;
 
     //Business Fragment
-    UpdateFragment updateFragment;
+    kr.co.fos.client.foodtruck.UpdateFragment foodtruckUpdateFragment;
     kr.co.fos.client.menu.InquiryFragment menuInquiryFragment;
+    kr.co.fos.client.menu.RegisterFragment menuRegisterFragment;
+    kr.co.fos.client.menu.UpdateFragment menuUpdateFragment;
 
     // data
     Foodtruck foodtruck;
@@ -72,8 +79,6 @@ public class FoodtruckMainActivity extends AppCompatActivity {
 
         setRetrofitInit();
 
-        foodtruck = (Foodtruck) getIntent().getSerializableExtra("foodtruck");
-
         foodtruckNameTextView = (TextView)findViewById(R.id.foodtruckName);
 
         loginButton = (Button)findViewById(R.id.loginButton);
@@ -87,7 +92,9 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             memberNo = Integer.parseInt(SharedPreference.getAttribute(getApplicationContext(), "no"));
             type = SharedPreference.getAttribute(getApplicationContext(), "type");
 
-            myFoodtruckCheck = memberNo == foodtruck.getMemberNo();
+            foodtruck = (Foodtruck) getIntent().getSerializableExtra("foodtruck");
+
+            myFoodtruckCheck = (memberNo == foodtruck.getMemberNo());
 
             loginButton.setText("로그아웃");
 
@@ -120,8 +127,15 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         transaction = fragmentManager.beginTransaction();
 
         if (myFoodtruckCheck) {
-            menuInquiryFragment = new kr.co.fos.client.menu.InquiryFragment();
-            transaction.replace(R.id.frameLayout, menuInquiryFragment).commitAllowingStateLoss();
+            // 비교
+            int clickCheck = getIntent().getIntExtra("manageClick", 0);
+            if (clickCheck == 1) {
+                foodtruckUpdateFragment = new kr.co.fos.client.foodtruck.UpdateFragment();
+                transaction.replace(R.id.frameLayout, foodtruckUpdateFragment).commitAllowingStateLoss();
+            } else {
+                menuInquiryFragment = new kr.co.fos.client.menu.InquiryFragment();
+                transaction.replace(R.id.frameLayout, menuInquiryFragment).commitAllowingStateLoss();
+            }
         } else {
             detailInquiryFragment = new DetailInquiryFragment();
             transaction.replace(R.id.frameLayout, detailInquiryFragment).commitAllowingStateLoss();
@@ -150,15 +164,15 @@ public class FoodtruckMainActivity extends AppCompatActivity {
                 transaction = fragmentManager.beginTransaction();
 
                 if (myFoodtruckCheck) {
-                    updateFragment = new UpdateFragment();
-                    transaction.replace(R.id.frameLayout, updateFragment).commitAllowingStateLoss();
+                    foodtruckUpdateFragment = new kr.co.fos.client.foodtruck.UpdateFragment();
+                    transaction.replace(R.id.frameLayout, foodtruckUpdateFragment).commitAllowingStateLoss();
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("foodtruck", foodtruck);
-                    updateFragment.setArguments(bundle);
+                    foodtruckUpdateFragment.setArguments(bundle);
                 } else {
-                    infoFragment = new InfoFragment();
-                    transaction.replace(R.id.frameLayout, infoFragment).commitAllowingStateLoss();
+                    foodtruckInfoFragment = new InfoFragment();
+                    transaction.replace(R.id.frameLayout, foodtruckInfoFragment).commitAllowingStateLoss();
                 }
             }
         });
@@ -168,8 +182,8 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 transaction = fragmentManager.beginTransaction();
-                reviewFragment = new InquiryFragment();
-                transaction.replace(R.id.frameLayout, reviewFragment).commitAllowingStateLoss();
+                reviewInquiryFragment = new InquiryFragment();
+                transaction.replace(R.id.frameLayout, reviewInquiryFragment).commitAllowingStateLoss();
             }
         });
 
@@ -193,18 +207,33 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             }
         });
     }
+
     public void onFragmentChange(int index){
         if(index == 0){
-            registerFragment = new RegisterFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, registerFragment).commit();
+            reviewRegisterFragment = new RegisterFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, reviewRegisterFragment).commit();
         } else if(index == 1){
-            reviewFragment = new InquiryFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, reviewFragment).commit();
+            reviewInquiryFragment = new InquiryFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, reviewInquiryFragment).commit();
         } else if (index == 2){
-            updateFragment = new UpdateFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, updateFragment).commit();
+            reviewUpdateFragment = new UpdateFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, reviewUpdateFragment).commit();
         }
     }
+
+    public void onMenuFragmentChange(int index){
+        if(index == 0){
+            menuRegisterFragment = new kr.co.fos.client.menu.RegisterFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuRegisterFragment).commit();
+        } else if(index == 1){
+            menuInquiryFragment = new kr.co.fos.client.menu.InquiryFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuInquiryFragment).commit();
+        } else if (index == 2){
+            menuUpdateFragment = new kr.co.fos.client.menu.UpdateFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, menuUpdateFragment).commit();
+        }
+    }
+
     private void setRetrofitInit() {
         client = new Retrofit.Builder()
                 .baseUrl(HttpInterface.API_URL)
@@ -294,5 +323,14 @@ public class FoodtruckMainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(FoodtruckMainActivity.this, LocationActivity.class); //지금 액티비티에서 다른 액티비티로 이동하는 인텐트 설정
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    //인텐트 플래그 설정
+        startActivity(intent);  //인텐트 이동
+        finish();   //현재 액티비티 종료
     }
 }

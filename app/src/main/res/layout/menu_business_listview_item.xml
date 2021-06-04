@@ -49,7 +49,8 @@
             android:layout_height="match_parent"
             android:layout_weight="4"
             android:padding="0dp"
-            android:src="@drawable/remove"/>
+            android:src="@drawable/remove"
+            android:background="@android:color/transparent" />
 
     </LinearLayout>
 

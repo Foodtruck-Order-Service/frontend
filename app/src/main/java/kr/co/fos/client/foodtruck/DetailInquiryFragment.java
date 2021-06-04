@@ -69,8 +69,6 @@ public class DetailInquiryFragment extends Fragment {
 
         mapViewContainer = (ViewGroup) rootView.findViewById(R.id.map_view);
 
-        mapViewContainer.addView(mapView);
-
         MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(foodtruck.getLat(), foodtruck.getLng());
 
         // 중심점 변경 + 줌 레벨 변경
@@ -131,28 +129,6 @@ public class DetailInquiryFragment extends Fragment {
 
             @Override
             public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-
-            }
-        });
-
-        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
-            @Override
-            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-                Toast.makeText(getContext(), "click", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-
-            }
-
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-
-            }
-
-            @Override
-            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
 
             }
         });
@@ -227,6 +203,12 @@ public class DetailInquiryFragment extends Fragment {
                 Toast.makeText(getActivity().getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapViewContainer.addView(mapView);
     }
 
     @Nullable

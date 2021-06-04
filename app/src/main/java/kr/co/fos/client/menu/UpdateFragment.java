@@ -1,15 +1,12 @@
 package kr.co.fos.client.menu;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,28 +15,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
 
-import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
-import net.daum.mf.map.api.MapView;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.basket.InquiryActivity;
-import kr.co.fos.client.foodtruck.Foodtruck;
 import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
-import kr.co.fos.client.foodtruck.LocationActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -47,7 +32,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DetailInquiryFragment  extends Fragment {
+public class UpdateFragment extends Fragment {
     Retrofit client;
     HttpInterface service;
 
@@ -66,7 +51,7 @@ public class DetailInquiryFragment  extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setRetrofitInit();
 
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.menu_inquiry_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.menu_update_fragment, container, false);
 
         menu = new Menu();
         menu.setNo(getArguments().getInt("menuNo"));
@@ -84,8 +69,6 @@ public class DetailInquiryFragment  extends Fragment {
         adapter = new OptionAdapter();
         listView.setAdapter(adapter);
 
-        menuDetailInquiry();
-
         // menuList  item 클릭 시.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -97,15 +80,6 @@ public class DetailInquiryFragment  extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Set<Menu> basketList = SharedPreference.getBasketList();
-                if (!basketList.isEmpty()) {
-                    Iterator<Menu> basketMenu = basketList.iterator();
-                    if (basketMenu.next().getFoodtruckNo() != menu.getFoodtruckNo()) {
-                        Toast.makeText(getActivity().getBaseContext(),"같은 푸드트럭 메뉴만 추가할 수 있습니다!!",Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-
                 Menu checkMenu = menu;
 
                 List<Option> options = new ArrayList<Option>();
@@ -144,8 +118,8 @@ public class DetailInquiryFragment  extends Fragment {
         service = client.create(HttpInterface.class);
     }
 
-    // 메뉴 조회
-    public void menuDetailInquiry() {
+    // 메뉴 등록
+    public void menuRegister() {
         Call<ResponseBody> call = service.menuDetailInquiry(menu.getNo());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -174,3 +148,4 @@ public class DetailInquiryFragment  extends Fragment {
         });
     }
 }
+

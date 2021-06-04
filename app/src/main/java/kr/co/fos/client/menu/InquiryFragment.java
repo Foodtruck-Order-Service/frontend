@@ -1,5 +1,7 @@
 package kr.co.fos.client.menu;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import java.util.List;
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.foodtruck.Foodtruck;
+import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +39,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static android.app.Activity.RESULT_OK;
+
 public class InquiryFragment extends Fragment {
+    FoodtruckMainActivity activity;
+
     Retrofit client;
     HttpInterface service;
 
@@ -47,6 +54,20 @@ public class InquiryFragment extends Fragment {
 
     Foodtruck foodtruck;
     List<Menu> menus;
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        activity = (FoodtruckMainActivity)getActivity();
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+
+        activity = null;
+    }
 
     @Nullable
     @Override
@@ -62,7 +83,7 @@ public class InquiryFragment extends Fragment {
         // list
         listView = (ListView) rootView.findViewById(R.id.listView);
 
-        adapter = new BusinessMenuAdapter();
+        adapter = new BusinessMenuAdapter(getActivity(), this);
         listView.setAdapter(adapter);
 
         menuInquiry();
@@ -72,17 +93,7 @@ public class InquiryFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 // get item
-                Menu item = (Menu) parent.getItemAtPosition(position) ;
-
-                ImageButton button = (ImageButton) parent.findViewById(R.id.removeButton);
-
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        System.out.println("click");
-                        menuRemove(item);
-                    }
-                });
+                Menu item = (Menu) parent.getItemAtPosition(position);
 
                 // 메뉴 수정 프래그먼트 생성 후 이동
                 // kr.co.fos.client.menu.DetailInquiryFragment menuDetailInquiryFragment = new kr.co.fos.client.menu.DetailInquiryFragment();
@@ -104,7 +115,11 @@ public class InquiryFragment extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getBaseContext(),"메뉴 등록",Toast.LENGTH_SHORT).show();
+                Bundle result = new Bundle();
+                result.putSerializable("foodtruck", foodtruck);
+                getParentFragmentManager().setFragmentResult("menu", result);
+
+                activity.onMenuFragmentChange(0);
             }
         });
 
@@ -159,8 +174,6 @@ public class InquiryFragment extends Fragment {
                     Gson gson = new Gson();
                     boolean result = gson.fromJson(response.body().toString(), Boolean.class);
                     if (result) {
-                        adapter.removeItem(menu);
-                        adapter.notifyDataSetChanged();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -171,6 +184,30 @@ public class InquiryFragment extends Fragment {
                 Toast.makeText(getActivity().getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == 2) {
+                String result = data.getStringExtra("result");
+                Menu menu = (Menu) getActivity().getIntent().getSerializableExtra("menu");
+                System.out.println(result);
+                if (result.equals("close")) {
+                    //취소 시 코드
+
+                } else if (result.equals("ok")) {
+                    menuRemove(menu);
+                    adapter.removeItem(menu);
+                    adapter.notifyDataSetChanged();
+
+                    Toast.makeText(getActivity().getBaseContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
     }
 }
 
