@@ -64,7 +64,7 @@ public class BusinessDetailListAdapter extends BaseAdapter {
         Toast.makeText(context, businessDetailListViewItem.toString(), Toast.LENGTH_SHORT).show();
         List<String> list = new ArrayList<>();
         Gson gson = new Gson();
-        System.out.println("비즈니스 디테일 ::  " + gson.toJson(businessDetailListViewItem));
+
         if (businessDetailListViewItem.getMenuDetail() != null) {
             for (int i = 0; i < businessDetailListViewItem.getMenuDetail().size(); i++) {
                 MenuDetail menuDetail = businessDetailListViewItem.getMenuDetail().get(i);

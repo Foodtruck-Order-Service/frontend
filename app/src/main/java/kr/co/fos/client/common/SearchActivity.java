@@ -35,7 +35,6 @@ public class SearchActivity extends Fragment implements View.OnClickListener{
         loginBtn = rootView.findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(this);
         loginCheck = SharedPreference.getAttribute(getContext(), "no") != null;
-        Toast.makeText(getContext(), "검색 처리됨 : " + SharedPreference.getAttribute(getContext(), "no"), Toast.LENGTH_SHORT).show();
         if (loginCheck) {
             loginBtn.setText("로그아웃");
         }

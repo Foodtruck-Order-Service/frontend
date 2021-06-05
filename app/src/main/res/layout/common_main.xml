@@ -8,201 +8,196 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorLayout"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <fragment
-        android:id="@+id/search"
-        android:name="kr.co.fos.client.common.SearchActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/search" />
-
-    <TextView
-        android:id="@+id/logoText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="FOS"
-        android:textAlignment="center"
-        android:textSize="60sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="147dp"
-        android:orientation="horizontal">
-
+        <fragment
+            android:id="@+id/search"
+            android:name="kr.co.fos.client.common.SearchActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/search" />
 
         <LinearLayout
-            android:layout_width="93dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="147dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/koreanFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/bibimbab" />
 
-            <TextView
-                android:id="@+id/koreanFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="한식"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+            <LinearLayout
+                android:layout_width="93dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/koreanFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/bibimbap" />
+
+                <TextView
+                    android:id="@+id/koreanFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="한식"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/japanFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/sushi" />
+
+                <TextView
+                    android:id="@+id/japanFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="일식"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/chinaFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/jajangmyeon" />
+
+                <TextView
+                    android:id="@+id/chinaFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="중식"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/westernFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/chicken" />
+
+                <TextView
+                    android:id="@+id/westernFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="양식"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/japanFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/nigiri" />
+            <LinearLayout
+                android:layout_width="93dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/japanFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="일식"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                <ImageButton
+                    android:id="@+id/asianFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/noodles" />
+
+                <TextView
+                    android:id="@+id/asianFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="아시안"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="93dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/snackFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/tteokbokki" />
+
+                <TextView
+                    android:id="@+id/snackFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="분식"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="93dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/dessertFoodBtn"
+                    android:layout_width="85dp"
+                    android:layout_height="108dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/coffee" />
+
+                <TextView
+                    android:id="@+id/dessertFoodText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="디저트"
+                    android:textAlignment="center"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/chinaFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/jajangmyeon" />
-
-            <TextView
-                android:id="@+id/chinaFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="중식"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/westernFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/chicken" />
-
-            <TextView
-                android:id="@+id/westernFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="양식"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="93dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/asianFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/noodles" />
-
-            <TextView
-                android:id="@+id/asianFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="아시안"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="93dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/snackFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/tteokbokki" />
-
-            <TextView
-                android:id="@+id/snackFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="분식"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="93dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/dessertFoodBtn"
-                android:layout_width="85dp"
-                android:layout_height="108dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/coffee" />
-
-            <TextView
-                android:id="@+id/dessertFoodText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="디저트"
-                android:textAlignment="center"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-    </LinearLayout>
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="314dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical"/>
+            android:orientation="vertical" />
 
     </LinearLayout>
     <!--<LinearLayout

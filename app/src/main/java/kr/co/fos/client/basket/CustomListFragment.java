@@ -103,7 +103,6 @@ public class CustomListFragment extends ListFragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(getContext(), "시스템에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

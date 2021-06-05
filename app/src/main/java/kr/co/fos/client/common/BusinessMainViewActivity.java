@@ -42,7 +42,6 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
     Button startSalesBtn;
     Button foodtruckManageBtn;
     Button orderManageBtn;
-    Button salesManageBtn;
     Button infoBtn;
     Intent intent;
     Boolean approval;
@@ -53,13 +52,12 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
         startSalesBtn = rootView.findViewById(R.id.startSalesBtn);
         foodtruckManageBtn = rootView.findViewById(R.id.foodtruckManageBtn);
         orderManageBtn = rootView.findViewById(R.id.orderManageBtn);
-        salesManageBtn = rootView.findViewById(R.id.salesManageBtn);
+
         infoBtn = rootView.findViewById(R.id.infoBtn);
 
         startSalesBtn.setOnClickListener(this);
         foodtruckManageBtn.setOnClickListener(this);
         orderManageBtn.setOnClickListener(this);
-        salesManageBtn.setOnClickListener(this);
         infoBtn.setOnClickListener(this);
         setRetrofitInit();
         foodtruckStatusInquiry(Integer.valueOf(SharedPreference.getAttribute(getContext(),"no")));
@@ -72,8 +70,8 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.startSalesBtn: //영업시작
                 if(approval) {
-                    intent = new Intent(getContext(), BusinessStartActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), BusinessStartActivity.class);
+                    myFoodTruckInquiry(Integer.valueOf(SharedPreference.getAttribute(getContext(),"no")),intent);
                 } else {
                     Toast.makeText(getContext(), "승인을 받으세요.", Toast.LENGTH_SHORT).show();
                 }
@@ -81,7 +79,8 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
             case R.id.foodtruckManageBtn:    // 푸드트럭 관리 버튼
                 // 나중에 추가해야함
                 if(approval) {
-                    myFoodTruckInquiry(Integer.valueOf(SharedPreference.getAttribute(getContext(),"no")));
+                    Intent intent = new Intent(getContext(), FoodtruckMainActivity.class);
+                    myFoodTruckInquiry(Integer.valueOf(SharedPreference.getAttribute(getContext(),"no")),intent);
 
                 } else {
                     Toast.makeText(getContext(), "승인을 받으세요.", Toast.LENGTH_SHORT).show();
@@ -94,10 +93,6 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
                 } else {
                     Toast.makeText(getContext(), "승인을 받으세요.", Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R.id.salesManageBtn:    // 매출 관리 버튼
-               /* intent = new Intent(getContext(), InquiryAcivity.class);
-                startActivity(intent);*/
                 break;
             case R.id.infoBtn:    // 내 정보 버튼
                 if(approval) {
@@ -149,7 +144,7 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
     }
 
 
-    public void myFoodTruckInquiry(int no){
+    public void myFoodTruckInquiry(int no, Intent intent){
         Call<ResponseBody> call = service.myFoodtruckInquiry(no);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -157,7 +152,7 @@ public class BusinessMainViewActivity extends Fragment implements View.OnClickLi
                 Gson gson = new Gson();
                 try {
                     Foodtruck foodtruck = gson.fromJson(response.body().string(), Foodtruck.class);
-                    intent = new Intent(getContext(), FoodtruckMainActivity.class);
+
                     intent.putExtra("foodtruck",foodtruck);
                     startActivity(intent);
 

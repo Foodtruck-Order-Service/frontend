@@ -59,13 +59,10 @@ public class BusinessInquiryActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<BusinessListViewItem>>() {
             @Override
             public void onResponse(Call<List<BusinessListViewItem>> call, Response<List<BusinessListViewItem>> response) {
-                Gson gson = new Gson();
 
                 List<BusinessListViewItem> item = response.body();
 
                 for(int i = 0; i< item.size(); i++) {
-                    System.out.println("aaaaaa" + item.get(i).toString());
-                    Log.i("a","item.get(i).toString()");
                     customBusinessListFragment.addItem(item.get(i));
                 }
                 customBusinessListFragment.adapter.notifyDataSetChanged();

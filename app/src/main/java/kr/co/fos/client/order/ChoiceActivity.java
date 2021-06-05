@@ -47,7 +47,6 @@ public class ChoiceActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.order_choice);
         paymentCard = findViewById(R.id.paymentCard);
         paymentCash = findViewById(R.id.paymentCash);
-        //paymentRadio = findViewById(R.id.paymentRadio);
         totalAmountText = findViewById(R.id.totalAmountText);
         paymentBtn = findViewById(R.id.paymentBtn);
         paymentBtn.setOnClickListener(this);
@@ -61,7 +60,6 @@ public class ChoiceActivity extends AppCompatActivity implements View.OnClickLis
         }
         totalAmountText.setText(String.valueOf(totalAmount));
 
-        System.out.println(listViewItems);
         setRetrofitInit();
     }
     private void setRetrofitInit() {
@@ -78,16 +76,14 @@ public class ChoiceActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.paymentBtn:    // 로그인 버튼
                 if (paymentCard.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "카드 결제.", Toast.LENGTH_SHORT).show();
-                   /* intent = new Intent(getApplicationContext(), PaymentActivity.class);
-                    intent.putExtra("order", orderParsing());
-                    startActivity(intent);*/
+                    intent = new Intent(getApplicationContext(), PaymentActivity.class);
+
                     Order order = orderParsing();
                     order.setPaymentType("카드");
-                    orderRegister(order);
+                    intent.putExtra("order", order);
+                    startActivity(intent);
                     //결제
                 } else if (paymentCash.isChecked()) {
-                    Toast.makeText(getApplicationContext(), "현금 결제.", Toast.LENGTH_SHORT).show();
                     Order order = orderParsing();
                     order.setPaymentType("현금");
                     orderRegister(order);

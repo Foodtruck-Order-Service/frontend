@@ -66,8 +66,6 @@ public class PaymentActivity extends AppCompatActivity {
                         order.setMerchantUid(iamPortResponse.getMerchant_uid());
                         orderRegister(order);
                         String responseText = iamPortResponse.toString();
-                        Log.d("IAMPORT_SAMPLE", responseText);
-                        Toast.makeText(this, responseText, Toast.LENGTH_LONG).show();
                     } else {
                         intent = new Intent(getApplicationContext(), InquiryActivity.class);
                         startActivity(intent);
@@ -102,7 +100,6 @@ public class PaymentActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.println(orderNo);
                 intent.putExtra("orderNo", orderNo);
                 startActivity(intent);
             }

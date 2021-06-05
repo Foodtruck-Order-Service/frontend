@@ -85,7 +85,6 @@ public class InquiryActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (v.getId()) {
             case R.id.paymentBtn:
-                System.out.print(customListFrgmt.inquiryAllItem());
                 if(!customListFrgmt.inquiryAllItem().isEmpty()) {
                     intent = new Intent(getApplicationContext(), ChoiceActivity.class);
                     intent.putExtra("order", customListFrgmt.inquiryAllItem());

@@ -54,8 +54,6 @@ public class ListViewAdapter extends BaseAdapter {
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         TextView nameText = (TextView) convertView.findViewById(R.id.nameText);
         ImageButton closeBtn = (ImageButton) convertView.findViewById(R.id.closeBtn);
-/*        TextView optionText = (TextView) convertView.findViewById(R.id.optionText);
-        TextView optionValueText = (TextView) convertView.findViewById(R.id.optionValueText);*/
         TextView amountText = (TextView) convertView.findViewById(R.id.amountText);
         ImageButton minusBtn = (ImageButton) convertView.findViewById(R.id.minusBtn);
         TextView countText = (TextView) convertView.findViewById(R.id.countText);
@@ -69,7 +67,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         List<String> list = new ArrayList<>();
         Gson gson = new Gson();
-        System.out.println(gson.toJson(listViewItem));
+
         if (listViewItem.getOptions() != null) {
             for (int i = 0; i < listViewItem.getOptions().size(); i++) {
                 Option option = listViewItem.getOptions().get(i);
@@ -111,7 +109,7 @@ public class ListViewAdapter extends BaseAdapter {
             public void onClick(View v) {
                 listViewItem.setCount(Integer.valueOf(countText.getText().toString()) + 1);
                 listViewItem.setTotalAmount((String.valueOf(Integer.valueOf(listViewItem.getAmount()) * listViewItem.getCount())));
-                //amountText.setText("가격" + listViewItem.getAmount());
+
                 baseAdapter.notifyDataSetChanged();
 
             }

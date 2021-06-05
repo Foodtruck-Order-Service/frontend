@@ -107,7 +107,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
                 try {
                     Boolean check = false;
-                    Gson gson = new Gson();
                     List<Member> memberList = response.body();
                     if (!memberList.toString().equals("[]")) {
                         check = true;

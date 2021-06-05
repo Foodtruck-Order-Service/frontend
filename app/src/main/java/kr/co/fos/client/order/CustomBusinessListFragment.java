@@ -49,7 +49,6 @@ public class CustomBusinessListFragment extends ListFragment {
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
         BusinessListViewItem item = (BusinessListViewItem) this.getListAdapter().getItem(position);
-        System.out.println(item);
         Intent intent = new Intent(getContext(),BusinessDetailInquiryActivity.class);
         intent.putExtra("businessListViewItem", item);
         startActivity(intent);

@@ -19,7 +19,7 @@
             android:id="@+id/startSalesBtn"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
-            android:text="영업 시작"
+            android:text="영업 관리"
             android:textSize="24sp" />
 
         <Button
@@ -34,13 +34,6 @@
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:text="주문 관리"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/salesManageBtn"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:text="매출 관리"
             android:textSize="24sp" />
 
         <Button

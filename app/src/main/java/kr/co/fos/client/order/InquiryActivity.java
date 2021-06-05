@@ -33,7 +33,6 @@ public class InquiryActivity extends AppCompatActivity {
         customListFrgmt = (CustomListFragment) getSupportFragmentManager().findFragmentById(R.id.orderlistFragment);
         //회원 번호
         orderInquiry(Integer.valueOf(SharedPreference.getAttribute(getApplicationContext(),"no")));
-        //orderInquiry(1);
 
     }
 
@@ -52,13 +51,11 @@ public class InquiryActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<ListViewItem>>() {
             @Override
             public void onResponse(Call<List<ListViewItem>> call, Response<List<ListViewItem>> response) {
-                Gson gson = new Gson();
 
                 List<ListViewItem> item = response.body();
 
                 for(int i = 0; i< item.size(); i++) {
-                    System.out.println("aaaaaa" + item.get(i).toString());
-                    Log.i("a","item.get(i).toString()");
+
                     customListFrgmt.addItem(item.get(i));
                 }
                 customListFrgmt.adapter.notifyDataSetChanged();

@@ -3,23 +3,14 @@ package kr.co.fos.client.common;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.Toast;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.foodtruck.LocationActivity;
 import kr.co.fos.client.foodtruck.SearchResultActivity;
-import kr.co.fos.client.member.MyInfoActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     SearchView searchView;
@@ -80,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(getApplicationContext(), SearchResultActivity.class);
                 intent.putExtra("name", query);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
                 return true;
 
             }

@@ -92,7 +92,6 @@ public class BusinessDetailInquiryActivity extends AppCompatActivity implements 
                             if(order.getOrderInfos() != null) {
                             businessDetailListViewItem.setMenuDetail(orderInfo.getMenuDetails());
                             }
-                            System.out.println("db에서 가져옴 :        " + businessDetailListViewItem);
                             businessDetailListFrgmt.addItem(businessDetailListViewItem);
 
                         businessDetailListFrgmt.adapter.notifyDataSetChanged();

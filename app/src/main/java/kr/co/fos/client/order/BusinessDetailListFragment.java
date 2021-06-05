@@ -41,7 +41,6 @@ public class BusinessDetailListFragment  extends ListFragment {
 
         // Adapter 생성 및 Adapter 지정.
         adapter = new BusinessDetailListAdapter();
-        System.out.println("프레그먼트 입장");
         setListAdapter(adapter);
 
 
