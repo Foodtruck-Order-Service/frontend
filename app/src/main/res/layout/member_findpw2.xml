@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="203dp"
             android:layout_marginBottom="58dp"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="비밀번호 찾기"
             android:textAlignment="center"
             android:textSize="48sp" />
@@ -35,6 +37,8 @@
             android:layout_marginBottom="30dp"
             android:background="@drawable/text_border"
             android:ems="10"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:hint="이메일"
             android:inputType="textPersonName"
             android:scaleType="fitCenter"
@@ -53,6 +57,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/fontdungle"
                 android:text="이메일 인증"
                 android:textSize="34sp" />
         </LinearLayout>

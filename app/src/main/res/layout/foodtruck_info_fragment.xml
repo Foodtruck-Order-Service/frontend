@@ -41,6 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="time"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:textAlignment="viewStart"
                 android:textSize="20dp" />
 
@@ -59,6 +61,8 @@
                 android:id="@+id/introduceView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="소개"
                 android:textAlignment="viewStart"
                 android:textSize="20dp" />

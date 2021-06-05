@@ -27,6 +27,8 @@
                 android:layout_weight="3"
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="20dp"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="옵션 이름"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -39,6 +41,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/text_border"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:scaleType="fitCenter"
@@ -68,6 +72,8 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginBottom="40dp"
                 android:layout_weight="3"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="옵션 값"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -79,6 +85,8 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="3"
                 android:background="@drawable/text_border"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:scaleType="fitCenter"
@@ -90,6 +98,8 @@
                 android:layout_height="30dp"
                 android:layout_marginBottom="40dp"
                 android:layout_weight="3"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="추가금액"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -101,6 +111,8 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="3"
                 android:background="@drawable/text_border"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:scaleType="fitCenter"
@@ -113,8 +125,11 @@
             android:layout_height="40dp"
             android:layout_gravity="right"
             android:layout_weight="1"
+            android:background="@drawable/orange_button"
+            android:fontFamily="@font/fontdungle"
             android:text="값 추가"
-            android:textSize="10dp" />
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

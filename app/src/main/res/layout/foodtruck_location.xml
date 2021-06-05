@@ -34,6 +34,9 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="로그인" />
 
         </LinearLayout>

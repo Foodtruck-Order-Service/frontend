@@ -1,11 +1,13 @@
 package kr.co.fos.client.menu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 
@@ -127,9 +131,6 @@ public class RegisterFragment extends Fragment {
                 count++;
             }
         });
-
-        addOptionView();
-        count++;
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -333,6 +334,10 @@ public class RegisterFragment extends Fragment {
         optionNameView.setTextSize(20);
         optionNameView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
+        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.fontdungle);
+        optionNameView.setTypeface(typeface);
+        optionNameView.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
+
         LinearLayout.LayoutParams optionNameViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 3);
         optionNameViewLp.leftMargin = 15;
         optionNameViewLp.bottomMargin = 20;
@@ -347,7 +352,8 @@ public class RegisterFragment extends Fragment {
         optionNameEdit.setEms(10);
         optionNameEdit.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         optionNameEdit.setTextSize(20);
-
+        optionNameEdit.setTypeface(typeface);
+        optionNameEdit.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
         LinearLayout.LayoutParams optionValueEditLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 2);
         optionValueEditLp.rightMargin = 10;
         optionValueEditLp.bottomMargin = 20;
@@ -372,8 +378,10 @@ public class RegisterFragment extends Fragment {
         // Value add Button 생성
         Button newAddValueButton = new Button(getContext());
         newAddValueButton.setText("값 추가");
-        newAddValueButton.setTextSize(10);
-
+        newAddValueButton.setTextSize(34);
+        newAddValueButton.setTypeface(typeface);
+        newAddValueButton.setBackgroundResource(R.drawable.orange_button);
+        newAddValueButton.setTextColor( ContextCompat.getColor(getContext(), R.color.colorWhite));
         LinearLayout.LayoutParams newAddValueButtonLayoutP = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         newAddValueButtonLayoutP.rightMargin = 10;
         newAddValueButtonLayoutP.bottomMargin = 20;
@@ -406,7 +414,9 @@ public class RegisterFragment extends Fragment {
         optionValueView.setText("옵션 값 " + (valueList.getChildCount() + 1));
         optionValueView.setTextSize(20);
         optionValueView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
+        Typeface typeface = ResourcesCompat.getFont(getContext(), R.font.fontdungle);
+        optionValueView.setTypeface(typeface);
+        optionValueView.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
         LinearLayout.LayoutParams optionValueLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 4);
         //optionValueLp.leftMargin = 15;
         optionValueView.setLayoutParams(optionValueLp);
@@ -420,7 +430,8 @@ public class RegisterFragment extends Fragment {
         optionValueEdit.setEms(10);
         optionValueEdit.setInputType(InputType.TYPE_TEXT_VARIATION_PERSON_NAME);
         optionValueEdit.setTextSize(20);
-
+        optionValueEdit.setTypeface(typeface);
+        optionValueEdit.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
         LinearLayout.LayoutParams optionValueEditLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 4);
         optionValueEdit.setLayoutParams(optionValueEditLp);
         //부모 뷰에 추가
@@ -431,7 +442,8 @@ public class RegisterFragment extends Fragment {
         optionAmountView.setText("추가금액 " + (valueList.getChildCount() + 1));
         optionAmountView.setTextSize(20);
         optionAmountView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-
+        optionAmountView.setTypeface(typeface);
+        optionAmountView.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
         LinearLayout.LayoutParams optionAmountViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 4);
         optionAmountView.setLayoutParams(optionAmountViewLp);
         //부모 뷰에 추가
@@ -444,6 +456,8 @@ public class RegisterFragment extends Fragment {
         optionAmountEdit.setEms(10);
         optionAmountEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
         optionAmountEdit.setTextSize(20);
+        optionAmountEdit.setTypeface(typeface);
+        optionAmountEdit.setTextColor( ContextCompat.getColor(getContext(), R.color.colorText));
         optionAmountEdit.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
 
         LinearLayout.LayoutParams optionAmountEditLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 4);

@@ -17,6 +17,8 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="주문 내역"
             android:textAlignment="center"
             android:textSize="48sp" />

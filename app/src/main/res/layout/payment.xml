@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="잠시만 기다려주세요."
+        android:fontFamily="@font/fontdungle"
+        android:textColor="@color/colorText"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

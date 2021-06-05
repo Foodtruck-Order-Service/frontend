@@ -34,8 +34,10 @@
                     android:id="@+id/businessView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="사업자번호   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -44,8 +46,10 @@
                     android:id="@+id/foodtruckNameView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="푸드트럭명   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -54,8 +58,10 @@
                     android:id="@+id/categoryView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="음식종류   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -64,8 +70,10 @@
                     android:id="@+id/timeView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="30dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="영업시간   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -74,8 +82,10 @@
                     android:id="@+id/contentView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="홍보글   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -84,8 +94,10 @@
                     android:id="@+id/foodtruckPhotoView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginBottom="40dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="푸드트럭사진   "
                     android:textAlignment="viewEnd"
                     android:textSize="20sp" />
@@ -101,9 +113,11 @@
                     android:id="@+id/businessEdit"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -113,9 +127,11 @@
                     android:id="@+id/foodtruckNameEdit"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -125,14 +141,16 @@
                     android:id="@+id/spinner_category"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:background="@drawable/text_border" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
@@ -141,7 +159,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:background="@drawable/orange_button"
+                        android:textColor="@color/colorWhite"
                         android:text="시작 시간"
+                        android:fontFamily="@font/fontdungle"
                         android:textAlignment="center"
                         android:textSize="15sp" />
 
@@ -150,6 +171,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:background="@drawable/orange_button"
+                        android:textColor="@color/colorWhite"
+                        android:fontFamily="@font/fontdungle"
                         android:text="종료 시간"
                         android:textAlignment="center"
                         android:textSize="15sp" />
@@ -159,9 +183,11 @@
                     android:id="@+id/contentEdit"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -171,8 +197,10 @@
                     android:id="@+id/foodtruckPhotoNameView"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/text_border"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -181,7 +209,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginRight="20dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -195,6 +223,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:background="@drawable/orange_button"
+                        android:fontFamily="@font/fontdungle"
+                        android:textColor="@color/colorWhite"
                         android:text="등록"
                         android:textSize="18sp" />
 
@@ -209,6 +240,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="수정"
+            android:background="@drawable/orange_button"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorWhite"
             android:textSize="34sp" />
 
     </LinearLayout>

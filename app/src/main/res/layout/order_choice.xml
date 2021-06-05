@@ -22,8 +22,11 @@
                 android:id="@+id/orderText"
                 android:layout_width="158dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fontdungle"
+                android:gravity="center"
                 android:text="주문"
-                android:textAlignment="viewEnd"
+                android:textAlignment="center"
+                android:textColor="@color/colorText"
                 android:textSize="48sp" />
 
         </LinearLayout>
@@ -35,6 +38,8 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/text_border"
             android:hapticFeedbackEnabled="false"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="결제 종류"
             android:textAlignment="center"
             android:textSize="34sp" />
@@ -50,6 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="신용카드"
                 android:textSize="24sp" />
 
@@ -57,6 +64,8 @@
                 android:id="@+id/paymentCash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="만나서 현금 결제"
                 android:textSize="24sp" />
         </RadioGroup>
@@ -74,6 +83,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:text="TextView"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:textAlignment="viewEnd"
                 android:textSize="24sp" />
 
@@ -83,6 +94,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/fontdungle"
                 android:text="결제하기"
                 android:textSize="34sp" />
         </LinearLayout>

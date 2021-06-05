@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.asianFoodBtn:    // 아시안 버튼
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
-                intent.putExtra("category", "아시안");
+                intent.putExtra("category", "아시안음식");
                 startActivity(intent);
                 break;
             case R.id.snackFoodBtn:    // 분식 버튼

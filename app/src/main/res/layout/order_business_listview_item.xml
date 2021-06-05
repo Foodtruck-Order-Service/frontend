@@ -18,6 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="62dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -26,7 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
                 android:text="TextView"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -35,8 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
                 android:text="TextView"
                 android:textAlignment="viewEnd"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -45,6 +50,8 @@
             android:id="@+id/orderTimeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:layout_marginLeft="30dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -53,6 +60,8 @@
             android:id="@+id/paymentText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:layout_marginLeft="30dp"
             android:text="TextView"
             android:textSize="20sp" />
@@ -60,6 +69,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -68,7 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
                 android:text="TextView"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
 
             <TextView
@@ -77,8 +89,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
                 android:text="TextView"
                 android:textAlignment="viewEnd"
+                android:textColor="@color/colorText"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -92,6 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="주문 취소"
                 android:textSize="24sp" />
 

@@ -29,6 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="목록"
             android:textAlignment="center"
             android:textSize="30dp" />
@@ -45,6 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="이름"
                 android:textAlignment="center"
                 android:textSize="20dp" />
@@ -54,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="종류"
                 android:textAlignment="center"
                 android:textSize="20dp" />
@@ -63,6 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="상태"
                 android:textAlignment="center"
                 android:textSize="20dp" />

@@ -65,7 +65,7 @@ public class BusinessMenuAdapter extends BaseAdapter {
         ImageButton removeButton = (ImageButton) convertView.findViewById(R.id.removeButton);
 
         Menu menu = menuList.get(position);
-        Glide.with(context).load("http://192.168.35.135:8080/menu/photo/" + menu.getNo()).into(photoImageView);
+        Glide.with(context).load("http://222.117.135.101:8090/menu/photo/" + menu.getNo()).into(photoImageView);
 
         nameTextView.setText(menu.getName());
         paymentTextView.setText(menu.getAmount() + "원");

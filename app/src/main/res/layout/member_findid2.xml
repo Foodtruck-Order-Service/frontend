@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="203dp"
             android:layout_marginBottom="58dp"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="아이디 찾기"
             android:textAlignment="center"
             android:textSize="48sp" />
@@ -32,6 +34,8 @@
             android:id="@+id/findIdText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text=""
             android:textAlignment="center"
             android:textSize="34sp" />
@@ -49,6 +53,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="로그인 화면"
                 android:textSize="34sp" />
         </LinearLayout>

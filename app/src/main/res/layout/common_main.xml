@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="147dp"
             android:layout_marginTop="40dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
 
@@ -36,7 +37,7 @@
 
                 <ImageButton
                     android:id="@+id/koreanFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -46,6 +47,8 @@
                     android:id="@+id/koreanFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="한식"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -58,7 +61,7 @@
 
                 <ImageButton
                     android:id="@+id/japanFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -68,6 +71,8 @@
                     android:id="@+id/japanFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="일식"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -80,7 +85,7 @@
 
                 <ImageButton
                     android:id="@+id/chinaFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -90,6 +95,8 @@
                     android:id="@+id/chinaFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="중식"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -102,7 +109,7 @@
 
                 <ImageButton
                     android:id="@+id/westernFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -112,6 +119,8 @@
                     android:id="@+id/westernFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="양식"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -122,6 +131,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -131,7 +141,7 @@
 
                 <ImageButton
                     android:id="@+id/asianFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -141,6 +151,8 @@
                     android:id="@+id/asianFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="아시안"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -153,7 +165,7 @@
 
                 <ImageButton
                     android:id="@+id/snackFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -163,6 +175,8 @@
                     android:id="@+id/snackFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="분식"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -175,7 +189,7 @@
 
                 <ImageButton
                     android:id="@+id/dessertFoodBtn"
-                    android:layout_width="85dp"
+                    android:layout_width="match_parent"
                     android:layout_height="108dp"
                     android:background="@android:color/transparent"
                     android:scaleType="fitCenter"
@@ -185,6 +199,8 @@
                     android:id="@+id/dessertFoodText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:text="디저트"
                     android:textAlignment="center"
                     android:textSize="24sp" />
@@ -195,7 +211,7 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="314dp"
+            android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical" />
 

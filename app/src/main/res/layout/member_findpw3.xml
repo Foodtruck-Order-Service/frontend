@@ -25,6 +25,8 @@
             android:layout_marginTop="203dp"
             android:layout_marginBottom="58dp"
             android:text="비밀번호 찾기"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:textAlignment="center"
             android:textSize="48sp" />
 
@@ -33,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:textAlignment="center"
             android:textSize="34sp" />
 
@@ -49,6 +53,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/fontdungle"
                 android:text="로그인 화면"
                 android:textSize="34sp" />
         </LinearLayout>

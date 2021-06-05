@@ -80,7 +80,7 @@ public class DetailInquiryFragment  extends Fragment {
 
         addButton = (Button) rootView.findViewById(R.id.addButton);
 
-        Glide.with(getContext()).load("http://192.168.35.135:8080/menu/photo/" + menu.getNo()).into(photoView);
+        Glide.with(getContext()).load("http://222.117.135.101:8090/menu/photo/" + menu.getNo()).into(photoView);
 
         adapter = new OptionAdapter();
         listView.setAdapter(adapter);

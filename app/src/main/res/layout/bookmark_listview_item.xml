@@ -20,6 +20,8 @@
             android:id="@+id/nameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:layout_weight="3"
             android:text="TextView"
             android:textSize="20dp" />
@@ -29,6 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="TextView"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -38,6 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="TextView"
             android:textAlignment="center"
             android:textSize="20dp" />

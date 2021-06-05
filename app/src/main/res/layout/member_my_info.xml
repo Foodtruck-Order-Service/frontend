@@ -20,6 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="74dp"
             android:layout_marginBottom="53dp"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="내 정보"
             android:textAlignment="center"
             android:textSize="60sp" />
@@ -40,8 +42,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:gravity="center"
                     android:text="아이디   "
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
                 <TextView
@@ -50,8 +55,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:gravity="center"
                     android:text="이름   "
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
                 <TextView
@@ -60,8 +68,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:gravity="center"
                     android:text="회원 종류   "
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
                 <TextView
@@ -70,8 +81,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:gravity="center"
                     android:text="이메일   "
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
                 <TextView
@@ -80,8 +94,11 @@
                     android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/fontdungle"
+                    android:gravity="center"
                     android:text="전화번호   "
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -99,6 +116,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
                     android:focusableInTouchMode="false"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -118,6 +137,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
                     android:focusableInTouchMode="false"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -131,6 +152,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
                     android:focusableInTouchMode="false"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -144,6 +167,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
                     android:focusableInTouchMode="false"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -157,6 +182,8 @@
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
                     android:focusableInTouchMode="false"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
@@ -180,6 +207,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="회원 수정"
                 android:textSize="34sp" />
 
@@ -189,6 +219,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="회원 탈퇴"
                 android:textSize="34sp" />
         </LinearLayout>

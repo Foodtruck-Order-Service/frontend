@@ -10,9 +10,9 @@
     <application
         android:name=".payment.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:label="front"
+        android:icon="@mipmap/ic_fos"
+        android:roundIcon="@mipmap/ic_fos_round"
+        android:label="FOS"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">

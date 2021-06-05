@@ -18,6 +18,8 @@
             android:id="@+id/orderText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="주문"
             android:textAlignment="center"
             android:textSize="48sp" />
@@ -41,6 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:scaleType="fitCenter"
+                android:background="@drawable/orange_button"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/fontdungle"
                 android:text="주문 상태 변경"
                 android:textSize="34sp" />
         </LinearLayout>

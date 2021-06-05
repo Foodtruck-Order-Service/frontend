@@ -37,6 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="위치 선택"
                 android:textAlignment="center"
                 android:textSize="30dp" />
@@ -45,6 +47,9 @@
                 android:id="@+id/loginBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="로그아웃" />
 
         </LinearLayout>
@@ -64,7 +69,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="6"
-            android:text="영업 시작" />
+            android:background="@drawable/orange_button"
+            android:fontFamily="@font/fontdungle"
+            android:text="영업 시작"
+            android:textColor="@color/colorWhite"
+            android:textSize="34sp" />
 
     </LinearLayout>
 

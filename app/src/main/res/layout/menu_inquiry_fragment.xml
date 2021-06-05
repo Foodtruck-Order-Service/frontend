@@ -29,6 +29,8 @@
             android:id="@+id/nameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="메뉴 이름"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -46,7 +48,10 @@
             android:id="@+id/addButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
             android:text="장바구니 추가"
+            android:background="@drawable/orange_button"
+            android:textColor="@color/colorWhite"
             android:textAlignment="center"
             android:textSize="30dp" />
 

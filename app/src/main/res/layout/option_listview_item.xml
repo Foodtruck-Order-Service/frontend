@@ -21,6 +21,8 @@
             android:id="@+id/optionNameView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/fontdungle"
+            android:textColor="@color/colorText"
             android:text="옵션 명"
             android:padding="10dp"
             android:layout_gravity="right"

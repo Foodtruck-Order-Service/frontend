@@ -67,7 +67,7 @@ public class ReviewAdapter extends BaseAdapter {
         idTextView.setText(review.getId());
         contentTextView.setText(review.getContent());
         registDateTextView.setText(review.getRegistDate().toString());
-        Glide.with(context).load("http://192.168.35.135:8080/review/photo/" + review.getNo()).into(reviewImage);
+        Glide.with(context).load("http://222.117.135.101:8090/review/photo/" + review.getNo()).into(reviewImage);
 
         reviewImage.setImageBitmap(bitmap);
 

@@ -24,6 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorText"
                 android:text="회원가입"
                 android:textAlignment="center"
                 android:textSize="60sp" />
@@ -39,6 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:textColor="@color/colorWhite"
                 android:text="사업자"
                 android:textSize="34sp" />
 
@@ -47,6 +52,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/orange_button"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/fontdungle"
                 android:text="일반회원"
                 android:textSize="34sp" />
 

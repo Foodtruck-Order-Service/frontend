@@ -38,7 +38,7 @@
             android:layout_marginBottom="3dp"
 
             android:alpha="0.87"
-
+            android:fontFamily="@font/fontdungle"
             android:gravity="center"
 
             android:text=""
@@ -89,7 +89,7 @@
             android:gravity="center"
 
             android:onClick="mOnCheck"
-
+            android:fontFamily="@font/fontdungle"
             android:padding="16dp"
 
             android:text="확인"
@@ -109,7 +109,7 @@
             android:gravity="center"
 
             android:onClick="mOnClose"
-
+            android:fontFamily="@font/fontdungle"
             android:padding="16dp"
 
             android:text="취소"

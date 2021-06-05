@@ -61,7 +61,7 @@ public class InfoFragment  extends Fragment {
         timeView = (TextView) rootView.findViewById(R.id.timeView);
         introduceView = (TextView) rootView.findViewById(R.id.introduceView);
 
-        Glide.with(getContext()).load("http://192.168.35.135:8080/foodtruck/photo/" + foodtruck.getNo()).into(imageView);
+        Glide.with(getContext()).load("http://222.117.135.101:8090/foodtruck/photo/" + foodtruck.getNo()).into(imageView);
         timeView.setText("영업 시간 : " + foodtruck.getStartTime() + " ~ " + foodtruck.getEndTime());
         introduceView.setText(foodtruck.getContent());
 
