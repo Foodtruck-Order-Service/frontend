@@ -2,6 +2,8 @@ package kr.co.fos.client.foodtruck;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +54,14 @@ public class FoodtruckAdapter extends BaseAdapter {
         nameImageView.setText(foodtruck.getName());
         categoryTextView.setText(foodtruck.getCategory());
         statusTextView.setText((foodtruck.getStatus().equals("Y")) ? "영업" : "닫음");
+        if (foodtruck.getStatus().equals("Y")) {
+            nameImageView.setTypeface(null, Typeface.BOLD);
+            categoryTextView.setTypeface(null, Typeface.BOLD);
+            statusTextView.setTypeface(null, Typeface.BOLD);
+            nameImageView.setTextColor(Color.BLACK);
+            categoryTextView.setTextColor(Color.BLACK);
+            statusTextView.setTextColor(Color.BLACK);
+        }
 
         return convertView;
     }

@@ -22,6 +22,7 @@ import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.bookmark.Bookmark;
 import kr.co.fos.client.common.LoginActivity;
+import kr.co.fos.client.common.MainActivity;
 import kr.co.fos.client.review.InquiryFragment;
 import kr.co.fos.client.review.RegisterFragment;
 import kr.co.fos.client.review.UpdateFragment;
@@ -87,13 +88,11 @@ public class FoodtruckMainActivity extends AppCompatActivity {
         reviewButton = (Button)findViewById(R.id.reviewButton);
 
         loginCheck = SharedPreference.getAttribute(getApplicationContext(), "no") != null;
+        foodtruck = (Foodtruck) getIntent().getSerializableExtra("foodtruck");
+        type = SharedPreference.getAttribute(getApplicationContext(), "type");
 
         if(loginCheck) {
             memberNo = Integer.parseInt(SharedPreference.getAttribute(getApplicationContext(), "no"));
-            type = SharedPreference.getAttribute(getApplicationContext(), "type");
-
-            foodtruck = (Foodtruck) getIntent().getSerializableExtra("foodtruck");
-
             myFoodtruckCheck = (memberNo == foodtruck.getMemberNo());
 
             loginButton.setText("로그아웃");
@@ -192,11 +191,10 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(loginCheck) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"no");
-                    SharedPreference.removeAttribute(getApplicationContext(),"type");
+                    SharedPreference.removeAllAttribute(getApplicationContext());
                     loginButton.setText("로그인");
                     Toast.makeText(FoodtruckMainActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), FoodtruckMainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("foodtruck", foodtruck);
                     startActivity(intent);
                     finish();
@@ -287,7 +285,6 @@ public class FoodtruckMainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println(response.body().string());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -323,14 +320,5 @@ public class FoodtruckMainActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(FoodtruckMainActivity.this, LocationActivity.class); //지금 액티비티에서 다른 액티비티로 이동하는 인텐트 설정
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    //인텐트 플래그 설정
-        startActivity(intent);  //인텐트 이동
-        finish();   //현재 액티비티 종료
     }
 }

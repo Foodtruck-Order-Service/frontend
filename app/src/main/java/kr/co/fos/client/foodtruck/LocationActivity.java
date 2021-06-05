@@ -4,27 +4,15 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,39 +20,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import net.daum.mf.map.api.MapCircle;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
-import kr.co.fos.client.bookmark.Bookmark;
 import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
-import kr.co.fos.client.menu.Menu;
-import kr.co.fos.client.menu.MenuAdapter;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import kr.co.fos.client.foodtruck.map.GpsTracker;
+import kr.co.fos.client.foodtruck.map.MarkerEventListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -112,31 +83,6 @@ public class LocationActivity  extends AppCompatActivity {
 
         searchView = findViewById(R.id.searchView);
 
-        mapView = new MapView(this);
-
-        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-
-        gpsTracker = new GpsTracker(this);
-
-        latitude = gpsTracker.getLatitude();
-        longitude = gpsTracker.getLongitude();
-
-        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(latitude, longitude);
-
-        // 중심점 변경 + 줌 레벨 변경
-        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 1, true);
-
-        markerListener = new MarkerEventListener(this);
-
-        MapCircle circle1 = new MapCircle(
-                MARKER_POINT, // center
-                300, // radius
-                Color.argb(128, 255, 0, 0), // strokeColor
-                Color.argb(0, 0, 0, 0) // fillColor
-        );
-
-        mapView.addCircle(circle1);
-
         if (intent != null) {
             String name = intent.getStringExtra("name");
             searchView.setQuery(name, false);
@@ -149,26 +95,13 @@ public class LocationActivity  extends AppCompatActivity {
             loginBtn.setText("로그아웃");
         }
 
-        MapPOIItem marker = new MapPOIItem();
-        marker.setItemName("내 위치");
-        marker.setMapPoint(MARKER_POINT);
-        marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
-
-        mapView.addPOIItem(marker);
-
-        foodtruckLocationSearch();
-
-        mapView.setPOIItemEventListener(markerListener);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 intent = new Intent(getApplicationContext(),SearchResultActivity.class);
                 intent.putExtra("name", query);
                 startActivity(intent);
-                Toast.makeText(LocationActivity.this, "검색 처리됨 : " + query, Toast.LENGTH_SHORT).show();
+
                 return true;
             }
 
@@ -183,15 +116,80 @@ public class LocationActivity  extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(loginCheck) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"no");
+                    SharedPreference.removeAllAttribute(getApplicationContext());
                     loginBtn.setText("로그인");
                     Toast.makeText(LocationActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView = new MapView(this);
+
+        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+
+        gpsTracker = new GpsTracker(this);
+
+        latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
+
+        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(latitude, longitude);
+
+        // 중심점 변경 + 줌 레벨 변경
+        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, -1, true);
+
+        markerListener = new MarkerEventListener(this);
+
+        MapCircle circle1 = new MapCircle(
+                MARKER_POINT, // center
+                300, // radius
+                Color.argb(128, 255, 0, 0), // strokeColor
+                Color.argb(0, 0, 0, 0) // fillColor
+        );
+
+        mapView.addCircle(circle1);
+
+        MapPOIItem myMarker = new MapPOIItem();
+        myMarker.setItemName("내 위치");
+        myMarker.setMapPoint(MARKER_POINT);
+        myMarker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+        myMarker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본으로 제공하는 BluePin 마커 모양.
+        myMarker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); // 마커를 클릭했을때, 기본으로 제공하는 RedPin 마커 모양.
+
+        mapView.addPOIItem(myMarker);
+
+        foodtruckLocationSearch();
+
+        mapView.setPOIItemEventListener(markerListener);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapViewContainer.addView(mapView);
+    }
+
+    @Nullable
+    @Override
+    public void onPause() {
+        mapViewContainer.removeView(mapView);
+        super.onPause();
+    }
+
+    @Nullable
+    @Override
+    public void onStop() {
+        mapViewContainer.removeView(mapView);
+        super.onStop();
     }
 
     private void setRetrofitInit() {
@@ -230,8 +228,8 @@ public class LocationActivity  extends AppCompatActivity {
                         marker.setUserObject(item);
                         marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
                         marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
-                        marker.setCustomImageResourceId(R.drawable.foodtruck_icon); // 마커 이미지.
-                        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                        marker.setCustomImageResourceId(R.drawable.foodtruck_m_icon); // 마커 이미지.
+                        marker.setCustomImageAutoscale(true); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
                         marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
 
                         mapView.addPOIItem(marker);
@@ -245,26 +243,6 @@ public class LocationActivity  extends AppCompatActivity {
                 Toast.makeText(getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapViewContainer.addView(mapView);
-    }
-
-    @Nullable
-    @Override
-    public void onPause() {
-        mapViewContainer.removeAllViews();
-        super.onPause();
-    }
-
-    @Nullable
-    @Override
-    public void onStop() {
-        mapViewContainer.removeAllViews();
-        super.onStop();
     }
 
     //======GPS 관련 메소드=========

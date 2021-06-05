@@ -127,11 +127,7 @@ public class UpdateFragment extends Fragment {
                 try {
                     Gson gson = new Gson();
                     menu = gson.fromJson(response.body().string(), Menu.class);
-
-                    System.out.println(menu.toString());
-
                     nameView.setText(menu.getName());
-
                     for (Option item : menu.getOptions()) {
                         adapter.addItem(item);
                     }

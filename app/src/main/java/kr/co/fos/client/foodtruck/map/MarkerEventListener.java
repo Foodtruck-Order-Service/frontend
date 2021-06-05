@@ -1,4 +1,4 @@
-package kr.co.fos.client.foodtruck;
+package kr.co.fos.client.foodtruck.map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
+
+import kr.co.fos.client.foodtruck.Foodtruck;
+import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
 
 public class MarkerEventListener implements MapView.POIItemEventListener{
     Activity activity;
@@ -22,7 +25,6 @@ public class MarkerEventListener implements MapView.POIItemEventListener{
             Intent intent = new Intent(activity.getBaseContext(), FoodtruckMainActivity.class);
             intent.putExtra("foodtruck", foodtruck);
             activity.startActivity(intent);
-            //activity.finish();
         }
     }
 
