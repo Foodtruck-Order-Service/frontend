@@ -16,8 +16,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="137dp"
-            android:orientation="horizontal">
+            android:layout_height="272dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView3"
@@ -25,37 +26,53 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/fontdungle"
-                android:textColor="@color/colorText"
                 android:text="회원가입"
                 android:textAlignment="center"
+                android:textColor="@color/colorText"
                 android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/fontdungle"
+                android:gravity="center"
+                android:text="회원 종류를 선택해주세요!"
+                android:textAlignment="center"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="143dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/businessBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/orange_button"
                 android:fontFamily="@font/fontdungle"
-                android:textColor="@color/colorWhite"
                 android:text="사업자"
+                android:textColor="@color/colorWhite"
                 android:textSize="34sp" />
 
             <Button
                 android:id="@+id/generalBtn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:background="@drawable/orange_button"
-                android:textColor="@color/colorWhite"
                 android:fontFamily="@font/fontdungle"
                 android:text="일반회원"
+                android:textColor="@color/colorWhite"
                 android:textSize="34sp" />
 
         </LinearLayout>

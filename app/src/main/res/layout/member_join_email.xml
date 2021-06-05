@@ -55,6 +55,8 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginBottom="40dp"
                     android:text="인증코드   "
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:textAlignment="viewEnd"
                     android:visibility="invisible"
                     android:textSize="20sp" />
@@ -94,11 +96,12 @@
                         android:id="@+id/emailCheckBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/orange_button"
-                        android:textColor="@color/colorWhite"
                         android:fontFamily="@font/fontdungle"
                         android:text="인증코드 발송"
+                        android:textColor="@color/colorWhite"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -108,6 +111,8 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="30dp"
                     android:background="@drawable/text_border"
+                    android:fontFamily="@font/fontdungle"
+                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:visibility="invisible"
@@ -117,15 +122,23 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/signUpBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="이메일 인증"
-            android:fontFamily="@font/fontdungle"
-            android:background="@drawable/orange_button"
-            android:textColor="@color/colorWhite"
-            android:textSize="34sp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="173dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/signUpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:text="이메일 인증"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

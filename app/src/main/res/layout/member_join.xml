@@ -41,10 +41,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_marginBottom="50dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="아이디   "
+                    android:text="아이디"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
@@ -57,7 +57,7 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="비밀번호   "
+                    android:text="비밀번호"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
@@ -71,7 +71,7 @@
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
                     android:text="비밀번호 확인"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
@@ -83,7 +83,7 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="이름   "
+                    android:text="이름"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
@@ -96,8 +96,8 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="주민등록번호   "
-                    android:textAlignment="viewStart"
+                    android:text="주민등록번호"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
 
@@ -109,7 +109,7 @@
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="이메일   "
+                    android:text="이메일"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="20sp" />
@@ -122,7 +122,7 @@
                     android:layout_marginBottom="30dp"
                     android:fontFamily="@font/fontdungle"
                     android:gravity="center"
-                    android:text="전화번호   "
+                    android:text="전화번호"
                     android:textAlignment="viewEnd"
                     android:textColor="@color/colorText"
                     android:textSize="22sp" />
@@ -137,13 +137,14 @@
                     android:id="@+id/idEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <LinearLayout
@@ -162,12 +163,14 @@
                         android:id="@+id/idCheckBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_weight="1"
+
                         android:background="@drawable/orange_button"
                         android:fontFamily="@font/fontdungle"
-
-                        android:textColor="@color/colorWhite"
                         android:text="중복 확인"
+                        android:textColor="@color/colorWhite"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -176,71 +179,76 @@
                     android:id="@+id/pwEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/pwCheckEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/nameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/rrnEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <EditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
                     android:enabled="false"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
                 <LinearLayout
@@ -263,28 +271,37 @@
                     android:id="@+id/phoneEditText"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/text_border"
-                    android:fontFamily="@font/fontdungle"
-                    android:textColor="@color/colorText"
                     android:ems="10"
+                    android:fontFamily="@font/fontdungle"
                     android:inputType="textPersonName"
                     android:scaleType="fitCenter"
+                    android:textColor="@color/colorText"
                     android:textSize="22sp" />
 
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/signUpBtn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/orange_button"
-            android:textColor="@color/colorWhite"
-            android:fontFamily="@font/fontdungle"
-            android:text="회원가입"
-            android:textSize="34sp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="173dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/signUpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/orange_button"
+                android:fontFamily="@font/fontdungle"
+                android:text="회원가입"
+                android:textColor="@color/colorWhite"
+                android:textSize="34sp" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
