@@ -2,25 +2,17 @@ package kr.co.fos.client.foodtruck;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.SearchView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +20,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.gson.Gson;
 
@@ -37,7 +28,6 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +36,8 @@ import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.common.LoginActivity;
 import kr.co.fos.client.common.MainActivity;
-import kr.co.fos.client.member.Member;
+import kr.co.fos.client.foodtruck.map.GpsTracker;
+import kr.co.fos.client.foodtruck.map.MapEventListener;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,6 +61,7 @@ public class BusinessStartActivity  extends AppCompatActivity {
     ViewGroup mapViewContainer;
     MapPOIItem myMarker;
     MapCircle searchRadius;
+    MapEventListener mapListener;
 
     Button loginBtn;
     Button startBtn;
@@ -106,16 +98,7 @@ public class BusinessStartActivity  extends AppCompatActivity {
         latitude = gpsTracker.getLatitude();
         longitude = gpsTracker.getLongitude();
 
-        mapView = new MapView(this);
-
         mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-
-        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(latitude, longitude);
-
-        // 중심점 변경 + 줌 레벨 변경
-        mapView.setMapCenterPointAndZoomLevel(MARKER_POINT, 0, true);
-
-
 
         loginBtn = (Button) findViewById(R.id.loginBtn);
         loginCheck = SharedPreference.getAttribute(getApplicationContext(), "id") == null;
@@ -131,69 +114,21 @@ public class BusinessStartActivity  extends AppCompatActivity {
             }
         });
 
-        foodtruckLocationSearch();
-
         loginBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                if(!(SharedPreference.getAttribute(getApplicationContext(), "no") == null)) {
+                    SharedPreference.removeAllAttribute(getApplicationContext());
                     loginBtn.setText("로그인");
                     Toast.makeText(BusinessStartActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
                 }
-            }
-        });
-
-        mapView.setMapViewEventListener(new MapView.MapViewEventListener() {
-
-            @Override
-            public void onMapViewInitialized(MapView mapView) {
-
-            }
-
-            @Override
-            public void onMapViewCenterPointMoved(MapView mapView, MapPoint mapPoint) {
-
-            }
-
-            @Override
-            public void onMapViewZoomLevelChanged(MapView mapView, int i) {
-
-            }
-
-            @Override
-            public void onMapViewSingleTapped(MapView mapView, MapPoint mapPoint) {
-                myMarker.setMapPoint(mapPoint);
-                searchRadius.setCenter(mapPoint);
-            }
-
-            @Override
-            public void onMapViewDoubleTapped(MapView mapView, MapPoint mapPoint) {
-
-            }
-
-            @Override
-            public void onMapViewLongPressed(MapView mapView, MapPoint mapPoint) {
-
-            }
-
-            @Override
-            public void onMapViewDragStarted(MapView mapView, MapPoint mapPoint) {
-
-            }
-
-            @Override
-            public void onMapViewDragEnded(MapView mapView, MapPoint mapPoint) {
-
-            }
-
-            @Override
-            public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
-
             }
         });
     }
@@ -202,20 +137,27 @@ public class BusinessStartActivity  extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(latitude, longitude);
+        mapView = new MapView(this);
+
         myMarker = new MapPOIItem();
+        myMarker.setUserObject(myFoodtruck);
         if (myFoodtruck.getStatus().equals("Y")) {
+            MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(myFoodtruck.getLat(), myFoodtruck.getLng());
+            // 중심점 변경 + 줌 레벨 변경
+            mapView.setMapCenterPoint(MARKER_POINT, true);
             startBtn.setText("영업 종료");
 
             myMarker.setItemName("등록된 위치");
-            myMarker.setMapPoint(MapPoint.mapPointWithGeoCoord(myFoodtruck.getLat(), myFoodtruck.getLng()));
+            myMarker.setMapPoint(MARKER_POINT);
             searchRadius = new MapCircle(
-                    MapPoint.mapPointWithGeoCoord(myFoodtruck.getLat(), myFoodtruck.getLng()), // center
+                    MARKER_POINT, // center
                     300, // radius
                     Color.argb(128, 255, 0, 0), // strokeColor
                     Color.argb(0, 0, 0, 0) // fillColor
             );
         } else {
+            MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(latitude, longitude);
+            mapView.setMapCenterPoint(MARKER_POINT, true);
             myMarker.setItemName("등록할 위치");
             myMarker.setMapPoint(MARKER_POINT);
             searchRadius = new MapCircle(
@@ -233,6 +175,7 @@ public class BusinessStartActivity  extends AppCompatActivity {
         mapView.addPOIItem(myMarker);
         mapView.addCircle(searchRadius);
 
+        foodtruckLocationSearch();
     }
 
     @Override
@@ -257,33 +200,50 @@ public class BusinessStartActivity  extends AppCompatActivity {
         service = client.create(HttpInterface.class);
     }
 
-    // 내주변 푸드트럭 찾기
+    // 푸드트럭 찾기
     public void foodtruckLocationSearch() {
         if (foodtrucks == null) {
             foodtrucks = new ArrayList<Foodtruck>();
         }
 
-        Call<List<Foodtruck>> call = service.foodtruckLocationSearch(latitude, longitude);
+        Call<List<Foodtruck>> call = service.foodtruckInquiry(null, null);
         call.enqueue(new Callback<List<Foodtruck>>() {
             @Override
             public void onResponse(Call<List<Foodtruck>> call, Response<List<Foodtruck>> response) {
                 try {
                     foodtrucks = response.body();
 
+                    mapListener = new MapEventListener(myMarker, searchRadius, foodtrucks);
+                    mapView.setMapViewEventListener(mapListener);
+
+                    Location myLocation = new Location("");
+                    myLocation.setLatitude(latitude);
+                    myLocation.setLongitude(longitude);
+
+                    int radius = searchRadius.getRadius();
                     for (Foodtruck item : foodtrucks) {
-                        MapPOIItem marker = new MapPOIItem();
+                        Location markerLocation = new Location("");
+                        markerLocation.setLatitude(item.getLat());
+                        markerLocation.setLongitude(item.getLng());
 
-                        marker.setItemName(item.getName());
-                        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(item.getLat(), item.getLng()));
-                        marker.setTag(item.getNo());
-                        marker.setUserObject(item);
-                        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
-                        marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
-                        marker.setCustomImageResourceId(R.drawable.foodtruck_icon); // 마커 이미지.
-                        marker.setCustomImageAutoscale(false); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
-                        marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+                        float distance = markerLocation.distanceTo(myLocation);
+                        if (distance <= radius) {
+                            if (myFoodtruck.getNo() != item.getNo()) {
+                                MapPOIItem marker = new MapPOIItem();
 
-                        mapView.addPOIItem(marker);
+                                marker.setItemName(item.getName());
+                                marker.setMapPoint(MapPoint.mapPointWithGeoCoord(item.getLat(), item.getLng()));
+                                marker.setTag(item.getNo());
+                                marker.setUserObject(item);
+                                marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 마커타입을 커스텀 마커로 지정.
+                                marker.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+                                marker.setCustomImageResourceId(R.drawable.foodtruck_m_icon); // 마커 이미지.
+                                marker.setCustomImageAutoscale(true); // hdpi, xhdpi 등 안드로이드 플랫폼의 스케일을 사용할 경우 지도 라이브러리의 스케일 기능을 꺼줌.
+                                marker.setCustomImageAnchor(0.5f, 1.0f); // 마커 이미지중 기준이 되는 위치(앵커포인트) 지정 - 마커 이미지 좌측 상단 기준 x(0.0f ~ 1.0f), y(0.0f ~ 1.0f) 값.
+
+                                mapView.addPOIItem(marker);
+                            }
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -316,7 +276,7 @@ public class BusinessStartActivity  extends AppCompatActivity {
                     Gson gson = new Gson();
                     boolean result = gson.fromJson(response.body().string(), Boolean.class);
                     if (result) {
-                        Toast.makeText(getBaseContext(),"영업 시작!!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(),"업데이터 완료!!",Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getBaseContext(),"영업 등록이 실패하였습니다. 다시 시도해주세요.",Toast.LENGTH_SHORT).show();
                     }

@@ -22,6 +22,7 @@ import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.SharedPreference;
 import kr.co.fos.client.common.LoginActivity;
+import kr.co.fos.client.common.MainActivity;
 import kr.co.fos.client.member.Member;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -89,9 +90,6 @@ public class SearchResultActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.equals("") && foodtrucks != null){
-                    this.onQueryTextSubmit("");
-                }
 
                 return false;
             }
@@ -112,10 +110,13 @@ public class SearchResultActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!(SharedPreference.getAttribute(getApplicationContext(), "id") == null)) {
-                    SharedPreference.removeAttribute(getApplicationContext(),"id");
+                if(!(SharedPreference.getAttribute(getApplicationContext(), "no") == null)) {
+                    SharedPreference.removeAllAttribute(getApplicationContext());
                     loginBtn.setText("로그인");
                     Toast.makeText(SearchResultActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
@@ -148,7 +149,6 @@ public class SearchResultActivity extends AppCompatActivity {
                 try {
                     foodtrucks = response.body();
                     for (Foodtruck item  : foodtrucks) {
-                        System.out.println(item.getName());
                         adapter.addItem(item);
                     }
 

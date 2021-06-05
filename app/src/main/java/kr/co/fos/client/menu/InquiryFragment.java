@@ -148,7 +148,6 @@ public class InquiryFragment extends Fragment {
                 try {
                     menus = response.body();
                     for (Menu item  : menus) {
-                        System.out.println(item.getName());
                         adapter.addItem(item);
                     }
 
@@ -194,7 +193,6 @@ public class InquiryFragment extends Fragment {
             if (requestCode == 2) {
                 String result = data.getStringExtra("result");
                 Menu menu = (Menu) getActivity().getIntent().getSerializableExtra("menu");
-                System.out.println(result);
                 if (result.equals("close")) {
                     //취소 시 코드
 

@@ -54,10 +54,6 @@
         <activity android:name=".foodtruck.SearchResultActivity" >
         </activity>
 
-        <!-- menu -->
-        <activity android:name=".menu.RegisterActivity" />
-        <activity android:name=".menu.UpdateActivity" />
-
         <!-- order -->
         <activity android:name=".order.BusinessDetailInquiryActivity" />
         <activity android:name=".order.BusinessInquiryActivity" />
@@ -81,8 +77,6 @@
 
         <!-- payment -->
         <activity android:name=".payment.PaymentActivity" >
-
-
 
         </activity>
     </application>

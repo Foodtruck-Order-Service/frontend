@@ -1,4 +1,4 @@
-package kr.co.fos.client.foodtruck;
+package kr.co.fos.client.foodtruck.map;
 
 import android.Manifest;
 import android.app.Service;
@@ -47,20 +47,14 @@ public class GpsTracker extends Service implements LocationListener {
                 int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(mContext,
                         Manifest.permission.ACCESS_COARSE_LOCATION);
 
-
                 if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
                         hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
 
-                    ;
                 } else
+
                     return null;
-
-
                 if (isNetworkEnabled) {
-
-
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
-
                     if (locationManager != null)
                     {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -71,7 +65,6 @@ public class GpsTracker extends Service implements LocationListener {
                         }
                     }
                 }
-
 
                 if (isGPSEnabled)
                 {
