@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +61,7 @@ public class InfoFragment  extends Fragment {
         timeView = (TextView) rootView.findViewById(R.id.timeView);
         introduceView = (TextView) rootView.findViewById(R.id.introduceView);
 
-        imageView.setImageResource(R.drawable.chicken);
+        Glide.with(getContext()).load("http://192.168.35.135:8080/foodtruck/photo/" + foodtruck.getNo()).into(imageView);
         timeView.setText("영업 시간 : " + foodtruck.getStartTime() + " ~ " + foodtruck.getEndTime());
         introduceView.setText(foodtruck.getContent());
 

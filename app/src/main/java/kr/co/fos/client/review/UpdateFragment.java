@@ -103,7 +103,6 @@ public class UpdateFragment extends Fragment {
         foodtruck = (Foodtruck) getActivity().getIntent().getSerializableExtra("foodtruck");
         reviewObj = (Review) getActivity().getIntent().getSerializableExtra("review");
         ratingBar = (RatingBar) rootView.findViewById(R.id.ratingBar);
-        System.out.println("ratingbar : " + ratingBar.getRating());
 
         reviewContentEditText = (EditText) rootView.findViewById(R.id.reviewContentEditText);
         photoEditText = (EditText) rootView.findViewById(R.id.photoEditText);
@@ -157,15 +156,11 @@ public class UpdateFragment extends Fragment {
         photoRegisterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                System.out.println("사진 등록 버튼 클릭함");
                 Intent intentImage = new Intent(Intent.ACTION_PICK);
-
                 intentImage.setType("image/*");
                 String[] mimeTypes = {"image/jpeg", "image/png"};
                 intentImage.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
                 startActivityForResult(intentImage,PICK_IMAGE);
-
-                System.out.println("사진을 일단 등록은 함===================");
             }
         });
 
@@ -216,7 +211,6 @@ public class UpdateFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("등록 성공!");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -259,7 +253,6 @@ public class UpdateFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("리뷰 삭제 성공");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -42,8 +44,8 @@ public class MenuAdapter extends BaseAdapter {
         TextView paymentTextView = (TextView) convertView.findViewById(R.id.paymentView);
 
         Menu menu = menuList.get(position);
+        Glide.with(context).load("http://192.168.35.135:8080/menu/photo/" + menu.getNo()).into(photoImageView);
 
-        photoImageView.setImageResource(R.drawable.tteokbokki);
         nameTextView.setText(menu.getName());
         paymentTextView.setText(menu.getAmount() + "원");
 

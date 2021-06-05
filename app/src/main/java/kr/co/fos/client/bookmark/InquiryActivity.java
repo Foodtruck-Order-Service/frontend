@@ -114,7 +114,6 @@ public class InquiryActivity extends AppCompatActivity{
                     for(int i = 0; i < jArray.length(); i++){
                         Foodtruck item = gson.fromJson(jArray.get(i).toString(),Foodtruck.class);
 
-                        System.out.println("푸드트럭이름 : " + item.getName());
                         adapter.addItem(item);
                     }
 

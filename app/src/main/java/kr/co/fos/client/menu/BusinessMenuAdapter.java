@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -64,8 +65,8 @@ public class BusinessMenuAdapter extends BaseAdapter {
         ImageButton removeButton = (ImageButton) convertView.findViewById(R.id.removeButton);
 
         Menu menu = menuList.get(position);
+        Glide.with(context).load("http://192.168.35.135:8080/menu/photo/" + menu.getNo()).into(photoImageView);
 
-        photoImageView.setImageResource(R.drawable.tteokbokki);
         nameTextView.setText(menu.getName());
         paymentTextView.setText(menu.getAmount() + "원");
 

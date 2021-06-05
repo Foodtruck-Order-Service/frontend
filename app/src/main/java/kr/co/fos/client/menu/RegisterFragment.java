@@ -1,10 +1,17 @@
 package kr.co.fos.client.menu;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +31,12 @@ import androidx.fragment.app.FragmentResultListener;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +44,9 @@ import kr.co.fos.client.HttpInterface;
 import kr.co.fos.client.R;
 import kr.co.fos.client.foodtruck.Foodtruck;
 import kr.co.fos.client.foodtruck.FoodtruckMainActivity;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,11 +65,17 @@ public class RegisterFragment extends Fragment {
     EditText cookingTimeEdit;
     EditText explanationEdit;
     TextView photoNameText;
+    private final int PICK_IMAGE = 1111;
+    private static final String TAG = "TestImageCropActivity";
 
+    File imageFile;
+
+    Bitmap bitmapImg;
     LinearLayout listLayout;
 
     ImageButton addButton;
     Button registerButton;
+    Button photoButton;
 
     Foodtruck foodtruck;
 
@@ -91,13 +113,13 @@ public class RegisterFragment extends Fragment {
         amountEdit = (EditText) rootView.findViewById(R.id.amountEdit);
         cookingTimeEdit = (EditText) rootView.findViewById(R.id.cookingTimeEdit);
         explanationEdit = (EditText) rootView.findViewById(R.id.explanationEdit);
-        photoNameText = (TextView) rootView.findViewById(R.id.photoEditText);
+        photoNameText = (TextView) rootView.findViewById(R.id.foodtruckPhotoNameView);
 
         listLayout = (LinearLayout) rootView.findViewById(R.id.listLayout);
 
         addButton = (ImageButton) rootView.findViewById(R.id.addButton);
         registerButton = (Button) rootView.findViewById(R.id.submitButton);
-
+        photoButton = (Button) rootView.findViewById(R.id.photoButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +135,16 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 menuRegister();
+            }
+        });
+        photoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentImage = new Intent(Intent.ACTION_PICK);
+                intentImage.setType("image/*");
+                String[] mimeTypes = {"image/jpeg", "image/png"};
+                intentImage.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+                startActivityForResult(intentImage,PICK_IMAGE);
             }
         });
 
@@ -131,7 +163,7 @@ public class RegisterFragment extends Fragment {
     // 메뉴 등록
     public void menuRegister() {
         Menu menu = new Menu();
-
+        MultipartBody.Part image = insertPhoto();
         menu.setFoodtruckNo(foodtruck.getNo());
 
         String name = menuNameEdit.getText().toString();
@@ -178,7 +210,7 @@ public class RegisterFragment extends Fragment {
 
             menu.setOptions(options);
 
-            Call<ResponseBody> call = service.menuRegister(menu);
+            Call<ResponseBody> call = service.menuRegister(menu, image);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -203,6 +235,77 @@ public class RegisterFragment extends Fragment {
         } else {
            System.out.println("입력 오류");
         }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult");
+
+        switch (requestCode) {
+            case PICK_IMAGE: {
+                Log.d(TAG, "PICK_FROM_ALBUM");
+                String uri = getRealPathFromURI(data.getData());
+                imageFile = new File(uri);
+                try{
+                    InputStream in = getContext().getContentResolver().openInputStream(data.getData());
+                    bitmapImg = BitmapFactory.decodeStream(in);
+                    in.close();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+                photoNameText.setText(imageFile.getName());
+            }
+        }
+    }
+    //uri로 부터 절대경로 추출 메소드
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContext().getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
+    //MultipartBody.Part 형태로 사진파일 변경
+    private MultipartBody.Part insertPhoto() {
+        //create a file to write bitmap data
+        File f = new File(activity.getApplicationContext().getCacheDir(), photoNameText.getText().toString());
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmapImg.compress(Bitmap.CompressFormat.PNG, 0 , bos);
+        byte[] bitmapdata = bos.toByteArray();
+
+        //write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), f);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", f.getName(), reqFile);
+
+        return body;
     }
 
     public void addOptionView() {

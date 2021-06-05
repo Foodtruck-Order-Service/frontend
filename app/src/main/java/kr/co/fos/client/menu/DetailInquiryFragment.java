@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import net.daum.mf.map.api.MapPOIItem;
@@ -79,7 +80,7 @@ public class DetailInquiryFragment  extends Fragment {
 
         addButton = (Button) rootView.findViewById(R.id.addButton);
 
-        photoView.setImageResource(R.drawable.chicken);
+        Glide.with(getContext()).load("http://192.168.35.135:8080/menu/photo/" + menu.getNo()).into(photoView);
 
         adapter = new OptionAdapter();
         listView.setAdapter(adapter);

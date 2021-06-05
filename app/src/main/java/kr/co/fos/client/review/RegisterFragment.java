@@ -130,7 +130,6 @@ public class RegisterFragment extends Fragment {
         reviewRegisterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                insertPhoto();
                 String memberNo = SharedPreference.getAttribute(foodtruckMainActivity.getApplicationContext(),"no");
                 review.setGrade(String.valueOf(ratingBar.getRating()));
                 review.setContent(reviewContentEditText.getText().toString());
@@ -172,7 +171,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    System.out.println("등록 성공!" + response.body().string());
+                    System.out.println("" + response.body().string());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -180,7 +179,6 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(foodtruckMainActivity.getBaseContext(),"연결 실패",Toast.LENGTH_SHORT).show();
-                System.out.println("=======================" + t.getMessage());
             }
         });
     }
@@ -255,68 +253,4 @@ public class RegisterFragment extends Fragment {
 
         return body;
     }
-    /*
-    private File getImageFile(Uri uri) {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        if (uri == null) {
-            uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        }
-
-        Cursor mCursor = getContentResolver().query(uri, projection, null, null,
-                MediaStore.Images.Media.DATE_MODIFIED + " desc");
-        if(mCursor == null || mCursor.getCount() < 1) {
-            return null; // no cursor or no record
-        }
-        int column_index = mCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        mCursor.moveToFirst();
-
-        String path = mCursor.getString(column_index);
-
-        if (mCursor !=null ) {
-            mCursor.close();
-            mCursor = null;
-        }
-
-        return new File(path);
-    }
-
-    private Uri createSaveCropFile(){
-        Uri uri;
-        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        uri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-        return uri;
-    }
-
-    public static boolean copyFile(File srcFile, File destFile) {
-        boolean result = false;
-        try {
-            InputStream in = new FileInputStream(srcFile);
-            try {
-                result = copyToFile(in, destFile);
-            } finally  {
-                in.close();
-            }
-        } catch (IOException e) {
-            result = false;
-        }
-        return result;
-    }
-    private static boolean copyToFile(InputStream inputStream, File destFile) {
-        try {
-            OutputStream out = new FileOutputStream(destFile);
-            try {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = inputStream.read(buffer)) >= 0) {
-                    out.write(buffer, 0, bytesRead);
-                }
-            } finally {
-                out.close();
-            }
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-    private ImageView mPhotoImageView;*/
 }
