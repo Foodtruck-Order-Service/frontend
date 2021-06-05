@@ -16,11 +16,13 @@ public class Foodtruck implements Serializable {
     private double lng;
     private String approval;
     private String status;
+    private String logical;
+    private String physical;
 
     public Foodtruck() {
     }
 
-    public Foodtruck(int no, int memberNo, String brn, String name, String category, String startTime, String endTime, String content, double lat, double lng, String approval, String status, int itemStart, int itemSizePerPage) {
+    public Foodtruck(int no, int memberNo, String brn, String name, String category, String startTime, String endTime, String content, double lat, double lng, String approval, String status, String logical, String physical) {
         this.no = no;
         this.memberNo = memberNo;
         this.brn = brn;
@@ -33,6 +35,8 @@ public class Foodtruck implements Serializable {
         this.lng = lng;
         this.approval = approval;
         this.status = status;
+        this.logical = logical;
+        this.physical = physical;
     }
 
     public void setNo(int no) {
@@ -129,5 +133,21 @@ public class Foodtruck implements Serializable {
 
     public String getStatus() {
         return this.status;
+    }
+
+    public String getLogical() {
+        return logical;
+    }
+
+    public void setLogical(String logical) {
+        this.logical = logical;
+    }
+
+    public String getPhysical() {
+        return physical;
+    }
+
+    public void setPhysical(String physical) {
+        this.physical = physical;
     }
 }
